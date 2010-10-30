@@ -1,0 +1,207 @@
+
+<div class="detail detail1">
+    
+	<!--Mostramos el nombre completo del usuario-->
+    <div class="title"><%=@profile.full_name%></div>
+    <!--<div class="subtitle"><%= I18n.t('tog_social.profiles.model.username') %>: <%=@profile.user.login%></div>
+		<div class="summary"><%= I18n.t('tog_social.profiles.site.summary') %></div>
+	-->
+	
+	<p></p>
+	
+	<!--Mostramos la imagen del perfil del usuario-->
+    <div class="image"><%=icon_for_profile(@profile, 'big')%></div>
+
+
+	  <!--Si se trata de un usuario mostramos:
+	  		- Profesión
+			- Localidad de trabajo o estudios
+			- Curriculum
+	  -->
+      <% if @profile.user.es_pyme == 'Usuario' %>	
+	  
+	  	  <!--Si seleccionó situación laborala la mostramos si no, no lo mostramos-->	  
+	  	  <% if @profile.situation? %>
+		  	<p><b>Situación Laboral:</b> <%= @profile.situation %></p>
+		  <%end%>
+	
+	  	  <!--Si tiene curriculum lo mostramos si no, no lo mostramos-->
+		  <% if @profile.profession? %>
+		  	<p><b>Profesión o estudios que realiza:</b> <%= @profile.profession %></p>
+		  <%end%>
+		  
+		  <!-- Mostramos el lugar del usuario siempre que haya seleccionado-->
+	  	  <% if @profile.place? %>	
+			<p><b>Localidad de trabajo o estudios:</b> <%= @profile.place %></p>
+	  	  <%end%>
+		  
+		  <!--Si tiene curriculum lo mostramos si no, no lo mostramos-->
+		  <% if @profile.pdf_file_name? %>
+		    <p><b>Curriculum:</b> <%= link_to @profile.pdf_file_name, @profile.pdf.url %></p>
+		  <%end%>
+	  
+	      <!--Si no es un usuario sino una Pyme mostramos:
+	  		- Actividad Laboral de la empresa
+			- Localidad de la empresa
+			- Dirección de la empresa
+			- Catálogo de productos
+	      -->
+	  
+	  <% else%>  
+	  
+		  <!--Mostramos la actividad laboral siempre que haya seleccionado-->
+		  <% if @profile.activity? %>
+	  	    <p><b>Actividad laboral:</b> <%= @profile.activity %></p>
+		  <%end%>
+		  
+		  <% if @profile.type_of_pyme? %>	
+		    <p><b>Tipo de empresa:</b> <%= @profile.type_of_pyme %></p>
+	  	  <%end%>
+		  
+		  <!--Mostramos el lugar del usuario siempre que haya seleccionado-->
+	  	  <% if @profile.place? %>	
+			<p><b>Localidad:</b> <%= @profile.place %></p>
+	  	  <%end%>
+		
+		  <!--Mostramos la dirección de la Pyme siempre que haya introducio alguna -->		
+	  	  <% if @profile.direction? %>	
+		  <p><b>Dirección:</b> <%= @profile.direction %></p>
+	  	  <%end%>
+
+      	  <!--Si tiene catálogo lo mostramos si no, no lo mostramos-->
+		  <% if @profile.pdf_file_name? %>
+		    <p><b>Catálogo de productos:</b> <%= link_to @profile.pdf_file_name, @profile.pdf.url %></p>
+		  <%end%>
+		
+	  <% end %>
+	  
+	  <!--Mostramos email de contacto siempre que haya introducido una-->
+	  <% if @profile.contact_email? -%>
+		<p><b>Email de contacto:</b> <%= @profile.contact_email %></p>         
+	  <% end %>
+	  
+	  <!--Mostramos tlf de contacto siempre que haya introducido una-->
+	  <% if @profile.tlf? -%>
+		<p><b>Teléfono de contacto:</b> <%= @profile.tlf %></p>         
+	  <% end %>	  
+	  
+	  <!--Mostramos la web siempre que haya introducido una-->
+	  <% if @profile.website? -%>
+	    <b>Web:</b> <%= link_to @profile.website, @profile.website %>         
+	  <% end %>
+	  
+	  <!--Si se trata de una organización mostramos los datos 
+	     de contactos de los responsables en el caso que haya añadido-->
+	  <% if @profile.user.es_pyme == 'Organización' %>
+		<div class="titleB"><%= I18n.t('tog_social.profiles.model.responsibles_not_register') %></div>	
+	 
+		<hr class="wide" />
+		<!--Si la longitud de responsables es mayor que cero tiene responsables-->  
+	    <% if @profile.responsibles.length > 0 %>
+		  <!--rescorremos todos los responsables del usuario actual 
+		  y mostramos los nombre, emails y tlf de c/u-->
+		  <%@responsibles = @profile.responsibles.find(:all)%>
+        
+		  <%@responsibles.each do |r|%>
+			    <p><b>Nombre:</b> <%= r.responsible_name %></p>
+
+			    <p><b>Email:</b> <%= r.responsible_email %></p>
+	  	  	  	
+			    <p><b>Teléfono:</b> <%= r.responsible_tlf %></p>
+
+			    <hr class="wide" />  
+		  <% end%>
+	    <%end%>  
+	  <% end %>
+	
+	   
+	  <div class="portlet portletC" id="portlet_moreLinks">
+	      <!--<h2><span><%= I18n.t('tog_social.more_links') %></span></h2>-->
+	      <div class="portlet_content">
+	          <ul>
+	            <!--si soy yo muestro link para editar mi perfil
+		    	  sino soy yo muestro a los usuarios de la red social la posibilidad
+				  de seguirme, notificar un abuso al administrador o enviar un mensaje.
+				  -->	
+	            <% if its_me? -%>
+				  <h2><span><%= I18n.t('tog_social.profiles.helper.options') %></span></h2>
+				  <!--Si tiene web la mostramos si no, no la mostramos-->
+				  <li><%= link_to I18n.t('tog_social.profiles.site.edit_profile'), edit_member_profile_path(@profile) %></li>
+	            <% else -%>
+				  <h2><span><%= I18n.t('tog_social.profiles.helper.options') %></span></h2>
+				  <li><%= link_to I18n.t('tog_social.profiles.site.send_message'), member_new_message_to_path(@profile.user) %></li>
+	              <li><%= report_abuse_link @profile %></li>
+				  <!--Si el usuario actual es una Organización y el perfil visitado es un Usuario
+				      o el usuario actual es un Usuario y el perfil vistado es una Organización
+					  damos la posibilidad de seguir desde una Organización a un Usuario y viceversa,
+					  evitando que los Usuarios se puedan seguir entre ellos.-->
+				  <% if (current_user.es_pyme == 'Organización' && @profile.user.es_pyme == 'Usuario')||(current_user.es_pyme == 'Usuario' && @profile.user.es_pyme == 'Organización') ||(current_user.es_pyme == 'Organización' && @profile.user.es_pyme == 'Organización')%>
+	                <li><%= following_options(@profile) %></li>
+				  <% end -%>
+				  <!--Si se trata de una Organización y el perfil a añadir es un Usuario. 
+					  Damos la posibilidad de añadir responsable a la empresa	-->
+				  <% if current_user.es_pyme == 'Organización' && @profile.user.es_pyme == 'Usuario'%>
+				    <li><%= friendship_options(@profile) %></li> 
+				  <% end -%>				  
+	            <% end -%>
+	          </ul>
+	      </div> 
+	  </div>    
+	    
+	</div> <!-- /.detail1 -->    
+
+<!--Mostramos el contenido de la barra lateral en este caso mostramos
+    los usuarios seguidoes de mi perfil y los usuarios a los que sigue-->
+	
+<%content_for :sidebar do %>
+
+<!--Si el perfil de usuario mostrado es una Pyme 
+    mostramos los responsables de la Pyme-->
+<% if @profile.user.es_pyme == 'Organización' %>
+<%= render :partial => "shared/profiles_portlet", :locals => { 
+  :items =>  @profile.friends, 
+  :style => :portletM, 
+  :title => I18n.t('tog_social.profiles.model.responsibles'),  
+  :no_items => I18n.t('tog_social.profiles.model.responsibles_not_found', :profile_full_name => @profile.full_name)} %>
+<% end -%>
+
+<!--sino sabemos que el perfil mostrado es de un Usuario
+    mostramos las empresas de las que es reponsable el usuario-->
+<% if @profile.user.es_pyme == 'Usuario' %>
+  <%= render :partial => "shared/profiles_portlet", :locals => { 
+    :items =>  @profile.friends, 
+    :style => :portletM, 
+    :title => I18n.t('tog_social.profiles.model.responsibles_of_pymes'), 
+    :no_items => I18n.t('tog_social.profiles.model.responsibles_of_pymes_not_found', :profile_full_name => @profile.full_name)} %>
+<% end -%>
+
+<!--renderizamos los seguidores (personas que le siguen)-->
+<%= render :partial => "shared/profiles_portlet", :locals => { 
+  :items =>  @profile.followers, 
+  :style => :portletM, 
+  :title => I18n.t('tog_social.profiles.model.followers'), 
+  :no_items => I18n.t('tog_social.profiles.model.followers_not_found', :profile_full_name => @profile.full_name) } %>
+
+<!--renderizamos los siguiendo (personas a las que sigue)-->
+<%= render :partial => "shared/profiles_portlet", :locals => { 
+  :items =>  @profile.followings, 
+  :style => :portletM, 
+  :title => I18n.t('tog_social.profiles.model.followings'), 
+  :no_items => I18n.t('tog_social.profiles.model.followings_not_found', :profile_full_name => @profile.full_name) } %>
+
+<!--Mostramos los grupos del perfil actual-->
+  <div class="portlet portletC" id="portlet_moreLinks">
+    <% if !@profile.user.groups.blank? %>
+	  <div class="titleB"><%= I18n.t('tog_social.groups.site.title') %></div>
+	  <div class="portlet_content">
+	    <ul>
+	      <% for group in @profile.user.groups %>
+	        <li><%= link_to group.name, group_path(group) %></li>
+	      <% end %>
+	    </ul>
+	  </div> 
+    <% else %>
+    <% end %>        
+  </div>    
+
+<% end %>

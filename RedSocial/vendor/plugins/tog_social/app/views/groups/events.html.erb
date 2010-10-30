@@ -1,0 +1,38 @@
+<!--Portlet para mostrar los eventos del grupo actual-->
+<div class="portlet portletL" id="portlet_events_group">
+    <h2><span><%= I18n.t('tog_social.groups.site.events') %></span></h2>
+	<!--Buscamos en la tabla eventos los eventos que tenga id_referencia igual a la id del grupo actual
+	    y que sea del tipo grupo-->
+	<%@events = Event.find(:all, :conditions => {:id_referencia => @group.id, :tipo => 'Grupo'}) -%>
+    <%@order = params[:order] || 'created_at'
+      @page = params[:event_page]
+      @asc = params[:asc] || 'desc'    
+      @events = @events.paginate  :per_page => 2,
+                                  :page => @page,
+                                  :order => @order + " " + @asc %>
+	
+	<div class="portlet_content">
+        <ul>
+        	<!--Si hay eventos-->
+        	<% if @events.length > 0 %>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al evento y cuando fue creado-->
+              <% @events.each do |event| -%>
+                <li class="clearfix">
+              	  <div class="image left"><%= image_tag event.icon.url :small %></div>
+			      <div class="title"><%= link_to '<strong>'+event.title+'</strong>', conclave_event_path(event), :title => event.title %></div>
+                  <div class="text">Del <b><%=event.start_date.to_s %></b> al <b><%=event.end_date.to_s %></b></div>
+                </li> 
+              <% end -%>
+			  <!--Paginamos los eventos en el el portlet-->
+			  <span class="pages_navigation right">
+				<%= will_paginate @events, :param_name => 'event_page' %>	
+			  </span>
+			<!--sino había eventos lo indicamos mediante un mensaje.-->
+			<% else -%>
+			  <%= I18n.t('tog_social.groups.model.no_events_for_this_group') %>
+			<% end -%>   
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_pluginsTog -->
+
+						   
