@@ -1,0 +1,3 @@
+class RangeError < StandardError
+
+end
