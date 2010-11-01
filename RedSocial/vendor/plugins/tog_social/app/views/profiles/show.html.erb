@@ -90,30 +90,39 @@
 	    <b>Web:</b> <%= link_to @profile.website, @profile.website %>         
 	  <% end %>
 	  
-	  <!--Si se trata de una organización mostramos los datos 
-	     de contactos de los responsables en el caso que haya añadido-->
-	  <% if @profile.user.es_pyme == 'Organización' %>
-		<div class="titleB"><%= I18n.t('tog_social.profiles.model.responsibles_not_register') %></div>	
+	  <div class="portlet portletL" id="portlet_responsibles_unregistered">
+	    <!--Si se trata de una organización mostramos los datos 
+	       de contactos de los responsables en el caso que haya añadido-->
+	    <% if @profile.user.es_pyme == 'Organización' %>
+	      <h2><span><%= I18n.t('tog_social.profiles.model.responsibles_not_register') %></span></h2>
 	 
-		<hr class="wide" />
-		<!--Si la longitud de responsables es mayor que cero tiene responsables-->  
-	    <% if @profile.responsibles.length > 0 %>
-		  <!--rescorremos todos los responsables del usuario actual 
-		  y mostramos los nombre, emails y tlf de c/u-->
-		  <%@responsibles = @profile.responsibles.find(:all)%>
+		  
+		  <div class="portlet_content">
+		  	<ul>
+		    <!--Si la longitud de responsables es mayor que cero tiene responsables-->  
+	        <% if @profile.responsibles.length > 0 %>
+		      <!--rescorremos todos los responsables del usuario actual 
+		      y mostramos los nombre, emails y tlf de c/u-->
+		      <%@responsibles = @profile.responsibles.find(:all)%>
         
-		  <%@responsibles.each do |r|%>
-			    <p><b>Nombre:</b> <%= r.responsible_name %></p>
-
-			    <p><b>Email:</b> <%= r.responsible_email %></p>
+		      <%@responsibles.each do |r|%>
+			    <li class="clearfix">
+			      <p><b>Nombre:</b> <%= r.responsible_name %></p>
+ 
+			      <p><b>Email:</b> <%= r.responsible_email %></p>
 	  	  	  	
-			    <p><b>Teléfono:</b> <%= r.responsible_tlf %></p>
+			      <p><b>Teléfono:</b> <%= r.responsible_tlf %></p>
 
-			    <hr class="wide" />  
-		  <% end%>
-	    <%end%>  
-	  <% end %>
-	
+				  <!--Link para ver todos los eventos del grupo pasando la id del grupo-->
+			  	  <div class="image right"><%= link_to I18n.t('tog_social.profiles.model.edit_responsible'), responsibles_profiles_path(r) %></div>
+				</li> 
+		      <% end%>
+	        <%end%>
+			</ul> 
+		  </div>    
+
+	    <% end %>
+	  </div> <!-- /.portlet_responsibles_unregistered--> 	
 	   
 	  <div class="portlet portletC" id="portlet_moreLinks">
 	      <!--<h2><span><%= I18n.t('tog_social.more_links') %></span></h2>-->

@@ -3,14 +3,18 @@
 
 resources :profiles
 
+  with_options(:controller => 'profiles') do |profile|
+    profile.responsibles_profiles   '/profiles/:id/edit_responsible',  :action => 'edit_responsible'
+  end
+
 resources :streams, :only => [:index, :show], :member => {:network => :get}
 
 with_options(:controller => 'groups') do |group|
-  group.tag_groups           '/groups/tag/:tag',                          :action => 'tag'
-  group.blogs_groups         '/groups/:group/blogs',                      :action => 'blogs'
-  group.events_groups        '/groups/:group/events',                     :action => 'events'
-  group.photosets_groups     '/groups/:group/photosets',                  :action => 'photosets'
-  group.forums_groups        '/groups/:group/forums',                     :action => 'forums'  
+  group.tag_groups           '/groups/tag/:tag',                       :action => 'tag'
+  group.blogs_groups         '/groups/:id/blogs',                      :action => 'blogs'
+  group.events_groups        '/groups/:id/events',                     :action => 'events'
+  group.photosets_groups     '/groups/:id/photosets',                  :action => 'photosets'
+  group.forums_groups        '/groups/:id/forums',                     :action => 'forums'  
 end
 
 resources :groups, :collection => { :search => :get }, :member => { :join => :get, :leave => :get, :accept_invitation => :get, :reject_invitation => :get }

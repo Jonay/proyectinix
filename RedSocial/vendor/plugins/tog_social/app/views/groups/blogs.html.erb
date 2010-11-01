@@ -3,12 +3,15 @@
     <h2><span><%= I18n.t('tog_social.groups.site.blogs') %></span></h2>
 	<!--Buscamos en la tabla blogs los blogs que tenga id_referencia igual a la id del grupo actual
 	    y que sea del tipo grupo-->	
-	<%@blogs = Blog.find(:all, :conditions => {:id_referencia => group_id, :tipo => 'Grupo'}) -%>
-
+    <%@order = params[:order] || 'created_at'
+      @page = params[:page] || '1'
+      @asc = params[:asc] || 'desc'    
+      @blogs = @blogs.paginate  :per_page => 5,
+                                :page => @page,
+                                :order => @order + " " + @asc %>
+								
 	<div class="portlet_content">
         <ul>
-        	<!--Si hay blogs-->
-        	<% if @blogs.length > 0 %>
 			<!-- los recorremos todos y para cada uno mostramos un enlace al blog y cuando fue creado-->
               <% @blogs.each do |blog| -%>
                 <li class="clearfix">
@@ -19,13 +22,11 @@
                   </div>
                 </li> 
               <% end -%>
-			  <!--Paginamos los blogs en el el portlet-->
-			<!--sino había blogs lo indicamos mediante un mensaje.-->
-			<% else -%>
-			  <%= I18n.t('tog_social.groups.model.no_blogs_for_this_group') %>
-			<% end -%>   
+			  <span class="pages_navigation right">
+			    <%= will_paginate @blogs %>
+			  </span>
         </ul> 
     </div>    
-</div> <!-- /.portlet_pluginsTog -->
+</div> <!-- /.portlet_blogs_group -->
 
 						   

@@ -4,6 +4,8 @@
 	<!--Buscamos en la tabla eventos los eventos que tenga id_referencia igual a la id del grupo actual
 	    y que sea del tipo grupo-->
 	<%@events = Event.find(:all, :conditions => {:id_referencia => @group.id, :tipo => 'Grupo'}) -%>
+	<!--almacenamos la id del grupo para pasarla después al enlace de ver todos los eventos del grupo-->
+	<%id = @group.id%>
     <%@order = params[:order] || 'created_at'
       @page = params[:event_page]
       @asc = params[:asc] || 'desc'    
@@ -27,8 +29,8 @@
 			  <span class="pages_navigation left">
 				<%= will_paginate @events, :param_name => 'event_page' %>	
 			  </span>
-			  <!--Link para ver todos los eventos del grupo-->
-			  <div class="image right"><%= link_to I18n.t('tog_social.groups.model.view_all_events'), events_groups_path(@group) %></div>
+			  <!--Link para ver todos los eventos del grupo pasando la id del grupo-->
+			  <div class="image right"><%= link_to I18n.t('tog_social.groups.model.view_all_events'), events_groups_path(id) %></div>
 
 			<!--sino había eventos lo indicamos mediante un mensaje.-->
 			<% else -%>

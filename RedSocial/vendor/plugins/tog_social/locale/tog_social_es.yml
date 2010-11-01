@@ -95,11 +95,13 @@ es:
         responsible_name: Nombre
         responsible_email: Email de contacto
         responsible_tlf: Teléfono de contacto
+        edit_responsible: Editar
       site:
         title: Perfiles
         summary: Sumario del perfil
         edit_profile: Edita tu perfil
         send_message: Enviar mensaje privado
+        edit_responsible: Editar responsable
       member:
         updated: Su perfíl se ha actualizado con éxito
         update_profile: Actualizar perfil
@@ -107,7 +109,7 @@ es:
         add_responsibles: Añadir responsables
         responsibles_help: Si desea añadir responsables a su empresa
         add_one_more_responsible: Añadir un responsable más
-        update_responsibles: Actualizar responsables
+        update_responsible: Actualizar responsable
         responsibles_created: Responsables creados
       helper:
         options: Opciones

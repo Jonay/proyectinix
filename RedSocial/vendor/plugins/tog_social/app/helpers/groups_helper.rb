@@ -21,6 +21,13 @@ module GroupsHelper
     end
   end
 
+    def photoset_image(photoset, main_photo, size="tiny")
+      if main_photo
+        image_tag(main_photo.image.url(size), :style => "float:left;margin-right:10px;")
+      else
+        image_tag "/tog_picto/images/default_photoset.png", :style => "float:left;margin-right:10px;"
+      end
+    end
 
   def last_groups(limit=3)
     Group.find(:all,:conditions => ["state= ? and private = ?", 'active', false],:order => "created_at desc", :limit => limit)

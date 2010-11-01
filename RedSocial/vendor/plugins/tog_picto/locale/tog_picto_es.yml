@@ -41,6 +41,7 @@ es:
           tags_separated_by: Etiquetas (separadas por ,)
           privacy: Privado
           photoset_is_private: Este álbum es privado
+          private_help: Un álbum privado no aparecerá en los listados públicos.
           create_photoset: Crear álbum
           upload_more_photos: Sube más fotos ahora!
           upload_new_images: Subir nuevas imágenes

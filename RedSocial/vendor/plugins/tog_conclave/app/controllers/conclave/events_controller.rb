@@ -58,7 +58,7 @@ class Conclave::EventsController < ApplicationController
                :title => @event.title,
                :info_window => (@event.venue_address ? loc.address : "#{loc.address} *specified address unknown")) 
       @map.overlay_init(marker)
-      
+
     rescue
       @map = nil
     end

@@ -3,7 +3,9 @@
     <h2><span><%= I18n.t('tog_social.groups.site.photosets') %></span></h2>
 	<!--Buscamos en la tabla álbumes de fotos los álbumes de fotos que tenga id_referencia igual a la id del grupo actual
 	    y que sea del tipo grupo-->
-	<%@photosets = Photoset.find(:all, :conditions => {:id_referencia => @group.id, :tipo => 'Grupo'}) -%>
+	<%@photosets = Picto::Photoset.find(:all, :conditions => {:id_referencia => @group.id, :tipo => 'Grupo'}) -%>
+	<!--almacenamos la id del grupo para pasarla después al enlace de ver todos los álbumes del grupo-->
+	<%id = @group.id%>
     <%@order = params[:order] || 'created_at'
       @page = params[:event_page]
       @asc = params[:asc] || 'desc'    
@@ -17,11 +19,12 @@
         	<% if @photosets.length > 0 %>
 			<!-- los recorremos todos y para cada uno mostramos un enlace al álbum de fotos y cuando fue creado-->
               <% @photosets.each do |photoset| -%>
-			  
-			    <%@photo = Photo.find(:all, :conditions => {:id => photoset.main_photo_id, :photoset_id => photoset.id}) -%>
+			    
+				
+			    <% @photo = Photo.find(:all, :conditions => {:id => photoset.main_photo_id, :photoset_id => photoset.id}) -%>
 				
                 <li class="clearfix">
-              	  <%= @photo %>
+              	  <div class="image left"><%= @photo.id %></div>
 			      <div class="title"><%= link_to photoset.title, picto_photoset_path(photoset) %></div>
                   <div class="text"><%= I18n.t('tog_social.groups.model.created_at') %> <%=I18n.l(photoset.created_at, :format => :long)%></div>
                 </li> 
@@ -30,8 +33,8 @@
 			  <span class="pages_navigation left">
 				<%= will_paginate @photosets, :param_name => 'event_page' %>	
 			  </span>
-			  <!--Link para ver todos los álbumes de fotos del grupo-->
-			  <div class="image right"><%= link_to I18n.t('tog_social.groups.model.view_all_photosets'), photosets_groups_path(@group) %></div>
+			  <!--Link para ver todos los álbumes de fotos del grupo pasando la id del grupo-->
+			  <div class="image right"><%= link_to I18n.t('tog_social.groups.model.view_all_photosets'), photosets_groups_path(id) %></div>
 
 			<!--sino había álbumes de fotos lo indicamos mediante un mensaje.-->
 			<% else -%>

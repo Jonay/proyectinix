@@ -11,7 +11,6 @@ class CreateTogSocialTables < ActiveRecord::Migration
       t.string   :profession
       t.string   :activity
       t.string   :contact_email
-      t.string   :pdf
       t.string   :tlf
       t.string   :fax
       t.string   :type_of_pyme

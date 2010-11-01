@@ -139,7 +139,7 @@
 		  
 		  <!--CV del usuario-->
 		  <p>
-	        <label for="profile_pdf"><%= I18n.t('tog_social.profiles.model.curriculum') %></label>
+	        <label for="profile_pdf_file_name"><%= I18n.t('tog_social.profiles.model.curriculum') %></label>
 	        <%=  file_field "profile", "pdf_file_name" %><br />
 			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.curriculum_help') %></span>
 	      </p>
@@ -153,9 +153,6 @@
 	      </p>
 	    </div>
 	  </fieldset>
-	  
-	  <% f.fields_for :responsibles do |responsible_form| %>
-	  <% end -%>
 	  
 	  <div class="actions">
         <%= submit_tag I18n.t('tog_social.profiles.member.update_profile'), {:accesskey => "s", :class=>"button mainaction"} %>
@@ -511,8 +508,8 @@
 		  
 		  <!--Catálogo de productos de la Pyme-->
 		  <p>
-	        <label for="profile_pdf"><%= I18n.t('tog_social.profiles.model.catalogue') %></label>
-	        <%=  file_field "profile", "pdf_file_name" %><br />
+	        <label for="profile_pdf_file_name"><%= I18n.t('tog_social.profiles.model.catalogue') %></label>
+	        <%=  file_field "profile", "pdf" %><br />
 			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.catalogue_help') %></span>
 	      </p>
 		  

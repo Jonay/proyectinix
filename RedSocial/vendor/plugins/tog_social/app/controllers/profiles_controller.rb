@@ -27,5 +27,14 @@ class ProfilesController < ApplicationController
       format.xml  { render :xml => @profile }
     end
   end
+  
+    
+  def edit_responsible
+    @responsible = params[:r]
+    respond_to do |format|
+      format.html # edit_responsible.html.erb
+      format.xml  { render :xml => @responsible }
+    end
+  end
 
 end

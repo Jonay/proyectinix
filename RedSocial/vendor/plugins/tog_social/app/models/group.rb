@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
   has_many :events
   
   has_many :photosets
+  has_many :photos
   
   has_many :forums  
 

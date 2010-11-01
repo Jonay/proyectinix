@@ -46,33 +46,45 @@ class GroupsController < ApplicationController
   end
 
   def blogs
-    @group = params[:group]
-    id = @group.id
+
+    id = params[:id]
     @blogs = Blog.find(:all, :conditions => {:id_referencia => id, :tipo => 'Grupo'})
-    @order = params[:order] || 'created_at'
-    @page = params[:page] || '1'
-    @asc = params[:asc] || 'desc'    
-    @blogs = @blogs.paginate  :per_page => 10,
-                                :page => @page,
-                                :order => @order + " " + @asc
     
     respond_to do |format|
-       format.html { render :template => "groups/blogs"}
-       format.xml  { render :xml => @groups }
+      format.html # blogs.html.erb
+      format.xml  { render :xml => @blogs.to_xml }
     end                               
-    
+   
   end
 
   def events
+    id = params[:id]
+    @events = Event.find(:all, :conditions => {:id_referencia => id, :tipo => 'Grupo'})
     
+    respond_to do |format|
+      format.html # events.html.erb
+      format.xml  { render :xml => @events.to_xml }
+    end 
   end
   
   def photosets
+    id = params[:id]
+    @photosets = Photoset.find(:all, :conditions => {:id_referencia => id, :tipo => 'Grupo'})
     
+    respond_to do |format|
+      format.html # photosets.html.erb
+      format.xml  { render :xml => @photosets.to_xml }
+    end 
   end
 
   def forums
+    id = params[:id]
+    @forums = TogForum::Forum.find(:all, :conditions => {:id_referencia => id, :tipo => 'Grupo'})
     
+    respond_to do |format|
+      format.html # forums.html.erb
+      format.xml  { render :xml => @forums.to_xml }
+    end     
   end
   
   def tag

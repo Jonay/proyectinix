@@ -34,7 +34,11 @@
 
        <p><label><%= I18n.t("tog_picto.member.photosets.new.tags_separated_by") %></label> <%= f.text_field :tag_list, {:class => "fieldbox", :size => "40"} %></p>
 
-       <p><label><%= I18n.t("tog_picto.member.photosets.new.privacy") %></label><%= f.check_box :privacy %> <%= I18n.t("tog_picto.member.photosets.new.photoset_is_private") %></p>
+       <p>
+       	<label><%= I18n.t("tog_picto.member.photosets.new.privacy") %></label>
+		<%= f.check_box :privacy %>
+		<span class="helpinfo"><%= I18n.t("tog_picto.member.photosets.new.private_help") %></span>
+	   </p>
 
     </div>
   </fieldset>
