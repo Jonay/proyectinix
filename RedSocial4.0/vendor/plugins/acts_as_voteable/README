@@ -1,0 +1,34 @@
+ActsAsVoteable
+==============
+
+Allows user to vote on the on models.
+
+== Resources
+
+Install
+ * Run the following command:
+ script/plugin install git://github.com/aspgems/acts_as_voteable.git
+ 
+ * Generate migration by running:
+ script/generate acts_as_voteable_migration
+
+ * Upgrade database schema:
+ rake db:migrate
+ 
+== Usage
+
+ 
+ * Make you ActiveRecord model act as voteable.
+ 
+ class Model < ActiveRecord::Base
+ 	acts_as_voteable
+ end
+
+== Credits
+
+Xelipe - This plugin is heavily influenced by Acts As Commentable.
+
+== More
+
+http://www.juixe.com/techknow/index.php/2006/06/24/acts-as-voteable-rails-plugin/
+http://www.juixe.com/projects/acts_as_voteable
