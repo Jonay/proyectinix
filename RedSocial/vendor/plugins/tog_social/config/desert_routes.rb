@@ -27,6 +27,7 @@ namespace(:member) do |member|
     group.group_accept_member   '/:id/members/:user_id/accept', :action => 'accept_member'
     group.group_reject_member   '/:id/members/:user_id/reject', :action => 'reject_member'
     group.group_invite          '/group/invite',                :action => 'invite'
+    group.group_manage_moderators '/:id/moderators',            :action => 'manage_moderators'
   end
   member.with_options(:controller => 'friendships') do |friendship|
     friendship.add_friend     '/friend/:friend_id/add',     :action => 'add_friend'

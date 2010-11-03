@@ -30,11 +30,15 @@ class ProfilesController < ApplicationController
   
     
   def edit_responsible
-    @responsible = params[:r]
-    respond_to do |format|
-      format.html # edit_responsible.html.erb
-      format.xml  { render :xml => @responsible }
-    end
+    @responsible = Responsible.find(params[:id])
+  end
+  
+  def update_responsible
+    responsible = Responsible.find(params[:responsible])
+    responsible.update_attributes!(params[:responsible])
+    responsible.save
+    flash[:ok] = I18n.t("tog_social.profiles.member.updated") 
+    redirect_to profile_path(profile)
   end
 
 end

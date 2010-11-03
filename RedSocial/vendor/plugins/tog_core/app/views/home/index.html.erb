@@ -12,7 +12,7 @@
   <% if logged_in? %>
 	<div class="detail detail1">
 	  <!--imagen del usuario actual-->
-	  <div class="image"><%=link_to icon_for_profile(current_user.profile, 'medium'), edit_member_profile_path(current_user.profile), :title=> "Editar mi perfil" %></div>
+	  <div class="image"><%=link_to icon_for_profile(current_user.profile, 'medium'), profile_path(current_user.profile), :title=> "Editar mi perfil" %></div>
 	  <!--nombre del usuario actual-->
 	  <div class="subtitle"><%= current_user.profile.full_name %></div>
 	  

@@ -91,6 +91,7 @@ es:
         followers_not_found: "{{profile_full_name}} tiene 0 seguidores."
         followings: Siguiendo
         followings_not_found: "{{profile_full_name}} tiene 0 personas a las que sigue."
+        groups_not_found: "{{profile_full_name}} tiene 0 grupos."
         responsible_with_index: Responsable
         responsible_name: Nombre
         responsible_email: Email de contacto
@@ -194,6 +195,7 @@ es:
         pending: Tu clúster ha sido creado pero está pendiente de aprobación por un administrador
         group_member: Clústers de los que eres miembro
         members_pending: "{{size}} solicitudes esperando aprobación"
+        manage_moderators: Gestionar moderadores
         pending_members: Solicitudes pendientes
         accept: Aceptar
         accept_title: Acetar usuario
@@ -216,6 +218,19 @@ es:
             subject: Invitación al clúster {{group}}
             accept: Aceptar
             reject: Rechazar
+        moderator:
+          manage_moderators: Gestionar moderadores
+          select: Seleccionar
+          responsibles: Responsables
+          followers: Seguidores
+          followings: Siguiendo
+          add_moderator: Añadir moderador
+          name: Nombre
+          moderators: Moderadores
+          remove_moderator: Eliminar
+          removed_confirm: ¿Estas seguro de querer eliminar este moderador?
+          moderator_added: Moderador añadido con éxito
+          user_not_related: El usuario seleccionado debe estar relacionado contigo
       admin:
         groups: Clústers
         deleted: Clúster eliminado

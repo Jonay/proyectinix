@@ -1,30 +1,30 @@
 class Member::GroupsController < Member::BaseController
-
+  
   before_filter :find_group, :except => [:index, :new, :create]
   before_filter :check_moderator, :except => [:index, :new, :create, :invite, :accept_invitation, :reject_invitation]
-
+  
   def index
     @moderator_memberships = current_user.moderator_memberships
     @plain_memberships = current_user.plain_memberships
   end
-
+  
   def create
     @group = Group.new(params[:group])
     @group.author = current_user
     @group.save
-
-
+    
+    
     if @group.errors.empty?
-
+      
       @group.join(current_user, true)
       #    @group.activate_membership(current_user)
-
+      
       if current_user.admin == true || Tog::Config['plugins.tog_social.group.moderation.creation'] != true
-         @group.activate!
-         flash[:ok] = I18n.t("tog_social.groups.member.created")
-         redirect_to group_path(@group)
+        @group.activate!
+        flash[:ok] = I18n.t("tog_social.groups.member.created")
+        redirect_to group_path(@group)
       else
-
+        
         admins = User.find_all_by_admin(true)        
         admins.each do |admin|
           Message.new(
@@ -37,16 +37,16 @@ class Member::GroupsController < Member::BaseController
                                :activation_url => edit_admin_group_url(@group)) 
           ).dispatch!     
         end
-
+        
         flash[:warning] = I18n.t("tog_social.groups.member.pending")
         redirect_to groups_path
       end
     else
       render :action => 'new'
     end
-
+    
   end
-
+  
   def update
     @group.update_attributes!(params[:group])
     @group.tag_list = params[:group][:tag_list]
@@ -54,7 +54,7 @@ class Member::GroupsController < Member::BaseController
     flash[:ok] =  I18n.t("tog_social.groups.member.updated", :name => @group.name) 
     redirect_to group_path(@group)
   end
-
+  
   def reject_member
     user = User.find(params[:user_id])
     if !user
@@ -71,7 +71,7 @@ class Member::GroupsController < Member::BaseController
     end
     redirect_to member_group_pending_members_url(@group)
   end
-
+  
   def accept_member
     user = User.find(params[:user_id])
     if !user
@@ -88,7 +88,7 @@ class Member::GroupsController < Member::BaseController
     end
     redirect_to member_group_pending_members_url(@group)
   end
-
+  
   def invite
     @group = Group.find(params[:membership][:group_id])
     user = User.find(params[:membership][:user_id])
@@ -115,19 +115,41 @@ class Member::GroupsController < Member::BaseController
     end
     redirect_to profile_path(user.profile)
   end
+  
+  
+  def manage_moderators
+    @moderator_memberships = @group.moderator_memberships.paginate :per_page => Tog::Config['plugins.tog_core.pagination_size'], :page => params[:page]
+  end
 
+  def add_moderator
+    @group = Group.find(params[:membership][:group_id])
+    u = User.find(params[:membership][:user_id])
+    if @group.membership_of(u)
+      @moderator_membership = u.moderator_memberships.update(:moderator => true, :group => @group)
+      flash[:ok]= I18n.t("tog_social.groups.member.moderator_added")
+    elsif current_user.profile.is_related_to?(u.profile)
+      flash[:error]=I18n.t("tog_social.groups.member.user_not_related")
+    end
+    member_group_manage_moderators_path(@group)
+  end
+  
+  def remove_moderator
+    
+  end
+  
+  
   protected
-
-
+  
+  
   def find_group
     @group = Group.find(params[:id]) if params[:id]
   end
-
+  
   def check_moderator
     unless @group.moderators.include? current_user
       flash[:error] = I18n.t("tog_social.groups.member.not_moderator") 
       redirect_to group_path(@group)
     end
   end
-
+  
 end

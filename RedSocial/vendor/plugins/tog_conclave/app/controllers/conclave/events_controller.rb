@@ -6,9 +6,13 @@ class Conclave::EventsController < ApplicationController
   helper LaterDude::CalendarHelper
   
   def index
-    @page = params[:page] || '1'
-    @asc = params[:asc] || 'asc'
-    @events = Event.upcoming.paginate :per_page => 10, :page => @page
+    if logged_in? 
+      @page = params[:page] || '1'
+      @asc = params[:asc] || 'asc'
+      @events = Event.upcoming.paginate :per_page => 10, :page => @page
+    else
+      redirect_to root_path
+    end
   end
 
   def show

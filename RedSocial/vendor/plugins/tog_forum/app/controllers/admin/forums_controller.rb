@@ -60,7 +60,7 @@ class Admin::ForumsController < Admin::BaseController
   def update
     respond_to do |format|
       if @forum.update_attributes(params[:forum])
-        flash[:notice] = 'The forum was successfully updated.'
+        flash[:notice] = 'El foro fue actualizado correctamente.'
         format.html { redirect_to(admin_forum_url(@forum)) }
         format.xml  { head :ok }
       else

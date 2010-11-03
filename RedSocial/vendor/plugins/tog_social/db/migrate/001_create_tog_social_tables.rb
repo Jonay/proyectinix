@@ -47,7 +47,7 @@ class CreateTogSocialTables < ActiveRecord::Migration
       t.datetime :activated_at
       t.timestamps
     end
-
+    
     create_table :friendships do |t|
       t.integer  :inviter_id
       t.integer  :invited_id

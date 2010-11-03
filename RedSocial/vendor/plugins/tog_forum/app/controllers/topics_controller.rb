@@ -86,7 +86,7 @@ class TopicsController < ApplicationController
         format.html { redirect_to forum_topic_path(@forum, @topic) }
         format.xml { head :ok }
       elsif not user_can_alter?
-        flash[:error] = "Sorry, you're not allowed to update this!"
+        flash[:error] = "Perdón, pero no tienes permisos para actualizar!"
         format.html { redirect_to forum_topic_path(@forum, @topic) }
         format.xml { head :ok }
         
@@ -100,7 +100,7 @@ class TopicsController < ApplicationController
   def destroy
     respond_to do |format|
       if @topic.destroy
-        flash[:ok] = "El tema ha sido eliminado correctamente"
+        flash[:ok] = "El tema ha sido eliminado correctamente."
       else
         flash[:error] = "Ocurrió un error mientras trataba de eliminar el tema: #{@topic.errors.full_messages}"
       end

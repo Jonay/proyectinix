@@ -472,7 +472,6 @@ a.smallarrow.blueright {background-image: url(../images/ico/arrow-right-blue-sma
     .portletL li a {
         font-size: 0.9em;
     }
-
 	
 	
 	/* */
@@ -495,6 +494,8 @@ a.smallarrow.blueright {background-image: url(../images/ico/arrow-right-blue-sma
        
     }
     .portletM li {
+    	display: inline;
+        margin: 0 0 20px 20px;
     }
     .portletM li.on {
         background-color: #edf3fd;
