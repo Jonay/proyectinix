@@ -1,0 +1,143 @@
+es:
+  will_paginate:
+    previous: "« Anterior"
+    next: "Siguiente »"
+    page_entries_info: Mostrando {{count}} {{entry_name}} {{start}} a {{end}} de {{total}}
+    entry_name: Entrada    
+  interface:
+    admin:
+      home: Inicio
+      manage: Gestionar
+      manage_items:
+        configuration: Configuración
+        abuses: Abusos
+    member:
+      home: Inicio
+    site:
+      home: Inicio
+  tog_core:
+    plugin_name: Core
+    plugin_description: Plugin principal de tog  
+    site:
+      comment:
+        added: Comentario añadido
+        left_pending: Esta entrada tiene sus comentarios moderados de modo que tu comentario no se mostrará hasta que sea aprobado
+        removed: Comentario eliminado
+        approved: Comentario aprobado
+        error_commenting: Error al guardar tu comentario
+        error_removing: Error al eliminar el comentario
+        error_approving: Error al aprobar el comentario
+        comments: Comentarios
+        says: dice
+        permalink: enlace permanente
+        no_comments: No hay comentarios
+        add_comment: Añade tu comentario
+        name: Nombre
+        email: Email
+        website: Website
+        post_comment: Enviar comentario
+        comment: Comentario        
+      rating:
+        rating: Valoración        
+        added: Valoración añadida
+        already_rated: Ya has valorado esta entrada
+        error: Error al guardar tu valoración
+      abuses:
+        report_abuse: Notificar un abuso  
+        added: Gracias por ayudarnos a mentener el sitio limpio. La notificción de abuso ha sido guardada.     
+      tags:
+        tags: Etiquetas
+        no_tags: No tiene etiquetas. 
+        tag_cloud: Tag cloud
+    admin:
+      dashboard:
+        title: Administración  
+        welcome_to : Bienvenido a {{site_name}}, una plataforma social basada en las pequeñas y medianas empresas. Te encuentras en el lugar de administración de {{site_name}}
+        you_would_be_able_to: En este sitio podrás administrar las siguientes funcionalidades
+        profiles: Los perfiles de los usuarios registrados en el red social
+        groups_of_interest: Los clústers o agrupamientos
+        and_enjoy_more: "Y muchas más funcionalidades."
+        home_index: Ir a Inicio
+      configuration:
+        title: Configuración del sitio
+        update: Actualizar
+        changed: Configuración actualizada con éxito.        
+      abuses:
+        title: Abusos denunciados
+        confirm: Confirmar
+        confirmed: Abuso confirmado. Contacte al usuario y solicítele que elimine dicho contenido        
+        model:
+          abuse: Abuso
+          subject: Asunto
+          subject_help: p.e. Este contenido es un intento de phishing
+          description: Descripción
+          description_help: Asegurate de incluir links a contenido relevante y de explicar tus argumentos tanto como puedas.
+          email: Email
+          created_at: Creado el
+          url: URL
+          resource: Recurso
+    views:
+      home:
+        index:
+          welcome_to: Bienvenido a {{site_name}}, una plataforma social basada en las pequeñas y medianas empresas
+          you_would_be_able_to: En este sitio podrás
+          create_your_own_profile: Crear tu propio perfil.
+          find_your_friends_and_colleagues: Encontrar a las Pymes de tu gusto
+          create_and_join_groups_of_interest: Crear y unirte a clústers o agrupamientos de interés
+          and_enjoy_more: "Y disfrutar de: compartir tus fotos, un sistema de blogs, foros, y muchas más funcionalidades."
+          sign_up_now: ¡Registrate ahora!
+          featured_users: Panel de Administración
+          groups: 
+          the_public_continuum: El muro público...
+          discover_more_plugins_for_tog: Descubre más plugins de tog 
+          picto_explanation: Picto es un plugin para gestión de fotos y compartirlas entre los usuarios de tu red social.
+          vault_explanation: Un pequeño CMS para las páginas estáticas de tu sitio.
+          conversatio_explanation: Un sencillo sistema de blogs.
+          see_more: Ver más
+          características: Características
+          summary: Sumario del perfil
+      abuse:
+        new:
+          your_report: Tu denuncia
+          submit_report: Enviar tu denuncia
+          cancel: O, cancelar y
+          return: volver al sitio donde estabas.
+      member:
+        dashboard:
+          index:
+            actions: Acciones
+        site:
+          not_found:
+            error: Error | no encontrado
+      search:
+        search:
+          title: Resultados para <strong>'{{term}}'</strong>
+          not_found: No se encontrador coincidencias.
+      shared:
+        anon_footer:
+          about: Sobre {{site}}
+        header_options:
+          greeting: Hola
+          account: Cuenta
+          profile: Perfil
+          messages: Mensajes
+          dashboard: Dashboard
+          logout: Salir
+          sign_up: Registrarse
+          login: Login
+        logged_footer:
+          powered_by: Este sitio está creado con la increible <a href="http://www.toghq.com">Platforma Tog</a>
+          groups: Clústers
+          my_groups: Mis clústers
+          create_new_group: Crear un nuevo clúster
+          messages: Mensajes
+          my_messages: Mis mensajes
+          write_a_message: Enviar un mensaje
+          profile: Perfil
+          my_account: Mi cuenta
+          edit_profile: Editar Perfil
+          locale: Idioma
+        search_form:
+          label: Buscar
+          textfield: Buscar...
+          submit: IR         
