@@ -1,0 +1,32 @@
+<div class="portlet portletG" id="portlet_edit_responsible">
+  <h2><span><%= I18n.t('tog_social.profiles.site.edit_responsible') %></span></h2>
+  <% form_for :responsible, :url => update_responsible_path(@responsible.id), :html => {:method => :put, :multipart=>true} do |f| -%>  		
+	 <fieldset>
+    	  <div class="fields">
+    	   <fieldset > 
+			 <legend><%= I18n.t("tog_social.profiles.model.responsible_with_index") %></legend>
+			   <p>
+				 <label for="responsible_name"><%= I18n.t("tog_social.profiles.model.responsible_name") %></label>
+				 <%= f.text_field :responsible_name, :class=>"fieldbox wide" %>
+			   </p>
+               <p>
+                 <label for="responsible_email"><%= I18n.t("tog_social.profiles.model.responsible_email") %></label> 
+				 <%= f.text_field :responsible_email, :class=>"fieldbox wide"  %>
+			   </p>
+               <p>
+              	 <label for="responsible_tlf"><%= I18n.t("tog_social.profiles.model.responsible_tlf") %></label> 
+				 <%= f.text_field :responsible_tlf, :class=>"fieldbox wide"  %>
+ 			   </p>
+    	   </fieldset>
+    	  </div>
+	 </fieldset>
+	 <br />
+		
+		<!--Añadimos el botón actualizar responsable-->
+		<div class="actions">
+          <%= submit_tag I18n.t('tog_social.profiles.member.update_responsible'), {:accesskey => "s", :class=>"button mainaction"} %>
+        </div>
+     
+  <% end -%>	  
+		
+</div>
