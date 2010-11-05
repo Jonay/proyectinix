@@ -1,0 +1,14 @@
+<div class="titleB"><%= I18n.t('tog_forum.views.posts.edit_post') %></div>
+<br />
+
+<% form_for :post, :url => {:controller=>"posts", :action=>"create", :forum_id => @forum, :topic_id => @topic } do |f| %>
+  <p>
+    <%= f.text_area :body, :class => 'fieldbox', :size => '90x10' %>
+  </p> 
+  <fieldset>
+
+	<div class="actions">
+      <%= submit_tag 'Guardar post', :class => "button mainaction" %>
+    </div>
+  </fieldset>
+<% end %>

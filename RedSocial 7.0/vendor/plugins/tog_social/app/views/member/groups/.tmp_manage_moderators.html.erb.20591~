@@ -1,0 +1,50 @@
+<h2><span><%= I18n.t('tog_social.groups.member.moderator.manage_moderators') %> del <%= link_to @group.name, group_path(@group) %> </span></h2>
+
+      <% form_for :membership, :url => member_group_add_moderator_path(@group) do |f| %>
+          <select name="membership[user_id]" id="membership_user_id" class="fieldbox">
+            <option value="0">
+              <%= I18n.t('tog_social.groups.member.moderator.select') %>
+            </option>
+            <optgroup label="<%= I18n.t('tog_social.groups.member.moderator.responsibles') %>">
+               <%= options_from_collection_for_select(current_user.profile.friends, "user_id", "full_name") %>
+            </optgroup>
+            <optgroup label="<%= I18n.t('tog_social.groups.member.moderator.followers') %>">
+               <%= options_from_collection_for_select(current_user.profile.followers, "user_id", "full_name") %>
+            </optgroup>
+            <optgroup label="<%= I18n.t('tog_social.groups.member.moderator.followings') %>">
+               <%= options_from_collection_for_select(current_user.profile.followings, "user_id", "full_name") %>
+            </optgroup>
+         </select>
+         <%= submit_tag I18n.t('tog_social.groups.member.moderator.add_moderator'), {:accesskey => "s", :class=>"button mainaction"} %>
+      <% end %>
+  
+<br/>
+
+<table class="tableB">
+  <thead>
+      <tr>
+      <th scope="col"><%= I18n.t('tog_social.groups.member.moderator.name') %></th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="4" class="info_results">
+        <span class="info_items"><%= page_entries_info @moderator_memberships, :entry_name => I18n.t('tog_social.groups.member.moderator.moderators') %></span>
+        <span class="pages_navigation right">
+          <%= will_paginate @moderator_memberships, :container => false %>
+        </span>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @moderator_memberships.each do |membership|%>
+    <tr<%= cycle(' class="pair"', '') -%>>
+      <td><%= membership.user.login %></td>
+      <td>
+
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
