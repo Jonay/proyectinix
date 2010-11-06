@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="com.aptana.ide.feature.editors:2.0.4.1268103217-8n57O9fYVTaf_M8k"/>
+		<item value="com.aptana.ide.feature:2.0.4.1268103253-7D-777iQHT4-dI1Pln5ui"/>
+		<item value="com.aptana.radrails.feature.rcp:2.0.4.1268103427-7k7W8sFDk_j5NaekVEtkCz0PpMlv"/>
+		<item value="org.eclipse.eclipsemonkey:2.0.0.1255478629-7D--7HNhXsTQgij"/>
+		<item value="org.eclipse.help:1.1.2.R35x_v20100119-7e7eFAnFEx2X_fZltJhDjz-D"/>
+		<item value="org.eclipse.platform:3.5.2.R35x_v20100210-0800-9hEiFzmFst-TiEn9hNYgDWg1XN8ulH_JvCNGB"/>
+		<item value="org.eclipse.rcp:3.5.2.R35x_v20100119-9SA0FxwFnoCU5XxWItFdXXb27BA6"/>
+		<item value="org.radrails.rails:2.0.0.1255564377-7I7V7K7ZlO1BAI98O08I8Y8d8ksT"/>
+		<item value="org.radrails.rails_feature:2.0.0.1268158942-47727HXFiViX-0z0SdXWA9P19J9Z"/>
+		<item value="org.rubypeople.rdt:1.4.0.1263228621-7H7X7c7jrS4n7M9z01"/>
+	</list>
+	<section name="BasicNewProjectResourceWizard">
+	</section>
+</section>

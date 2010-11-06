@@ -1,0 +1,35 @@
+<div class="titleB"><%= I18n.t('tog_forum.views.forums.title', :forum_title => @forum.title) %>: <%= I18n.t('tog_forum.views.topics.edit_topic') %></div>
+
+
+<br />
+
+<%= error_messages_for :topic %>
+
+<% form_for @topic, :url => forum_topic_path(@forum.id, @topic.id), :html => { :method => :put } do |f| %>
+  <fieldset>
+    <legend><%= I18n.t('tog_forum.views.topics.topic_details') %></legend>
+    <%= render :partial => "/topics/partials/form", :locals => { :f => f } %>
+    <div class="actions">
+      <%= submit_tag 'Guardar tema', :class => "button mainaction" %>
+    </div>
+  </fieldset>
+<% end %>
+
+
+<!--Añadimos en la barra lateral la posibilidad de eliminar el tema actual-->
+<% content_for :sidebar do %>
+  <div class="portlet portletD" id="portlet_userWall">
+    <h2><span><%= I18n.t('tog_forum.views.forums.title', :forum_title => @forum.title) %></span></h2>
+	<div class="portlet portletB">
+	    <% form_for @topic, :url => forum_topic_path(@forum.id, @topic.id), :html => { :method => :delete } do |f| %>
+        <fieldset>
+  	      <%= submit_tag 'Eliminar tema', :disable_with => I18n.t("tog_forum.views.topics.wait"), :type => "image", :src =>"/tog_core/images/ico/delete.gif" %> Eliminar este tema del foro
+        <fieldset>
+     <% end %>
+	</div>
+  </div>
+<% end %>
+
+
+
+
