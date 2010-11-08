@@ -1,0 +1,3 @@
+class IndexError < StandardError
+
+end

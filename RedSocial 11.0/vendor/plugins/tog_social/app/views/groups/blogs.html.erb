@@ -1,0 +1,32 @@
+<!--Portlet para mostrar los blogs del grupo actual-->
+<div class="portlet portletM" id="portlet_blogs_group">
+    <h2><span><%= I18n.t('tog_social.groups.site.blogs') %></span></h2>
+	<!--Buscamos en la tabla blogs los blogs que tenga id_referencia igual a la id del grupo actual
+	    y que sea del tipo grupo-->	
+    <%@order = params[:order] || 'created_at'
+      @page = params[:page] || '1'
+      @asc = params[:asc] || 'desc'    
+      @blogs = @blogs.paginate  :per_page => 5,
+                                :page => @page,
+                                :order => @order + " " + @asc %>
+								
+	<div class="portlet_content">
+        <ul>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al blog y cuando fue creado-->
+              <% @blogs.each do |blog| -%>
+                <li class="clearfix">
+              	  <div class="image left"><img src="/images/blogs.jpg?"></div>
+			      <div class="title"><%= link_to "#{sanitize textilize(blog.title)}", conversatio_blog_path(blog), :title => "#{sanitize(blog.title)}" %></div>
+                  <div class="text">
+                      <%= I18n.t('tog_social.groups.model.created_at') %> <%=I18n.l(blog.created_at, :format => :long)%>
+                  </div>
+                </li> 
+              <% end -%>
+			  <span class="pages_navigation right">
+			    <%= will_paginate @blogs %>
+			  </span>
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_blogs_group -->
+
+						   
