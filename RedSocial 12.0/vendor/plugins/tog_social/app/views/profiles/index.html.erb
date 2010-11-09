@@ -1,0 +1,76 @@
+<!--Vista en la que mostramos tanto Organizaciones como Pymes-->
+<h1 class="clearfix"><span><%= I18n.t("tog_social.profiles.site.title") %></span></h1>
+
+<!--Buscamos las organizaciones y mostramos su email y tlf de contacto paginandolas.-->
+<div class="portlet portletB" id="pymes_list">
+  <h2><span><%= I18n.t('tog_social.profiles.site.pymes') %></span></h2>
+  
+   	<%@pymes = User.find(:all, :conditions => {:es_pyme => 'Organización'}) -%>
+	<%@order = params[:order] || 'created_at'
+      @page = params[:pyme_page]
+      @asc = params[:asc] || 'desc'    
+      @pymes = @pymes.paginate  :per_page => 2,
+                                :page => @page,
+                                :order => @order + " " + @asc %>
+								
+	<div class="portlet_content">
+        <ul>
+          <% if @pymes.length > 0 %>
+            <% @pymes.each do |pyme|%>
+              <li>
+                <div class="image left"><%=link_to icon_for_profile(pyme.profile, 'small'), profile_path(pyme.profile), :title => pyme.profile.full_name %></div>
+			    <% if pyme.profile.contact_email?%>
+			      <p>Email: <%= pyme.profile.contact_email%></p>
+			    <% end %>
+			    <% if pyme.profile.tlf?%>
+			      <p>Teléfono: <%= pyme.profile.tlf%></p>
+			    <% end %>
+			  </li>
+            <%end%>  
+		    <!--Paginamos las pymes en el el portlet-->
+		    <span class="pages_navigation left">
+			  <%= will_paginate @pymes, :param_name => 'pyme_page' %>
+		    </span>
+		  <% else %>
+		    <li>No hay pymes registradas en la Red Social.</li>
+		  <% end %>
+        </ul>
+    </div>
+</div>  <!--/pymes_list-->
+
+<!--Buscamos los Usuarios que no son Organizaciones y mostramos su email y tlf de contacto paginándolos.--> 								
+<div class="portlet portletB" id="pymes_list">
+  <h2><span><%= I18n.t('tog_social.profiles.site.users') %></span></h2>
+  	
+	<%@usuarios = User.find(:all, :conditions => {:es_pyme => 'Usuario'}) -%>
+	<%@order = params[:order] || 'created_at'
+      @page = params[:usuario_page]
+      @asc = params[:asc] || 'desc'    
+      @usuarios = @usuarios.paginate  :per_page => 2,
+                                	  :page => @page,
+                                	  :order => @order + " " + @asc %>
+	
+    <div class="portlet_content">
+        <ul>
+          <% if @usuarios.length > 0 %>
+            <% @usuarios.each do |user|%>
+              <li>
+                <div class="image left"><%=link_to icon_for_profile(user.profile, 'small'), profile_path(user.profile), :title => user.profile.full_name %></div>
+			    <% if user.profile.contact_email?%>
+			      <p>Email: <%= user.profile.contact_email%></p>
+			    <% end %>
+			    <% if user.profile.tlf?%>
+			      <p>Teléfono: <%= user.profile.tlf%></p>
+			    <% end %>
+			  </li>
+            <%end%>
+		    <!--Paginamos los usuarios en el el portlet-->
+		    <span class="pages_navigation left">
+			  <%= will_paginate @usuarios, :param_name => 'usuario_page' %>
+		    </span> 
+          <% else %>
+		    <li>No hay usuarios registrados en la Red Social.</li>
+		  <% end %>
+      </ul>
+    </div>    
+</div>
