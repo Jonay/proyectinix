@@ -1,0 +1,3 @@
+class TypeError < StandardError
+
+end

@@ -1,0 +1,3 @@
+class RiError < Exception
+
+end

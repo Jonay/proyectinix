@@ -1,0 +1,30 @@
+<!--Portlet para mostrar los events del grupo actual-->
+<div class="portlet portletM" id="portlet_events_group">
+    <h2><span><%= I18n.t('tog_social.groups.site.events') %></span></h2>
+	<!--Buscamos en la tabla blogs los blogs que tenga id_referencia igual a la id del grupo actual
+	    y que sea del tipo grupo-->	
+    <%@order = params[:order] || 'created_at'
+      @page = params[:page] || '1'
+      @asc = params[:asc] || 'desc'    
+      @events = @events.paginate  :per_page => 5,
+                                  :page => @page,
+                                  :order => @order + " " + @asc %>
+								
+	<div class="portlet_content">
+        <ul>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al blog y cuando fue creado-->
+              <% @events.each do |event| -%>
+                <li class="clearfix">
+              	  <div class="image left"><%= image_tag event.icon.url :small %></div>
+			      <div class="title"><%= link_to '<strong>'+event.title+'</strong>', conclave_event_path(event), :title => event.title %></div>
+                  <div class="text">Del <%=event.start_date.to_s %> al <%=event.end_date.to_s %></div>
+                </li>
+              <% end -%>
+			  <span class="pages_navigation right">
+			    <%= will_paginate @events %>
+			  </span>
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_events_group -->
+
+						   

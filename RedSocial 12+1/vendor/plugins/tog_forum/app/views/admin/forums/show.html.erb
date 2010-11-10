@@ -1,0 +1,14 @@
+  <div class="portlet portletB" id="topics_list">
+    <h2 class="clearfix">
+      <span style="float: right; width: 15%;"><%= link_to I18n.t('tog_forum.site.create_topic'), new_forum_topic_path(@forum) %></span>
+      <span style="float: right; width: 85%;"><%=h @forum.title %></span>
+    </h2>
+
+  <div class="portlet_content">
+    <table class="tableB" id="topics_paginated">
+      <% unless @topics.blank? %>
+        <%= render :partial => "/forums/partials/topics_paginated" %>
+      <% end %>
+    </table>
+  </div>    
+</div>
