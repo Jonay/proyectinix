@@ -1,0 +1,41 @@
+<!--Portlet para mostrar los groups de la Red Social-->
+<div class="portlet portletL" id="portlet_groups">
+    <h2><span><%= I18n.t('tog_core.views.home.index.groups') %></span></h2>
+	<!--Buscamos todos los grupos de la Red Social-->
+	<%@groups = Group.find(:all) -%>
+	
+    <%@order = params[:order] || 'created_at'
+      @page = params[:group_page]
+      @asc = params[:asc] || 'desc'    
+      @groups = @groups.paginate  :per_page => 2,
+                                  :page => @page,
+                                  :order => @order + " " + @asc %>
+	
+	<div class="portlet_content">
+        <ul>
+        	<!--Si hay groups-->
+        	<% if @groups.length > 0 %>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al groups y su nombre-->
+              <% @groups.each do |groups| -%>
+                <li class="clearfix">
+              	  <div class="image"><%= link_to image_for_group(group, 'big', :class=>"img"), group_path(group) %></div>
+  				  <div class="title"><%= link_to group.name, group_path(group) %></div>
+				</li> 
+              <% end -%>
+			  <!--Paginamos los groups en el el portlet-->
+			  <span class="pages_navigation left">
+			  	<%= will_paginate @groups, :param_name => 'group_page' %>
+			  </span>  		
+			  <!--Link para ver todos los blogs del grupo pasando la id del grupo-->
+			  <div class="image right"><%= link_to I18n.t('tog_social.groups.model.view_all_groups'), groups_path %></div>	  
+			<!--sino había groups lo indicamos mediante un mensaje.-->
+			<% else -%>
+			  <li class="clearfix">
+			    <%= I18n.t('tog_core.views.home.index.no_groups') %>
+			  </li>
+			<% end -%>   
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_groups -->
+
+						   
