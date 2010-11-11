@@ -1,0 +1,1 @@
+<%= link_to "#{sanitize textilize(truncate(match.body))}", forum_topic_path(match.topic.forum, match.topic), :title => "#{sanitize(truncate(match.body, :length => 15))}" %>
