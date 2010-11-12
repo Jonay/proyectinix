@@ -1,0 +1,67 @@
+<div class="titleB"><%= I18n.t('tog_user.user.signup_title') %></div>
+<p>
+    <span class="fontsmaller"><%= I18n.t('tog_user.user.already_registered') %> <%= link_to I18n.t('tog_user.user.click_to_login'), login_path %>.</span>  
+</p>
+
+<br />
+
+<%= error_messages_for :user %>
+<% form_for :user, :url => users_path, :html => {:id => "f_signup", :name => "f_signup" } do |f| -%>
+  <fieldset>
+    <div class="fields">
+      <p>
+          <% unless config["plugins.tog_user.email_as_login"] %>
+            <%= f.label :login, I18n.t('tog_user.model.login') %>
+            <%= f.text_field :login, :class => "fieldbox", :size => "65", :value => "Introduzca el nombre con el que desea registrarse", :onclick=> "this.value=''"%>
+          <% end %>
+      </p>
+
+      <p>
+        <%= f.label :email, I18n.t('tog_user.model.email') %>
+        <%= f.text_field :email, :class => "fieldbox", :size => "65", :value => "Introduzca su correo electrónico", :onclick=> "this.value=''" %>
+      </p>
+	  
+	  <p>
+	  	<%= f.label :es_pyme, I18n.t('tog_user.model.type_of_user') %>
+		<select name="user[es_pyme]" class="fieldbox">
+		  <option value= "" >
+	        <%= I18n.t("tog_user.model.select_type_of_user") %>
+	      </option>
+		  <option value="Usuario"> Usuario </option>
+		  <option value="Organización"> Organización </option>	  
+		</select>	
+	  </p>
+
+      <p>
+        <%= f.label :password, I18n.t('tog_user.model.password') %>
+        <%= f.password_field :password, :class => "fieldbox", :size => "65" %>
+      </p>
+
+      <p>
+        <%= f.label :password_confirmation, I18n.t('tog_user.model.password_confirmation') %>
+        <%= f.password_field :password_confirmation, :class => "fieldbox", :size => "65" %>
+      </p>  
+	  
+	  <!--Mostramos por pantalla las condiciones generales de la red social
+	  y dos enlaces uno Condiciones de Uso y otro la Política de Privacidad-->
+      <p>  
+	  	<%= f.label :general_conditions, I18n.t('tog_user.model.general_conditions') %>
+	  	<iframe frameborder="1" height="100" width="355" src="conditions.html"></iframe>
+		<span class="helpinfo"><%= I18n.t('tog_user.model.general_conditions_help') %></span>
+      </p>   
+
+       <% if config["plugins.tog_user.captcha_enabled"] %>
+          <p>
+            <label for="code"><%= I18n.t('tog_user.user.type_two_words') %></label>
+            <%= recaptcha_tags(:display =>{:lang => config["plugins.tog_core.language.default"]}) %>
+          </p>
+       <% end %>
+    </div>
+  </fieldset>
+
+  <br />
+  <div class="actions">
+    <%= submit_tag I18n.t('tog_user.user.signup_title'), :class => "button mainaction" %>
+  </div>
+     
+<% end -%>

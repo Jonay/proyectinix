@@ -1,0 +1,3 @@
+class EOFError < IOError
+
+end

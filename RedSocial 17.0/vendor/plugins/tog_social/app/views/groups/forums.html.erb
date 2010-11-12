@@ -1,0 +1,30 @@
+<!--Portlet para mostrar los forums del grupo actual-->
+<div class="portlet portletM" id="portlet_forums_group">
+    <h2><span><%= I18n.t('tog_social.groups.site.forums') %></span></h2>
+	<!--Buscamos en la tabla blogs los blogs que tenga id_referencia igual a la id del grupo actual
+	    y que sea del tipo grupo-->	
+    <%@order = params[:order] || 'created_at'
+      @page = params[:page] || '1'
+      @asc = params[:asc] || 'desc'    
+      @forums = @forums.paginate  :per_page => 2,
+                                  :page => @page,
+                                  :order => @order + " " + @asc %>
+								
+	<div class="portlet_content">
+        <ul>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al blog y cuando fue creado-->
+              <% @forums.each do |forum| -%>
+                <li class="clearfix">
+                  <div class="image left"><img src="/images/foro.gif?"></div>
+              	  <div class="title"><%= link_to forum.title, admin_forum_path(forum) %></div>
+				  <div class="text"><%= I18n.l(forum.updated_at, :format => :long) %></div>
+                </li> 
+              <% end -%>
+			  <span class="pages_navigation right">
+			    <%= will_paginate @forums %>
+			  </span>
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_forums_group -->
+
+						   

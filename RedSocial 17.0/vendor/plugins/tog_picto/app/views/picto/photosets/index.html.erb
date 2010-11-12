@@ -1,0 +1,54 @@
+<h1 class="clearfix"><span><%= I18n.t("tog_picto.plugin_title") %></span></h1>
+
+  <!--Mostramos en la barra lateral opciones-->
+  <% content_for :sidebar do %>	
+	<div class="portlet portletD" id="portlet_userWall">
+      <h2><span>Opciones:</span></h2>
+    </div>
+	
+	<!--una opción es para ver las fotos que ha subido el miembro-->
+	<div class="portlet_content">
+      <img src="/tog_core/images/ico/ojo.gif" > <%= link_to I18n.t ('tog_picto.member.sidebar.view_your_photos'),  member_picto_photosets_url  %>
+    </div>
+	
+	<!--otra opción es para subir más fotos-->
+	<div class="portlet_content">
+      <%= link_to I18n.t ('tog_picto.member.photos.new.upload_more_photos_now!'),  new_member_picto_photo_url, :class => "add"  %>
+    </div>
+	<p></p>
+	
+  <%end%>
+
+<!--<p><%= link_to "Create a new photoset",  new_member_picto_photoset_url, {:class => "add button", :title => "Create a new photoset"} -%></p>-->
+<p><%= link_to I18n.t('tog_picto.member.photosets.new.create_a_new_photoset'),  new_member_picto_photoset_url, :class => "add button" %></p>
+
+
+<div class="portlet portletB">
+    <h2><span>Álbumes de fotos</span></h2>
+    <div class="portlet_content">	
+        <ul>
+					<% if @photosets.empty? %>
+					  <li>No hay ningún álbum todavía.</li>
+					<% else %>
+					    <% @photosets.each do |photoset| %>
+                <li class="clearfix">
+                    <div class="image left"><%= link_to photoset_image(photoset), picto_photoset_path(photoset) %></div>
+                    <p><strong><%= link_to photoset.title, picto_photoset_path(photoset) %><br/>
+                    <p><%= photoset.description %></p>
+                </li>                         
+					   <% end %>
+					<% end %>	
+        </ul>
+    </div>    
+</div>
+<% if !@photosets.empty? %>
+	<div class="info_results">
+	    <span class="info_items">
+	    	Photosets <%=@photosets.size > 0 ? (@photosets.offset + 1) : '0'%> to 
+		          <%=@photosets.size + @photosets.offset%> of <%=@photosets.total_entries%>
+	    </span>
+	    <span class="pages_navigation right">
+		      <%= will_paginate @photosets %>
+	    </span>
+	</div>
+<%end%>

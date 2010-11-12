@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server-manager>
+<server type="WEBrick">
+<project>C:/Ruby/hello_tog</project>
+<name>Social Network</name>
+<host>0.0.0.0</host>
+<port>3000</port>
+<environment>development</environment>
+<runMode>run</runMode>
+</server>
+</server-manager>
