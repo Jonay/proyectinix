@@ -1,0 +1,15 @@
+<div class="titleB"><%= I18n.t('tog_forum.views.topics.add_topic_to_forum', :forum_title => @forum.title) %></div>
+<br />
+
+<%= error_messages_for :topic %>
+
+
+<% form_for :topic, :url => forum_topics_url(@forum)  do |f| %>
+  <fieldset>
+    <legend><%= I18n.t('tog_forum.views.topics.topic_details') %></legend>
+    <%= render :partial => "/topics/partials/form", :locals => { :f => f } %>
+    <div class="actions">
+      <%= submit_tag I18n.t('tog_forum.site.post_topic'), :class => "button mainaction" %>
+    </div>
+  </fieldset>
+<% end %>

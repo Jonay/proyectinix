@@ -1,0 +1,594 @@
+<%= inject_js %>
+
+<div class="titleB"><%= I18n.t('tog_social.profiles.member.update_profile') %></div>
+<br />
+
+<%= error_messages_for :profile %>
+
+  <!--Comprobamos si se trata de un usuario que no tiene pyme(es_pyme == 'Usuario'),
+  en este caso para actualizar el perfil mostraríamos:
+  
+  - Nombre
+  - Apellidos
+  - Localidad
+  - Estudiante/Trabajador
+  - Web
+  - CV si desea 
+  - y una imagen para el perfil.
+  -->
+
+  <% if @current_user.es_pyme == 'Usuario' %>
+  	 
+	<% form_for :profile, :url => member_profile_path(@profile), :html => {:method => :put, :multipart=>true} do |f| -%>
+	  <fieldset>
+	    <legend><%= I18n.t('tog_social.profiles.member.profile_details') %></legend>
+	    <div class="fields">
+	      <!--Nombre del perfil-->
+	      <p>
+	        <label for="profile_first_name"><%= I18n.t('tog_social.profiles.model.first_name') %></label>
+	        <%= f.text_field :first_name, :class=>"fieldbox" %>
+	      </p>
+		  <!--Apellidos del perfil-->
+	      <p>
+	        <label for="profile_last_name"><%= I18n.t('tog_social.profiles.model.last_name') %></label>
+	        <%= f.text_field :last_name, :class=>"fieldbox" %>
+	      </p>
+
+		  <p>
+		  	<label for="profile_situation"><%= I18n.t('tog_social.profiles.model.situation') %> </label>
+			<select name="profile[situation]" class="fieldbox">
+		  	  <option value="">
+	            <%= I18n.t("tog_social.profiles.model.select_situation") %>
+	          </option>
+			  <option value="Activo">Activo</option>
+			  <option value="Desempleado">Desempleado</option>
+			  <option value="Estudiante">Estudiante</option>
+			  <option value="Jubilado">Jubilado</option>
+			</select>	
+		  </p>		  
+		  
+		  <p>
+		  	<%= check_box_tag 'profile_demandante_de_empleo'%>
+			<label for="profile_demandante_de_empleo">
+				<%= I18n.t('tog_social.profiles.model.demandante_de_empleo') %>
+				
+			</label>
+		  </p>
+		  
+		   <p>
+		  	<label for="profile_profession"><%= I18n.t('tog_social.profiles.model.profession') %></label>
+	        <%= f.text_field :profession, :class=>"fieldbox" %>
+		  </p>
+		  
+		  <!--Lugar del usuario-->
+		  <p>
+		  	<label for="profile_place"><%= I18n.t('tog_social.profiles.model.place') %></label>
+			<select name="profile[place]" class="fieldbox">
+		  	  <option value="">
+	            <%= I18n.t("tog_social.profiles.model.select_place") %>
+	          </option>
+			  <option value="Álava">Álava</option>
+			  <option value="Albacete">Albacete</option>
+			  <option value="Alicante">Alicante</option>
+			  <option value="Almería">Almería</option>
+			  <option value="Asturias">Asturias</option>
+			  <option value="Ávila">Ávila</option>
+			  <option value="Badajoz">Badajoz</option>
+			  <option value="Barcelona">Barcelona</option>
+			  <option value="Burgos">Burgos</option>
+			  <option value="Cáceres">Cáceres</option>
+			  <option value="Cádiz">Cádiz</option>
+			  <option value="Cantabria">Cantabria</option>
+			  <option value="Castellón">Castellón</option>
+			  <option value="Ciudad Real">Ciudad Real</option>
+			  <option value="Córdoba">Córdoba</option>
+			  <option value="Cuenca">Cuenca</option>
+			  <option value="Gerona">Gerona</option>
+			  <option value="Granada">Granada</option>
+			  <option value="Guadalajara">Guadalajara</option>
+			  <option value="Guipúzcua">Guipúzcua</option>
+			  <option value="Huelva">Huelva</option>
+			  <option value="Huesca">Huesca</option>
+			  <option value="Islas Baleares">Islas Baleares</option>
+			  <option value="Jaén">Jaén</option>
+			  <option value="La Coruña">La Coruña</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="León">León</option>
+			  <option value="Lérida">Lérida</option>
+			  <option value="Lugo">Lugo</option>
+			  <option value="Madrid">Madrid</option>
+			  <option value="Málaga">Málaga</option>
+			  <option value="Murcia">Murcia</option>
+			  <option value="Navarra">Navarra</option>
+			  <option value="Orense">Orense</option>
+			  <option value="Palencia">Palencia</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="Pontevedra">Pontevedra</option>
+			  <option value="La Rioja">La Rioja</option>
+			  <option value="Salamanca">Salamanca</option>
+			  <option value="Segovia">Segovia</option>
+			  <option value="Sevilla">Sevilla</option>
+			  <option value="Soria">Soria</option>
+			  <option value="Tarragona">Tarragona</option>
+			  <option value="Santa Cruz de Tenerife">Santa Cruz de Tenerife</option>
+			  <option value="Teruel">Teruel</option>
+			  <option value="Toledo">Toledo</option>
+			  <option value="Valencia">Valencia</option>
+			  <option value="Valladolid">Valladolid</option>
+			  <option value="Vizcaya">Vizcaya</option>
+			  <option value="Zamora">Zamora</option>
+			  <option value="Zaragoza">Zaragoza</option>
+			</select>	
+		  </p>
+		  
+		  <!--email del Usuario-->
+	      <p>
+	        <label for="profile_contact_email"><%= I18n.t('tog_social.profiles.model.contact_email') %></label>
+	        <%= f.text_field :contact_email, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--tlf del Usuario-->
+	      <p>
+	        <label for="profile_tlf"><%= I18n.t('tog_social.profiles.model.tlf') %></label>
+	        <%= f.text_field :tlf, :class=>"fieldbox wide" %>
+	      </p>		  
+		  
+		  <!--Web del usuario-->
+	      <p>
+	        <label for="profile_website"><%= I18n.t('tog_social.profiles.model.website') %></label>
+	        <%= f.text_field :website, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--CV del usuario-->
+		  <p>
+	        <label for="profile_pdf_file_name"><%= I18n.t('tog_social.profiles.model.curriculum') %></label>
+	        <%=  file_field "profile", "pdf_file_name" %><br />
+			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.curriculum_help') %></span>
+	      </p>
+		  
+		  <!--Imagen del usuario-->
+	      <p>
+	        <label for="profile_icon"><%= I18n.t('tog_social.profiles.model.avatar') %></label>
+	        <%= icon_for_profile(@profile, 'big')%>
+	        <%= file_field "profile", "icon" %><br />
+	        <span class="helpinfo"><%= I18n.t('tog_social.profiles.model.avatar_help') %></span>
+	      </p>
+	    </div>
+	  </fieldset>
+	  
+	  <div class="actions">
+        <%= submit_tag I18n.t('tog_social.profiles.member.update_profile'), {:accesskey => "s", :class=>"button mainaction"} %>
+      </div>
+	  
+	<% end -%><!-- /.formulario del usuario -->
+
+	<!--Ahora se trata de un usuario que tiene pyme(es_pyme == 'true'),
+	   en este caso para actualizar el perfil mostraríamos:
+	   
+	   - Nombre de la empresa
+	   - Localidad
+	   - Direccion
+	   - Actividad de la empresa
+	   - Página Web
+	   - Catálogo de productos si desea 
+	   - y una imagen para el perfil de la empresa.
+	-->
+  
+  <% else -%>
+	
+	<% form_for :profile, :url => member_profile_path(@profile), :html => {:method => :put, :multipart=>true} do |f| -%>
+	  <fieldset>
+	    <legend><%= I18n.t('tog_social.profiles.member.profile_details') %></legend>
+	    <div class="fields">
+	      <!--Nombre de la empresa-->
+	      <p>
+	        <label for="profile_first_name"><%= I18n.t('tog_social.profiles.model.pyme_name') %></label>
+	        <%= f.text_field :first_name, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--Tipo de empresa-->
+		  <p>
+		  	<label for="profile_type_of_pyme"><%= I18n.t('tog_social.profiles.model.type_of_pyme') %></label>
+			<select name="profile[type_of_pyme]" class="fieldbox">
+		  	  <option value="">
+	            <%= I18n.t("tog_social.profiles.model.select_type_of_pyme") %>
+	          </option>
+			  <option value="Micro-empresa">Micro-empresa</option>
+			  <option value="Pequeña-empresa">Pequeña-empresa</option>
+			  <option value="Mediana-empresa">Mediana-empresa</option>
+			  <option value="Gran-empresa">Gran-empresa</option>
+			</select>	
+		  </p>
+
+		  <!--Provincia de la Pyme-->
+		  <p>
+		  	<label for="profile_place"><%= I18n.t('tog_social.profiles.model.pyme_place') %></label>
+			<select name="profile[place]" class="fieldbox">
+		  	  <option value="">
+	            <%= I18n.t("tog_social.profiles.model.select_place") %>
+	          </option>
+			  <option value="Álava">Álava</option>
+			  <option value="Albacete">Albacete</option>
+			  <option value="Alicante">Alicante</option>
+			  <option value="Almería">Almería</option>
+			  <option value="Asturias">Asturias</option>
+			  <option value="Ávila">Ávila</option>
+			  <option value="Badajoz">Badajoz</option>
+			  <option value="Barcelona">Barcelona</option>
+			  <option value="Burgos">Burgos</option>
+			  <option value="Cáceres">Cáceres</option>
+			  <option value="Cádiz">Cádiz</option>
+			  <option value="Cantabria">Cantabria</option>
+			  <option value="Castellón">Castellón</option>
+			  <option value="Ciudad Real">Ciudad Real</option>
+			  <option value="Córdoba">Córdoba</option>
+			  <option value="Cuenca">Cuenca</option>
+			  <option value="Gerona">Gerona</option>
+			  <option value="Granada">Granada</option>
+			  <option value="Guadalajara">Guadalajara</option>
+			  <option value="Guipúzcua">Guipúzcua</option>
+			  <option value="Huelva">Huelva</option>
+			  <option value="Huesca">Huesca</option>
+			  <option value="Islas Baleares">Islas Baleares</option>
+			  <option value="Jaén">Jaén</option>
+			  <option value="La Coruña">La Coruña</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="León">León</option>
+			  <option value="Lérida">Lérida</option>
+			  <option value="Lugo">Lugo</option>
+			  <option value="Madrid">Madrid</option>
+			  <option value="Málaga">Málaga</option>
+			  <option value="Murcia">Murcia</option>
+			  <option value="Navarra">Navarra</option>
+			  <option value="Orense">Orense</option>
+			  <option value="Palencia">Palencia</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="Pontevedra">Pontevedra</option>
+			  <option value="La Rioja">La Rioja</option>
+			  <option value="Salamanca">Salamanca</option>
+			  <option value="Segovia">Segovia</option>
+			  <option value="Sevilla">Sevilla</option>
+			  <option value="Soria">Soria</option>
+			  <option value="Tarragona">Tarragona</option>
+			  <option value="Santa Cruz de Tenerife">Santa Cruz de Tenerife</option>
+			  <option value="Teruel">Teruel</option>
+			  <option value="Toledo">Toledo</option>
+			  <option value="Valencia">Valencia</option>
+			  <option value="Valladolid">Valladolid</option>
+			  <option value="Vizcaya">Vizcaya</option>
+			  <option value="Zamora">Zamora</option>
+			  <option value="Zaragoza">Zaragoza</option>
+			</select>	
+		  </p>
+		  
+		  <p>
+	        <label for="profile_direction"><%= I18n.t('tog_social.profiles.model.pyme_direction') %></label>
+	        <%= f.text_field :direction, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--Actividad laboral de la Pyme-->
+		  <p>
+		  	<label for="profile_activity"><%= I18n.t('tog_social.profiles.model.activity') %></label>
+			<select name="profile[activity]" class="fieldbox" onBlur="">
+		  	  <option value="">
+	            <%= I18n.t("tog_social.profiles.model.select_activity") %>
+	          </option>
+			  
+			  <!--Actividades asociativas-->
+			  <option value="Actividades de organizaciones empresariales, profesionales y patronales">Actividades de organizaciones empresariales, profesionales y patronales</option>
+			  <option value="Actividades sindicales">Actividades sindicales</option>
+			  <option value="Actividades asociativas diversas (políticas, religiosas y otras)">Actividades asociativas diversas (políticas, religiosas y otras)</option>
+			  
+			  <!--Actividades anexas a los transportes. Actividades de agencias de viaje-->
+			  <option value="Actividades anexas a los transportes. Actividades de agencias de viaje">Actividades anexas a los transportes. Actividades de agencias de viaje</option>
+			  
+			  <!--Actividades auxiliares a la intermediación financiera-->
+			  <option value="Actividades auxiliares a la intermediación financiera">Actividades auxiliares a la intermediación financiera</option>
+			  <option value="Actividades auxiliares de seguros y planes de pensiones">Actividades auxiliares de seguros y planes de pensiones</option>
+			  
+			  <!--Actividades de saneamiento público-->
+			  <option value="Actividades de saneamiento público">Actividades de saneamiento público</option>
+			  
+			  <!--Actividades diversas de servicios personales-->
+			  <option value="Actividades diversas de servicios personales">Actividades diversas de servicios personales</option>				  
+			  
+			  <!--Actividades informáticas-->
+			  <option value="Actividades informáticas">Actividades informáticas</option>
+			  
+			  <!--Actividades inmobiliarias-->
+			  <option value="Actividades inmobiliarias">Actividades inmobiliarias</option>
+			  
+			  <!--Actividades recreativas, culturales y deportivas-->
+			  <option value="Actividades cinematográficas y de vídeo">Actividades cinematográficas y de vídeo</option>
+			  <option value="Actividades de radio y televisión">Actividades de radio y televisión</option>
+			  <option value="Actividades artísticas y de espectáculos">Actividades artísticas y de espectáculos</option>
+			  <option value="Actividades de agencias de noticias">Actividades de agencias de noticias</option>
+			  <option value="Actividades de bibliotecas, archivos, museos y otras instituciones culturales">Actividades de bibliotecas, archivos, museos y otras instituciones culturales</option>
+			  <option value="Actividades deportivas">Actividades deportivas</option>		  
+			  <option value="Actividades recreativas diversas">Actividades recreativas diversas</option>
+			  
+			  <!--Actividades sanitarias y veterinarias, servicios sociales-->
+			  <option value="Actividades sanitarias y veterinarias, servicios sociales">Actividades sanitarias y veterinarias, servicios sociales</option>
+			  
+			  <!--Administración pública, defensa y seguridad social obligatoria-->
+			  <option value="Administración pública, defensa y seguridad social obligatoria">Administración pública, defensa y seguridad social obligatoria</option>			  
+			  
+			  <!--Agricultura, ganadería caza y actividades relacionadas-->
+			  <option value="Agricultura, ganadería, caza y actividades relacionadas">Agricultura, ganadería caza y actividades relacionadas</option>			  
+			  
+			  <!--Actividades de Alquiler de maquinaria y equipo-->
+			  <option value="Alquiler de maquinaria y equipo">Alquiler de maquinaria y equipo</option>
+			  
+			  <!--Captación, depuración y distribución de agua-->
+			  <option value="Captación, depuración y distribución de agua">Captación, depuración y distribución de agua</option>
+			  
+			  <!--Comercio al por mayor e intermediarios del comercio-->
+			  <option value="Comercio al por mayor e intermediarios del comercio">Comercio al por mayor e intermediarios del comercio</option>
+			  
+			  <!--Comercio al por menor-->
+			  <option value="Comercio al por menor">Comercio al por menor</option>
+			  
+			  <!--Construcción-->
+			  <option value="Construcción">Construcción</option>
+			  
+			  <!--Coquerías, refino de petróleo y tratamiento de combustibles nucleares y residuos radioactivos-->
+			  <option value="Coquerías, refino de petróleo">Coquerías, refino de petróleo</option>
+			  <option value="Tratamiento de combustibles nucleares y residuos radioactivos">Tratamiento de combustibles nucleares y residuos radioactivos</option>
+			  
+			  <!--Correos y telecomunicaciones-->
+			  <option value="Correos y telecomunicaciones">Correos y telecomunicaciones</option>	
+			  
+			  <!--Educación-->
+			  <option value="Educación">Educación</option>
+			  
+			  <!--Extracción y aglomeración de antracita, hulla, lignito y turba-->
+			  <option value="Extracción y aglomeración de antracita, hulla, lignito y turba">Extracción y aglomeración de antracita, hulla, lignito y turba</option>
+			  
+			  <!--Extracción de crudos de petróleo y gas natural-->
+			  <option value="Extracción de crudos de petróleo y gas natural(excepto actividades de prospección)">Extracción de crudos de petróleo y gas natural(excepto actividades de prospección)</option>
+			  
+			  <!--Extracción de minerales de uranio y torio-->
+			  <option value="Extracción de minerales de uranio y torio">Extracción de minerales de uranio y torio</option>
+			  
+			  <!--Extracción de minerales metálicos-->
+			  <option value="Extracción de minerales metálicos">Extracción de minerales metálicos</option>
+			  
+			  <!--Extracción de minerales no metálicos ni energéticos-->
+			  <option value="Extracción de minerales no metálicos ni energéticos (piedra, arenas y arcillas,). Producción de Sal">Extracción de minerales no metálicos ni energéticos (piedra, arenas y arcillas)</option>
+			  <option value="Producción de Sal">Producción de Sal</option>
+			  			  
+			  <!--Fabricación de equipo e instrumentos medico-quirúrgicos, de precisión óptica y relojería-->
+			  <option value="Fabricación de equipo e instrumentos medico-quirúrgicos, de precisión óptica y relojería">Fabricación de equipo e instrumentos medico-quirúrgicos, de precisión óptica y relojería</option>			  
+			  
+			  <!--Fabricación de máquinas de oficina y equipos informáticos-->
+			  <option value="Fabricación de máquinas de oficina y equipos informáticos">Fabricación de máquinas de oficina y equipos informáticos</option>
+			  
+			  <!--Fabricación de maquinaria y material eléctrico-->
+			  <option value="Fabricación de maquinaria y material eléctrico">Fabricación de maquinaria y material eléctrico</option>
+			  
+			  <!--Fabricación de material electrónico-->
+			  <option value="Fabricación de material electrónico">Fabricación de material electrónico</option>
+			  
+			  <!--Fabricación de muebles. Otras industrias manufactureras-->
+			  <option value="Fabricación de muebles">Fabricación de muebles</option>
+			  <option value="Fabricación de artículos de joyería, orfebrería, platería y artículos similares">Fabricación de artículos de joyería, orfebrería, platería y artículos similares</option>
+			  <option value="Fabricación de instrumentos musicales">Fabricación de instrumentos musicales</option>
+			  <option value="Fabricación de artículos de deporte">Fabricación de artículos de deporte</option>
+			  <option value="Fabricación de juegos y juguetes">Fabricación de juegos y juguetes</option>
+			  <option value="Otras industrias manufactureras diversas(bisutería, brochas y cepillos, otros artículos)">Otras industrias manufactureras diversas(bisutería, brochas y cepillos, otros artículos)</option>
+			  
+			  <!--Fabricación de otro material de transporte-->
+			  <option value="Construcción y reparación naval">Construcción y reparación naval</option>
+			  <option value="Construcción aeronáutica y espacial">Construcción aeronáutica y espacial</option>
+			  <option value="Fabricación de material ferroviario">Fabricación de material ferroviario</option>
+			  <option value="Fabricación de motocicletas y bicicletas">Fabricación de motocicletas y bicicletas</option>
+			  <option value="Fabricación de otro material de transporte">Fabricación de otro material de transporte</option>
+			  
+			  <!--Fabricación de otros productos de minerales no metálicos-->
+			  <option value="Fabricación de vidrio y productos de vidrio">Fabricación de vidrio y productos de vidrio</option>
+			  <option value="Fabricación de productos cerámicos no refractarios excepto de construcción">Fabricación de productos cerámicos no refractarios excepto de construcción</option>
+			  <option value="Fabricación de azulejos y baldosas de cerámica">Fabricación de azulejos y baldosas de cerámica</option>
+			  <option value="Fabricación de ladrillos, tejas y productos de tierras cocidas para la construcción">Fabricación de ladrillos, tejas y productos de tierras cocidas para la construcción</option>
+			  <option value="Fabricación de cemento, cal y yeso">Fabricación de cemento, cal y yeso</option>
+			  <option value="Fabricación de elementos de hormigón, yeso y cemento">Fabricación de elementos de hormigón, yeso y cemento</option>
+			  <option value="Industria de la piedra">Industria de la piedra</option>
+			  <option value="Fabricación de productos minerales no metálicos diversos">Fabricación de productos de minerales no metálicos</option>
+			  
+			  <!--Fabricación de productos metálicos, excepto maquinaría y equipo-->
+			  <option value="Fabricación de productos metálicos, excepto maquinaría y equipo">Fabricación de productos metálicos, excepto maquinaría y equipo</option>
+			  
+			  <!--Fabricación de textiles y productos textiles-->
+			  <option value="Fabricación de textiles y productos textiles">Fabricación de textiles y productos textiles</option>
+			  
+			  <!--Fabricación de vehículos de motor, remolques y semirremolques-->
+			  <option value="Fabricación de vehículos de motor, remolques y semirremolques">Fabricación de vehículos de motor, remolques y semirremolques</option>
+			  
+			  <!--Hogares que emplean personal doméstico-->
+			  <option value="Hogares que emplean personal doméstico">Hogares que emplean personal doméstico</option>
+			  
+			  <!--Hostelería-->
+			  <option value="Hostelería (Hoteles, Restaurantes, Establecimientos de bebidas, camping, etc)">Hostelería (Hoteles, Restaurantes, Establecimientos de bebidas, camping, etc )</option>
+			  
+			  <!--Industria de la construcción de maquinaria y equipo mecánico-->	
+			  <option value="Fabricación de máquinas, equipo y material mecánico">Fabricación de máquinas, equipo y material mecánico</option>
+			  <option value="Fabricación de otra maquinaria, equipo y material mecánico de uso general">Fabricación de otra maquinaria, equipo y material mecánico de uso general</option>
+			  <option value="Fabricación de maquinaria agraria">Fabricación de maquinaria agraria</option>
+			  <option value="Fabricación de máquinas-herramienta">Fabricación de máquinas-herramienta</option>
+			  <option value="Fabricación de maquinaria diversa para usos específicos">Fabricación de maquinaria diversa para usos específicos</option>
+			  <option value="Fabricación de armas y municiones">Fabricación de armas y municiones</option>
+			  <option value="Fabricación de aparatos domésticos">Fabricación de aparatos domésticos</option>
+			  
+			  <!--Industria de productos alimenticios y bebidas-->
+			  <option value="Industria cárnica">Industria cárnica</option>
+			  <option value="Elaboración y conservación de pescados y productos a base de pescado">Elaboración y conservación de pescados y productos a base de pescado</option>
+			  <option value="Preparación y conservación de frutas y hortalizas">Preparación y conservación de frutas y hortalizas</option>
+			  <option value="Fabricación de grasas y aceites (vegetales y animales)">Fabricación de grasas y aceites (vegetales y animales)</option>
+			  <option value="Industrias lácteas">Industrias lácteas</option>
+			  <option value="Fabricación de productos de molinería, almidones y productos amiliceos">Fabricación de productos de molinería, almidones y productos amiliceos</option>
+			  <option value="Fabricación de productos para la alimentación animal">Fabricación de productos para la alimentación animal</option>
+			  <option value="Fabricación de otros productos alimenticios">Fabricación de otros productos alimenticios</option>
+			  <option value="Elaboración de bebidas">Elaboración de bebidas</option>
+			  
+			  <!--Industria del tabaco-->
+			  <option value="Industria del tabaco">Industria del tabaco</option>
+			  
+			  <!--Intermediación financiera, excepto seguros y planes de pensiones-->
+			  <option value="Intermediación financiera, excepto seguros y planes de pensiones">Intermediación financiera, excepto seguros y planes de pensiones</option>
+			  
+			  <!--Investigación y desarrollo-->
+			  <option value="Investigación y desarrollo de ciencias naturales y técnicas">Investigación y desarrollo ciencias naturales y técnicas</option>
+			  <option value="Investigación y desarrollo de ciencias sociales y humanidades">Investigación y desarrollo de ciencias sociales y humanidades</option>
+			
+			  <!--Metalurgia-->			  
+			  <option value="Metalurgia">Metalurgia</option>
+			  
+			  <!--Otras actividades empresariales-->
+			  <option value="Actividades jurídicas, contabilidad, auditoria, asesoría fiscal">Actividades jurídicas, contabilidad, auditoria, asesoría fiscal</option>
+			  <option value="Actividades de estudios de mercado y realización de encuestas de opinión pública">Actividades de estudios de mercado y realización de encuestas de opinión pública</option>
+			  <option value="Servicios técnicos de arquitectura e ingeniería">Servicios técnicos de arquitectura e ingeniería</option>
+			  <option value="Ensayos y análisis técnicos">Ensayos y análisis técnicos</option>
+			  <option value="Publicidad">Publicidad</option>
+			  <option value="Selección y colocación de personal">Selección y colocación de personal</option>
+			  <option value="Servicios de investigación y seguridad">Servicios de investigación y seguridad</option>
+			  <option value="Actividades industriales de limpieza">Actividades industriales de limpieza</option>
+			  <option value="Actividades empresariales diversas">Actividades empresariales diversas</option>
+			  
+			  <!--Pesca, acuicultura y actividades relacionadas-->
+			  <option value="Pesca, acuicultura y actividades relacionadas">Pesca, acuicultura y actividades relacionadas</option>			 
+			  
+			  <!--Producción y distribución de energía eléctrica, gas, vapor y agua caliente-->
+			  <option value="Producción y distribución de energía eléctrica, gas, vapor y agua caliente">Producción y distribución de energía eléctrica, gas, vapor y agua caliente</option>
+			  
+			  <!--Reciclaje-->
+			  <option value="Reciclaje">Reciclaje</option>
+			  
+			  <!--Seguros y planes de pensiones, excepto seguridad social obligatoria-->
+			  <option value="Seguros y planes de pensiones, excepto seguridad social obligatoria">Seguros y planes de pensiones, excepto seguridad social obligatoria</option>
+			  
+			  <!--Selvicultura, explotación forestal y actividades relacionadas-->
+			  <option value="Selvicultura, explotación forestal y actividades relacionadas">Selvicultura, explotación forestal y actividades relacionadas</option>
+
+			  <!--Transporte terrestre; Transporte por tuberías-->
+			  <option value="Transporte terrestre; Transporte por tuberías">Transporte terrestre; Transporte por tuberías</option>
+			  
+			  <!--Transporte marítimo, de cabotaje y ora vías de navegación interiores-->
+			  <option value="Transporte marítimo, de cabotaje y ora vías de navegación interiores">Transporte marítimo, de cabotaje y ora vías de navegación interiores</option>
+			  
+			  <!--Transporte aéreo y espacial-->
+			  <option value="Transporte aéreo y espacial">Transporte aéreo y espacial</option>
+
+			  <!--Venta, mantenimiento y reparación de vehículos de motor-->
+			  <option value="Venta, mantenimiento y reparación de vehículos de motor">Venta, mantenimiento y reparación de vehículos de motor</option>
+
+			</select>
+			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.activity_help') %></span>
+		  </p>
+		  
+		  <!--email de la Pyme-->
+	      <p>
+	        <label for="profile_contact_email"><%= I18n.t('tog_social.profiles.model.contact_email') %></label>
+	        <%= f.text_field :contact_email, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--tlf de la Pyme-->
+	      <p>
+	        <label for="profile_tlf"><%= I18n.t('tog_social.profiles.model.tlf') %></label>
+	        <%= f.text_field :tlf, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--fax de la Pyme-->
+	      <p>
+	        <label for="profile_fax"><%= I18n.t('tog_social.profiles.model.fax') %></label>
+	        <%= f.text_field :fax, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--Web de la Pyme-->
+	      <p>
+	        <label for="profile_website"><%= I18n.t('tog_social.profiles.model.website') %></label>
+	        <%= f.text_field :website, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--Catálogo de productos de la Pyme-->
+		  <p>
+	        <label for="profile_pdf_file_name"><%= I18n.t('tog_social.profiles.model.catalogue') %></label>
+	        <%=  file_field "profile", "pdf" %><br />
+			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.catalogue_help') %></span>
+	      </p>
+		  
+		  <!--Imagen de la Pyme -->
+		  </br>
+	      <p>
+	        <label for="profile_icon"><%= I18n.t('tog_social.profiles.model.avatar') %></label>
+	        <%= icon_for_profile(@profile, 'big')%>
+	        <%= file_field "profile", "icon" %><br />
+	        <span class="helpinfo"><%= I18n.t('tog_social.profiles.model.avatar_help') %></span>
+	      </p>
+	    </div>
+	  </fieldset>
+	
+	  </br>
+		
+	<!--Mostramos la posibilidad de añadir responsables de la empresa-->
+	<hr class="wide" />
+	
+	 
+	<div class="titleB"><%= I18n.t('tog_social.profiles.member.add_responsibles') %></div>
+	<span class="helpinfo"><%= I18n.t('tog_social.profiles.member.responsibles_help') %></span>
+	<p></p>
+	
+
+	  <!--Comienza el formulario para añadir responsables, este formulario está anidado al de perfiles-->
+	  <% f.fields_for :responsibles do |responsible_form| %>  		
+	    <fieldset>
+    	  <div class="fields">
+    	  	
+
+			  <!--Función Javascript para añadir varios responsables 
+			      cuando el usuario pulse el botón añadir un responsable más-->
+         	  <script type="text/javascript">
+			    function new_responsible(i, n) {
+			      $('fs_responsible_' + n).toggle();
+			      $('link_fs_responsible_' + i).toggle();
+			      $('link_fs_responsible_' + n).toggle();
+			    }
+			  </script>
+			  
+			  <!--Hasta 5 veces se puede pulsar el botón añadir responsable
+			      con sus campos respectivos(name, email, tlf)-->
+        	  <% 5.times do |i| -%>
+		  		<div class="fields">
+            	  <fieldset id="fs_responsible_<%=i%>" <%if i>0%>style="display:none"<%end%>> 
+				    <legend><%= I18n.t("tog_social.profiles.model.responsible_with_index") %> <%=i+1%></legend>
+				    <p><label for="responsible_name"><%= I18n.t("tog_social.profiles.model.responsible_name") %></label> <%= text_field "responsible[#{i}]", :responsible_name,  {:class => "fieldbox", :size => "40"}  %></p>
+              		<p><label for="responsible_email"><%= I18n.t("tog_social.profiles.model.responsible_email") %></label> <%= text_field "responsible[#{i}]", :responsible_email, {:class => "fieldbox", :size => "40"}  %></p>
+              		<p><label for="responsible_tlf"><%= I18n.t("tog_social.profiles.model.responsible_tlf") %></label> <%=text_field "responsible[#{i}]", :responsible_tlf, {:class => "fieldbox", :size => "40"}  %></p>
+            	  </fieldset>
+		  		</div> 
+		  		<%if i < 4 %>
+		    	  <div id="link_fs_responsible_<%=i%>" <%if i>0%>style="display:none"<%end%>>
+		  	  		<a href="javascript:new_responsible(<%=i%>, <%=i+1%>)" class="add"><%= I18n.t("tog_social.profiles.member.add_one_more_responsible") %></a>
+		    	  </div>
+		  		<%end%>
+        	  <% end -%>
+      
+    	  </div>
+  		</fieldset>
+
+  		<br />
+		<!--Añadimos el botón actualizar perfil-->
+		<div class="actions">
+          <%= submit_tag I18n.t('tog_social.profiles.member.update_profile'), {:accesskey => "s", :class=>"button mainaction"} %>
+        </div>
+     
+	  <% end -%>	  
+		
+	<% end -%><!-- /.formulario de la Pyme -->		
+
+  <% end -%>		
+
+		
+
+
+
+
+
