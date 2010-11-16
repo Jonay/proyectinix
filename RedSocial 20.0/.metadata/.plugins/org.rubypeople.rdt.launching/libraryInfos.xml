@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="C:\Archivos de programa\Aptana\Aptana RadRails\plugins\org.jruby_1.2.0.9419p2" version="1.8.6" vmTypeId="org.rubypeople.rdt.launching.JRubyVMType">
+<bootpath>
+<entry path="C:/Archivos de programa/Aptana/Aptana RadRails/plugins/org.jruby_1.2.0.9419p2/bin/../lib/ruby/site_ruby/1.8"/>
+<entry path="C:/Archivos de programa/Aptana/Aptana RadRails/plugins/org.jruby_1.2.0.9419p2/bin/../lib/ruby/site_ruby"/>
+<entry path="C:/Archivos de programa/Aptana/Aptana RadRails/plugins/org.jruby_1.2.0.9419p2/bin/../lib/ruby/1.8"/>
+</bootpath>
+</libraryInfo>
+</libraryInfos>
