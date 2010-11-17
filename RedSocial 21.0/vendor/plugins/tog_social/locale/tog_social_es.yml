@@ -1,0 +1,321 @@
+es:
+  interface:
+    admin:
+      #groups: Grupos
+      groups: Clústers
+    member:
+      #my_groups: Mis Grupos
+      my_groups: Mis Clústers
+      my_sharings: Cosas compartidas   
+    site:
+      profiles: Miembros
+      #groups: Grupos
+      groups: Clústers
+  tog_social:
+    plugin_title_my_groups: Mis Clústers 
+    plugin_name: Social
+    plugin_description: Gestión de objetos sociales básicos (perfiles, grupos y amistades)
+    cancel: Cancelar
+    back: Volver    
+    msg_yes: Si
+    msg_no: No
+    more_info: Más información
+    more_links: Más enlaces
+    search: Buscar
+    tags:
+      tags: Etiquetas
+      separated_by_comma: Separadas por comas    
+    sharings: 
+      model:
+        name: Objecto compartido  
+        created_at: Compartido el
+        shared_by: Compartido por
+        #group: Grupo   
+        group: Clúster    
+      member:
+        already_shared: Ya compartido      
+        share: Compartir '{{name}}'
+        remove_share: Dejar de compartir
+        share_with: Compartir con '{{name}}'
+        remove_share_from: Eliminar de '{{name}}'
+        shared_ok: Objecto compartido con "{{name}}"!
+        shared_nok: Este objeto ya estaba compartido con "{{name}}"! 
+        not_member: Tienes que ser miembro de ese clúster para poder compartir cosas con él
+        remove_share_ok: Objeto eliminado de '{{name}}'
+        remove_share_nok: No se ha eliminado el objeto de '{{name}}'
+        remove_confirmation: ¿Estas seguro de dejar de compartir '{{object}}' con el clúster '{{group}}' ?                   
+    profiles:
+      model:
+        first_name: Nombre
+        last_name: Apellidos
+        place: Ciudad
+        select_place: Selecciona tu localidad
+        activity: Actividad
+        activity_help: Seleccione la actividad laboral de su empresa
+        select_activity: Selecciona tu actividad laboral
+        website: Página web
+        situation: Situación Laboral
+        select_situation: -Seleccionar-
+        demandante_de_empleo: Demandante de empleo
+        profession: Profesión o estudios que realiza
+        curriculum: Curriculum Vitae
+        curriculum_help: Si quieres cambiar tu curriculum, selecciona un nuevo archivo PDF.
+        avatar: Avatar
+        avatar_help: Si quieres cambiar tu avatar, selecciona una nueva imagen
+        type_of_pyme: Tipo de empresa
+        select_type_of_pyme: Seleccione tipo de empresa
+        pyme_name: Nombre de la Pyme
+        pyme_direction: Dirección
+        pyme_place: Localidad de su empresa
+        select_pyme_activity: Selecciona sector
+        select_pyme_subactivity: Selecciona actividad laboral
+        activity: Actividad
+        activity_help: Seleccione la actividad laboral de su empresa
+        contact_email: Email de contacto
+        tlf: Télefono de contacto
+        fax: Fax
+        place: Localidad de tabajo o estudios
+        select_place: Selecciona localidad
+        website: Página web
+        catalogue: Catálogo de Productos
+        catalogue_help: Si desea cambiar su catálogo de productos, selecciona un nuevo archivo PDF.
+        username: Login
+        friends: Amigos
+        friends_not_found: "{{profile_full_name}} tiene  0 amigos."
+        responsibles_not_register: Responsables no resgistrados
+        responsibles: Responsables
+        responsibles_not_found: "{{profile_full_name}} tiene  0 responsables."
+        responsibles_of_pymes: Responsable de las empresas
+        responsibles_of_pymes_not_found: "{{profile_full_name}} tiene  0 empresas de las que es responsable."
+        followers: Seguidores
+        followers_not_found: "{{profile_full_name}} tiene 0 seguidores."
+        followings: Seguidos
+        followings_not_found: "{{profile_full_name}} tiene 0 personas a las que sigue."
+        groups_not_found: "{{profile_full_name}} no tiene o pertenece a ningún clúster."
+        responsible_with_index: Responsable
+        responsible_name: Nombre
+        responsible_email: Email de contacto
+        responsible_tlf: Teléfono de contacto
+        responsibles_unregistered_not_found: "{{profile_full_name}} no tiene responsables."
+        edit_responsible: Editar
+        add_responsibles: Añadir Responsables
+      site:
+        title: Perfiles
+        pymes: Pymes de la Red Social
+        users: Usuarios de la Red Social
+        summary: Sumario del perfil
+        edit_profile: Edita tu perfil
+        send_message: Enviar mensaje privado
+        edit_responsible: Editar responsable
+        add_responsible: Añadir responsable
+      member:
+        updated: Su perfíl se ha actualizado con éxito
+        update_profile: Actualizar perfil
+        profile_details: Detalles del perfil 
+        add_responsibles: Añadir responsables
+        responsibles_help: Si desea añadir responsables a su empresa
+        add_one_more_responsible: Añadir un responsable más
+        update_responsible: Actualizar responsable
+        remove_responsible: Eliminar responsable
+        responsibles_created: Responsables creados
+        responsible_updated: Responsable actualizado con éxito
+        responsible_removed: Responsable eliminado con éxito
+      helper:
+        options: Opciones
+        photo_for_user: Foto de {{name}}
+        curriculum_for_user: Curriculum de {{name}}
+        follow_user: Seguir a {{name}}
+        unfollow_user: Dejar de seguir a {{name}}
+        add_responsable: Añadir a {{name}} como responsable de la empresa
+        remove_responsable: Eliminar a {{name}} como responsable de la empresa       
+    groups:
+      model:
+        members:
+          one: "1 miembro"
+          other: "{{count}} miembros"
+        members_not_found: "{{group_name}} tiene 0 miembros."       
+        name: Nombre
+        description: Descripción
+        image: Imagen
+        image_help: Si no quieres cambiar la imagen deja este campo en blanco.
+        created_by: Creado por
+        private: Privado
+        private_help: Un clúster privado no aparecerá en los listados públicos.
+        moderated: Moderado
+        moderated_help: En un clúster moderado cada solicitud de entrada debe ser aprobada.
+        moderated_by: Moderado por
+        moderated_by_you: Moderados por tí
+        active: Activo
+        icon: Icono
+        created_at: Creado el
+        updated_at: Actualizado el
+        member_status: Status
+        blogs:  Blogs
+        no_blogs_for_this_group: "{{group_name}} tiene 0 blogs."
+        view_all_blogs: Ver todos >>  
+        events: Eventos
+        no_events_for_this_group: "{{group_name}} tiene 0 eventos."
+        view_all_events: Ver todos >>
+        photosets: Álbumes de fotos
+        no_photosets_for_this_group: "{{group_name}} tiene 0 álbumes de fotos."
+        view_all_photosets: Ver todos >>
+        forums: Foros
+        no_forums_for_this_group: "{{group_name}} tiene 0 foros."
+        view_all_forums: Ver todos >>        
+      site:
+        share: Compartir con tus clústers
+        share_title: Compartir con el clúster '{{name}}'        
+        member: Eres miembro de este clúster.
+        already_member: Ya eres un miembro de este clúster.
+        not_member: No eres un miembro de este clúster.
+        request_received: Su petición ha sido recibida. Los moderadores del clúster tomarán una decisión en breve.
+        request_waiting: Su petición de unirse al clúster está siendo procesada. Por favor tenga un poco de paciencia.
+        welcome: Bienvenido al clúster '{{name}}'. Disfrute su participación!
+        leave: Abandonar este clúster
+        leave_confirm: ¿Seguro que quieres abandonar este clúster?
+        leaved: Has dejado de pertenecer a este clúster
+        join: Únete a este clúster
+        last_moderator: Eres el último moderador de este clúster. No puedes abandonarlo hasta que nomines a un nuevo moderador.
+        not_found: Error. Este clúster no está activo o no existe
+        unactive: Error. Este clúster no está activo
+        invite: 
+          already_member: El usuario ya es miembro del clúster
+          already_invited: El usuario ya ha sido invitado al clúster
+          invited: Invitación al clúster enviada
+          you_are_not_invited: No has sido invitado al clúster
+          invitation_accepted: Invitación aceptada
+          invitation_rejected: Invitación rechazada
+          you_could_not_invite: No tienes permisos para invitar a este clúster
+        title: Clústers
+        create_group: Crear un clúster nuevo
+        create: Crear
+        details: Detalles del clúster
+        last_groups: Últimos clústers creados
+        search_groups: Busca entre los clústers
+        group_tagged: Clústers etiquetados {{tag}}
+        group_tags: Tags de clústers
+        blogs: Blogs
+        events: Eventos
+        photosets: Álbumes de fotos
+        forums: Foros
+      member:
+        created: Clúster creado con éxito.
+        pending: Tu clúster ha sido creado pero está pendiente de aprobación por un administrador
+        group_member: Clústers de los que eres miembro
+        members_pending: "{{size}} solicitudes esperando aprobación"
+        manage_moderators: Gestionar moderadores
+        manage_invitations: Gestionar invitaciones
+        pending_members: Solicitudes pendientes
+        accept: Aceptar
+        accept_title: Acetar usuario
+        reject: Rechazar
+        reject_title: Rechazar usuario
+        edit: Editar clúster
+        edit_group: Editar clúster {{group}}
+        update: Update
+        updated: Clúster '{{name}}' actualizado con éxito"
+        user_doesnt_exist: El usuario no existe
+        user_rejected: El usuario '{{name}}' ha sido rechazado para este clúster
+        user_accepted: El usuario '{{name}}' ha sido aceptado para este clúster
+        error: Oooops. Algo ha ido mal
+        not_moderator: No eres un moderador de este clúster
+        mail:
+          activation_request:
+            subject: Solicitud de nuevo clúster '{{group_name}}'
+            content: "<p>El usuario '{{user_name}}' ha solicitado la creación de un nuevo clúster llamado '{{group_name}}'.</p><p><a href=\"{{activation_url}}\">{{activation_url}}</a></p>"
+          invitation:
+            subject: Invitación al clúster {{group_name}}
+            content: "Hola {{membership_name}}, <p> el clúster '{{group_name}}' te ha invitado a ser miembro de su clúster privado.</p> <p>Puedes ver el perfil del {{group_name}} aquí: <br/><a href='{{group_url}}'>{{group_url}}</a></p> <p>Para confirmarlo visita: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a><p>Si no estás interesado simplemente ignora este mensaje.</p>"
+          confirm_invitation:
+            subject: "¡{{user_name}} se ha confirmado como miembro de tu clúster!"
+            content: "Hola {{u_name}},<p>el usuario '{{user_name}}' te ha confirmado ser miembro de tu clúster '{{group_name}}'.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          add_moderator:
+            subject: "¡{{group_name}} ha solicitado que seas moderador de su clúster!"
+            content: "Hola {{membership_name}},<p>el clúster '{{group_name}}' ha solicitado añadirte como moderador de su clúster.</p> <p>Puedes ver el perfil del {{group_name}} aquí: <br/><a href='{{group_url}}'>{{group_url}}</a></p> <p>Para confirmarlo visita: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a><p>Si no estás interesado simplemente ignora este mensaje.</p>"
+          confirm_moderator:
+            subject: "¡{{user_name}} se ha confirmado como moderador de tu clúster!"
+            content: "Hola {{u_name}},<p>el usuario '{{user_name}}' te ha confirmado ser moderador de tu clúster '{{group_name}}'.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          remove_moderator:
+            subject: "¡{{user_name}} te ha eliminado como moderador de su clúster!"
+            content: "Hola {{u_name}},<p>el clúster '{{group_name}}' te ha eliminado como moderador de su clúster.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+        moderator:
+          manage_moderators: "Gestionar moderadores del {{group_name}}"
+          select: Seleccionar
+          responsibles: Responsables
+          followers: Seguidores
+          followings: Seguidos
+          add_moderator: Añadir moderador
+          add_moderator_request: "Has solicitado a {{membership_name}} ser moderador de tu clúster."
+          moderator_added: Moderador añadido con éxito.
+          moderator_confirmed: "Has confirmado ser moderador del clúster {{group_name}}. "
+          user_not_related: El usuario seleccionado debe estar relacionado contigo.
+          name: Nombre
+          moderators: Moderadores
+          remove_moderator: Eliminar
+          removed_confirm: ¿Estas seguro de querer eliminar este moderador?
+          moderator_removed: Moderador eliminado con éxito.
+        invitation:
+          manage_invitations: "Gestionar invitaciones del {{group_name}}"
+          select: Seleccionar
+          responsibles: Responsables
+          followers: Seguidores
+          followings: Seguidos
+          invite: Invitar
+          invited_membership_request: "Has solicitado a {{membership_name}} ser miembro de tu clúster."
+          user_not_related: El usuario seleccionado debe estar relacionado contigo.
+          already_member: El usuario ya es miembro del clúster
+          already_invited: El usuario ya ha sido invitado al clúster
+          invited: Invitación al clúster enviada
+          you_are_not_invited: No has sido invitado al clúster
+          invitation_accepted: Invitación aceptada
+          invitation_rejected: Invitación rechazada
+          you_could_not_invite: No tienes permisos para invitar a este clúster
+          name: Nombre
+          state: Estado
+          invitations: Invitaciones
+          invitations_state: Estado de las invitaciones
+      admin:
+        groups: Clústers
+        deleted: Clúster eliminado
+        activated: El clúster está ahora activo
+        edit_group: Editar clúster  
+        activate: Activar
+        group_details: Detalles del clúster
+        memberships: Membresías
+        moderators: Moderadores
+        members: Miembros
+        pending_members: Miembros pendientes
+        delete_group: Eliminar clúster
+        please_wait: Por favor espere...
+        updated: Clúster '{{name}}' actualizado con éxito"                        
+    friendships: 
+      member:
+        not_found: No existe ningún usuario con el id '{{id}}'
+        followed: Ahora sigues a '{{user_name}}'
+        unfollowed: Has dejado de seguir a '{{user_name}}'   
+        add_responsable: Ahora has añadido a '{{user_name}}' como responsable de tu empresa
+        remove_responsable: Has eliminado a '{{user_name}}' como responsable de tu empresa    
+        responsable:
+          request: "Has solicitado a {{friend_name}} ser responsable de tu empresa"
+          confirmed: "Has confirmado ser responsable de la empresa {{friend_name}}. "
+          remove: "Has eliminado a {{user_name}} como responsable de tu empresa. "
+        mail:
+          follow:
+            subject: "¡{{user_name}} te está siguiendo!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} te está siguiendo.</p> <p>Consulta el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          unfollow:
+            subject: "¡{{user_name}} ha dejado de seguirte!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} ha dejado de seguirte.</p> <p>Consulta el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          add_responsable:
+            subject: "¡{{user_name}} te ha añadido como responsable de su empresa!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} te ha añadido como responsable de su empresa.</p> <p>Consulta el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          remove_responsable:
+            subject: "¡{{user_name}} te ha eliminado como responsable de su empresa!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} te ha eliminado como responsable de su empresa.</p> <p>Consulta el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"                    
+          confirm_responsable:
+            subject: "¡{{user_name}} te ha confirmado como responsable de tu empresa!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} te ha confirmado como responsable de tu empresa.</p> <p>Puedes ver el perfil de tu nuevo responsable {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p>"
+          request_responsable:
+            subject: "¡{{user_name}} ha solicitado que seas responsable de su empresa!"
+            content: "Hola {{friend_name}}, <p>{{user_name}} ha solicitad que seas responsable de su empresa.</p> <p>Puedes ver el perfil de {{user_name}} aquí: <br/><a href='{{user_profile_url}}'>{{user_profile_url}}</a></p> <p>Para confirmarlo visita: <br/><a href='{{confirm_url}}'>{{confirm_url}}</a><p>Si no estas interesado simplemente ignora este mensaje.</p>"
+            
