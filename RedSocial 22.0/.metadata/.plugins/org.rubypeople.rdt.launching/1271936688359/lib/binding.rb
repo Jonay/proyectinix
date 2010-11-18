@@ -1,0 +1,3 @@
+class Binding < Object
+
+end

@@ -1,0 +1,45 @@
+<!--Portlet para mostrar los foros del grupo actual-->
+<div class="portlet portletL" id="portlet_forums_group">
+    <h2><span><%= I18n.t('tog_social.groups.site.forums') %></span></h2>
+	<!--Buscamos en la tabla foros los foros que tenga id_referencia igual a la id del grupo actual
+	    y que sea del tipo grupo-->
+	<%@forums = TogForum::Forum.find(:all, :conditions => {:id_referencia => @group.id, :tipo => 'Grupo'}) -%>
+	<!--almacenamos la id del grupo para pasarla después al enlace de ver todos los blogs del grupo-->
+	<%id = @group.id%>
+    <%@order = params[:order] || 'created_at'
+      @page = params[:forum_page]
+      @asc = params[:asc] || 'desc'    
+      @forums = @forums.paginate  :per_page => 1,
+                                  :page => @page,
+                                  :order => @order + " " + @asc %>
+	
+	<div class="portlet_content">
+        <ul>
+        	<!--Si hay foros-->
+        	<% if @forums.length > 0 %>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al foros y cuando fue creado-->
+              <% @forums.each do |forum| -%>
+                <li class="clearfix">
+               	  <div class="image left"><img src="/images/foro.gif?"></div>
+              	  <div class="title"><%= link_to forum.title, admin_forum_path(forum) %></div>
+				  <div class="text"><%= I18n.l(forum.updated_at, :format => :long) %></div>
+                </li> 
+              <% end -%>
+			  <!--Paginamos los foros en el el portlet-->
+			  <span class="pages_navigation left">
+			  	<%= will_paginate @forums, :param_name => 'forum_page' %>
+			  </span>
+			  <!--Link para ver todos los foros del grupo pasando la id del grupo-->
+			  <div class="image right"><%= link_to I18n.t('tog_social.groups.model.view_all_forums'), forums_groups_path(id) %></div>	
+			  		  
+			<!--sino había foros lo indicamos mediante un mensaje.-->
+			<% else -%>
+			  <li class="clearfix">
+			    <%= I18n.t('tog_social.groups.model.no_forums_for_this_group', :group_name => @group.name) %>
+			  </li>
+			<% end -%>   
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_forums_group -->
+
+						   
