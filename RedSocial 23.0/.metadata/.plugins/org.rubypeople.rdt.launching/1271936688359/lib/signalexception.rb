@@ -1,0 +1,3 @@
+class SignalException < Exception
+
+end
