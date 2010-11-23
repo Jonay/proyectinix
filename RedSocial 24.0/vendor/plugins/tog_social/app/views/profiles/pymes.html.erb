@@ -1,0 +1,42 @@
+<!--Vista en la que mostramos tanto Organizaciones como Pymes-->
+<h1 class="clearfix"><span><%= I18n.t("tog_social.profiles.site.title_pymes") %></span></h1>
+
+<!--Buscamos las organizaciones y mostramos su nombre, email y tlf de contacto paginándolas en un listado.-->
+<div class="portlet portletL" id="pymes_list">
+  <h2><span><%= I18n.t('tog_social.profiles.site.pymes') %></span></h2>
+  
+   	<%@pymes = User.find(:all, :conditions => {:es_pyme => 'Organización'}) -%>
+	<%@order = params[:order] || 'created_at'
+      @page = params[:pyme_page]
+      @asc = params[:asc] || 'desc'    
+      @pymes = @pymes.paginate  :per_page => 20,
+                                :page => @page,
+                                :order => @order + " " + @asc %>
+								
+	<div class="portlet_content">
+        <ul>
+          <% if @pymes.length > 0 %>
+            <% @pymes.each do |pyme|%>
+              <li class="clearfix">
+                <div class="image left"><%=link_to icon_for_profile(pyme.profile, 'medium'), profile_path(pyme.profile), :title => pyme.profile.full_name %></div>
+			    <% if pyme.profile.first_name?%>
+			      <p><%= pyme.profile.full_name%></p>
+			    <% end %>
+				<% if pyme.profile.contact_email?%>
+			      <p>Email: <%= pyme.profile.contact_email%></p>
+			    <% end %>
+			    <% if pyme.profile.tlf?%>
+			      <p>Teléfono: <%= pyme.profile.tlf%></p>
+			    <% end %>
+			  </li>
+            <%end%>  
+		    <!--Paginamos las pymes en el el portlet-->
+		    <span class="pages_navigation left">
+			  <%= will_paginate @pymes, :param_name => 'pyme_page' %>
+		    </span>
+		  <% else %>
+		    <li>No hay pymes registradas en la Red Social.</li>
+		  <% end %>
+        </ul>
+    </div>
+</div>  <!--/pymes_list-->

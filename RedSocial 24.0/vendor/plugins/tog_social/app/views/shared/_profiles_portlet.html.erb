@@ -1,0 +1,26 @@
+<div class="portlet <%= style || 'portletA' %>" >
+  <h2><span><%= title %> (<%=  items.size %>)</span></h2>
+  <div class="portlet_content">
+      <ul class="clearfix">
+        <% unless items.blank? %>
+		  <!--paginamos los items del portlet-->
+		  <%@order = params[:order] || 'created_at'
+      	    @page = params[:item_page]
+     	    @asc = params[:asc] || 'desc'    
+      	    items = items.paginate  :per_page => 10,
+                                    :page => @page,
+                                    :order => @order + " " + @asc %>
+		  <!--mostramos todos los items en el portlet-->									
+          <% for item in items %>
+            <li><%= link_to icon_for_profile(item, 'small'), profile_path(item), :title => item.full_name %></li>
+          <% end %>
+		  <span class="pages_navigation right">
+			<%= will_paginate items, :param_name => 'item_page' %>
+		  </span>
+        <% else %>
+          <li><%= no_items %></li>
+        <% end %>
+      </ul>
+  </div>    
+
+</div>
