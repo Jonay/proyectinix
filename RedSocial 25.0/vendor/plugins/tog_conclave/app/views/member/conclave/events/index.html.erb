@@ -1,0 +1,61 @@
+ <!--Mostramos mis eventos (eventos creados por mi)-->
+<div class="portlet portletB" id="my_events">  
+  <h2><span><%= I18n.t('tog_conclave.views.member.index.my_events') %></span></h2>
+  <div class="portlet_content">      
+    <ul>
+  	  <!--Si no hay eventos mostramos no se ha creado ningún evento-->
+      <% if @events.empty? %>
+        <li class="clearfix">No has creado ningún evento.</li>
+	    <!-- sino mostramos todos los eventos con su título, fecha y hora-->
+        <% else %>
+          <% @events.each do |event| %>
+
+	        <li class="clearfix" id="event<%=event.id.to_s%>">
+              <div class="image left"><%= image_tag event.icon.url :medium %></div>
+              <div class="title">Título: <%= link_to '<strong>'+event.title+'</strong>', conclave_event_path(event), :title => event.title %></div>
+			  <div class="text">Fecha: <%=event.start_date %></div>
+              <div class="text">Hora: Desde <%= event.starting_time %> hasta <%=event.ending_time %></div>
+
+			  <!--Opción para editar evento-->
+			  <%= link_to I18n.t('tog_conclave.admin.edit_event'), edit_member_conclave_event_path(event) %>
+			 
+			  <!--Opción para asistir al evento-->			 
+			  <span id="current_status<%=event.id.to_s%>">
+                <%if logged_in? && event.registered?(current_user)%>
+                  <%=link_to I18n.t('tog_conclave.member.unregister'), member_conclave_event_attendance_path(event, event), :method => :delete %>
+                <%elsif event.active? && event.places_left?%>
+                  <%=link_to I18n.t('tog_conclave.member.register'), member_conclave_event_attendances_path(event), :method => :post %>
+                <%end%>
+			  </span>
+			  
+			  <!--Opción para eliminar evento-->
+			  <% form_tag member_conclave_event_path(event), :method => :delete do -%> 
+			    <%= submit_tag "Eliminar este evento", :disable_with => "Please wait...", :type => "image", :src =>"/tog_core/images/ico/delete.gif", :title => "¿Está seguro de querer eliminar este evento?" %>Eliminar este evento
+  			  <% end -%>
+
+            </li>
+          <%end%>
+      <%end%>
+    </ul>
+  </div>
+</div>
+
+  <br />
+  
+  <!--Introducimos un link para dar la posibilidad de crear un evento-->
+  <div class="right">
+    <p><%= link_to I18n.t("tog_conclave.views.index.create_new_event"), new_member_conclave_event_path, :class => 'button add' %></p>
+  </div>
+  
+  <% content_for :sidebar do %>
+	<div class="portlet portletD" id="portlet_userWall">
+      <h2><span>Próximos Eventos en la red social</span></h2>
+      <div class="portlet_content">
+        <img src="/tog_core/images/ico/ojo.gif" ><%= link_to I18n.t ('tog_conclave.member.sidebar.other_events'), conclave_events_path %>
+        <br />
+		<img src="/tog_core/images/ico/ojo.gif" ><%= link_to I18n.t ('tog_conclave.member.sidebar.see_events_i_will_go'), member_conclave_attendances_path %>
+      </div>    
+	</div>
+
+  <% end %>
+  

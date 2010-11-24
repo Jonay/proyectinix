@@ -1,0 +1,12 @@
+<div class="titleB"><%= link_to I18n.t('tog_forum.plugin_title'), member_forums_path %> / <%= I18n.t('tog_forum.member.create_forum') %></div>
+<br/>
+<%= error_messages_for :forum %>
+<% form_for :forum, :url => member_forums_path  do |f| %>
+  
+  <%= render :partial => '/member/forums/partials/form', :locals => { :f => f } %>
+ 
+  <div class="actions">
+    <%= submit_tag I18n.t("tog_forum.member.save"), {:accesskey => "s", :class=>"button"} %>
+  </div>
+    
+<% end %>

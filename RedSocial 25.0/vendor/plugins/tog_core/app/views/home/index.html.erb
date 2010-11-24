@@ -1,0 +1,227 @@
+<div class="portletK" id="portlet_splashHome">
+    
+  <!-- Si el usuario está logueado mostramos en la página de inicio
+       el perfil del usuario, los items más importantes debajo de su
+	   perfil y el muro público en el que se muestran las actividades 
+	   recientes de la red social.
+	   
+	   En el caso de que el usuario no esté logueado se muestra por pantalla
+	   el cuadro de bienvenida y la descripción de aquellas características 
+	   más importantes de la red social -->
+	   
+  <% if logged_in? %>
+	<div class="detail detail1">
+	  <!--imagen del usuario actual-->
+	  <div class="image"><%=link_to icon_for_profile(current_user.profile, 'medium'), profile_path(current_user.profile), :title=> "Editar mi perfil" %></div>
+	  <!--nombre del usuario actual-->
+	  <div class="subtitle"><%= current_user.profile.full_name %></div>
+	  
+	  <!--Si el usuario actual es un usuario mostramos su profesión,
+		  sino sabemos que es una organizaciñón y mostramos
+		  la actividad a la que se dedica-->
+	  <% if current_user.es_pyme == 'Usuario' %>
+	  
+	    <% if current_user.profile.profession?%>
+	      <p>Profesión: <%= current_user.profile.profession%></p>
+	    <%end%>
+		
+	    <!--<div class="summary"><%= I18n.t('tog_core.views.home.index.summary') %></div>-->
+	  
+	  <% else %>
+	  
+	    <% if current_user.profile.activity? %>
+	  	   <p>Sector: <%= current_user.profile.activity %></p>
+		<%end%>
+		
+	  <% end %>
+	  
+	  	<!--web del usuario actual-->
+	    <% if current_user.profile.website?%>
+	      <p><a href="current_user.profile.website "><%= link_to current_user.profile.website, current_user.profile.website %></a></p>
+	    <%end%>
+	</div>
+	</div>
+	<br/> 
+	 
+	<!-- Añadiendo imágenes debajo del perfil de usuario para permitir
+	     el acceso a aquellos items de la red social más importantes -->
+	<hr class="wide" />
+	   <ul>
+	   	 <h2><span><%= I18n.t("tog_core.views.home.index.administration_panel") %></span></h2>
+		 <a href="/member/account/"><img src="/images/small_default_profile.png?" title="Mi Cuenta"></a>
+		 <a href="/member/groups/"><img src="/images/medium_default_group.png?" title="Mis Clústers"></a>
+		 <a href="/member/messages/"><img src="/images/email.png?" title="Buzón de mensajes"></a>
+		 <a href="/member/conclave/events/"><img src="/images/default_event_icon.png?" title="Mis Eventos"></a>
+		 <a href="/member/conversatio/blogs/"><img src="/images/blogs.jpg?" title="Mis Blogs"></a>
+		 <a href="/member/picto/photos/"><img src="/images/logo_camara.png?" title="Mis Fotos"></a>
+		 <a href="/member/forums/"><img src="/images/foro.gif?" title="Mis Foros"></a>
+       </ul>
+		
+	<!--En la barra lateral renderizamos los usuarios destacados así como los grupos destacados-->
+    <% content_for :sidebar do %>
+	
+	  <%= render :partial => "users" %>
+	  
+	  <%= render :partial => "groups" %>
+	
+	  <!--
+	   <div class="portlet portletI" id="potlet_publicContinuum">
+	     <h2><span><%= I18n.t("tog_core.views.home.index.the_public_continuum") %>...</span></h2>
+	     <div class="portlet_content">
+	       <ul>
+	         <%= public_continuum(4) %> <!-- muro público que muestra 4 actividades recientes
+	       </ul>
+	     </div>
+	   </div> <!-- /#potlet_featuredPosts
+	
+	   <br />
+	  -->
+    <%end%>
+
+	
+  <%else%> <!--comienza el sino, donde mostramos la pantalla de bienvenida-->
+  
+    <h2><span><%=config['plugins.tog_core.site.name']%></span></h2>
+	  <div class="portlet_content">
+	    <p>
+	      <%= I18n.t("tog_core.views.home.index.welcome_to", :site_name => config['plugins.tog_core.site.name']) %>.<br />
+	      <%= I18n.t("tog_core.views.home.index.you_would_be_able_to") %>:
+	    </p>
+	    <ul>
+	      <li><%= I18n.t("tog_core.views.home.index.create_your_own_profile") %></li>
+	      <li><%= I18n.t("tog_core.views.home.index.find_your_friends_and_colleagues") %>.</li>
+	      <li><%= I18n.t("tog_core.views.home.index.create_and_join_groups_of_interest") %>.</li>
+	      <li><%= I18n.t("tog_core.views.home.index.and_enjoy_more") %></li>
+	    </ul>
+	    <div class="action"><a href="/signup"><strong><%= I18n.t("tog_core.views.home.index.sign_up_now") %></strong></a></div>
+	  </div>
+	</div>
+	<br/>
+	
+	<div class="col_50_50 clearfix">
+			<!-- Muestra los últimos usuarios de la red social c/u con su foto. -->
+	        <!--<div class="left_col">
+	            <div class="portlet portletG" id="portlet_featuredUsers">
+	                <h2><span><%= I18n.t("tog_core.views.home.index.featured_users") %></span></h2>
+	                <div class="portlet_content">
+	                    <ul class="clearfix">
+	                      <% last_users.each do |user|%>
+	                        <li><%=link_to icon_for_profile(user.profile, 'small'), profile_path(user.profile)%></li>
+	                      <%end %>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>--> <!-- /.left_col -->
+	
+			<!-- Muestra los últimos grupos de la red social c/u con su foto. -->
+	        <!--<div class="right_col">
+	             <div class="portlet portletH" id="portlet_groups">
+	                <h2><span><%= I18n.t("tog_core.views.home.index.groups") %></span></h2>
+	                <div class="portlet_content">
+	                    <ul>
+		                    <% last_groups.each do |group| %>
+		                        <li class="clearfix">
+		                            <div class="image"><%= link_to image_for_group(group, 'medium'), group_path(group) %></div>
+		                            <div class="title"><%= link_to group.name, group_path(group) %></div>
+		                            <div class="text">
+		                                <%=group.description%>
+		                            </div>
+		                            <div class="members"><a href="#"></a></div>
+		                        </li>
+	                        <%end %>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div> --> <!-- /.right_col -->
+			
+	  </div> <!-- /.col_50_50 -->
+	
+	 <hr class="wide" />
+	 <br />
+	   
+	 
+	<!-- Contenido de la barra lateral, es decir al lado cuadro de bienvenida
+		 de forma que muestra el muro público con las principales 
+		 funcionalidades la red social) -->
+	<% content_for :sidebar do %>
+	
+	   <div class="portlet portletI" id="potlet_publicContinuum">
+	     <!--<h2><span><%= I18n.t("tog_core.views.home.index.características") %>...</span></h2>-->
+	     <div class="portlet_content">
+	       <ul>
+	       	<!-- imagen para la cuenta -->
+			<li class= "clearfix">
+			   <div class= "image">
+	             <img src="/images/small_default_profile.png?" alt="Mi Cuenta">
+			   </div>  
+			   <div class = "text"><a></a>
+			     Conéctate, comparte y sigue a las Pymes que te interesen.
+				 Estate informado sobre Pymes o personas del mismo sector
+			   </div>
+			</li>
+			 <!-- imagen para grupos -->
+			 <li class= "clearfix">
+			 	<div class= "image">
+	              <img src="/images/busqueda.png?" alt="Buscar">
+			    </div>
+			    <div class = "text"><a></a>
+				  Encuentra lo que buscas sobre las Pymes.
+			    </div>			 
+			 </li>
+			 <!-- imagen para los mensajes -->
+			 <li class= "clearfix">
+			   <div class= "image">
+	             <img src="/images/email.png?" alt="Buzón de mensajes">
+			   </div>
+			   <div class = "text"><a></a>
+			     Accede a tu propio buzón de mensajes
+			   </div>			 
+			 </li>
+	         <li class= "clearfix">
+	           <div class= "image">
+			     <img src="/images/default_event_icon.png?" alt="Eventos">
+			   </div>
+			   <div class = "text"><a></a>
+			     Mantente informado sobre los eventos relacionados con tu Pyme y ve quién asiste y cuándo.
+			   </div>
+			 </li>
+	       </ul>
+	     </div>
+	   </div> <!-- /#potlet_featuredPosts -->
+	
+	   <br />
+	   
+	 	<!-- Muestra por pantalla nuevos plugins a descubrir
+	    <div class="portlet portletJ" id="portlet_pluginsTog">
+	        <h2><span><%= I18n.t("tog_core.views.home.index.discover_more_plugins_for_tog") %> </span></h2>
+	        <div class="portlet_content">
+	            <ul>
+	                <li class="clearfix">
+	                    <div class="image"><img src="/tog_core/images/promotion.png" alt="" /></div>
+	                    <div class="title">Picto</div>
+	                    <div class="text">
+	                        <%= I18n.t("tog_core.views.home.index.picto_explanation") %>
+	                    </div>
+	                    <div class="more"><a href="http://www.toghq.com/tog_plugins/4-tog_picto"><strong><%= I18n.t("tog_core.views.home.index.see_more") %> »</strong></a></div>
+	                </li>
+	                <li class="clearfix">
+	                    <div class="title">Vault</div>
+	                    <div class="text">
+	                        <%= I18n.t("tog_core.views.home.index.vault_explanation") %>
+	                    </div>
+	                    <div class="more"><a href="http://www.toghq.com/tog_plugins/7-tog_vault"><strong><%= I18n.t("tog_core.views.home.index.see_more") %> »</strong></a></div>
+	                </li>
+	                <li class="last clearfix">
+	                    <div class="title">Conversatio</div>
+	                    <div class="text">
+	                        <%= I18n.t("tog_core.views.home.index.conversatio_explanation") %>
+	                    </div>
+	                    <div class="more"><a href="http://www.toghq.com/tog_plugins/2-tog_conversatio"><strong><%= I18n.t("tog_core.views.home.index.see_more") %> »</strong></a></div>
+	                </li>
+	            </ul>
+	        </div>
+	    </div>
+		-->
+  
+  <%end%>
+<% end %>
