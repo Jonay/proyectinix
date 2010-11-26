@@ -1,0 +1,79 @@
+es:
+  interface:
+    admin:
+      forums: Foros
+    member:
+      forums: Foros
+    site:
+      forums: Foros
+      forum: Foro
+      topic: Tema
+      posts: Posts
+  tog_forum:
+    plugin_title: Foros
+    site:
+      no_forums: Aún no hay foros.
+      create_topic: Añadir tema
+      post_topic: Guardar tema
+    admin:
+      create_forum: Crear foro
+      forum_details: Detalles
+      save: Guardar
+      edit: Editar
+      delete: Borrar
+      delete_confirmation: ¿De verdad quieres borrar este foro?
+      forum_created: El foro se ha creado con éxito
+      forum_deleted: El foro se ha eliminado con éxito
+      no_forums: No hay foros creados en la Red Social
+    member:
+      create_forum: Crear foro
+      forum_details: Detalles
+      save: Guardar
+      edit: Editar
+      delete: Borrar
+      delete_confirmation: ¿De verdad quieres borrar este foro?
+      forum_created: El foro se ha creado con éxito
+      forum_deleted: El foro se ha eliminado con éxito
+      no_forums: No has creado ningún foro
+    model:
+      title: Título
+      write_title: Indique título del foro a crear.
+      select_for_who: Seleccione para quién desea crear el foro.
+      for_who: Para quién desea crear el foro
+      select: Seleccionar
+      my_groups: Mis grupos
+      topics: Temas
+      body: Cuerpo
+      sticky: Destacado
+      locked: Bloqueado
+      last_post: Último post
+    views:
+      forums:
+        title: "Foro {{forum_title}}"
+        topics: "Temas del foro {{forum_title}}"
+      topics:
+        add_topic_to_forum: "Foro {{forum_title}}: Añadir tema"
+        topic_details: Detalles
+        save_topic: Guardar tema
+        wait: Por favor espere...
+        edit_topic: Editar tema
+        topic_posted: Tema {{topic_id}} publicado por {{user}} el {{dtime}}
+        posted: Post {{post_id}} publicado por {{user}} el {{dtime}}
+        created: Tema creado con éxito
+        topic_and_post_created: Tema y post creados con éxito
+        no_topic_created: "Ha ocurrido un error al crear el tema: {{error}}"
+        updated: Tema actualizado con éxito
+        no_topics: "No hay temas en el foro {{forum_title}}."
+        remove: Eliminar
+      posts:
+        replies: Respuestas
+        no_replies: No hay respuestas
+        add_reply: Responder
+        post_message: Crear respuesta
+        reply: Responder
+        remove: Eliminar
+        only_registered_users: Sólo los usuarios registrados pueden escribir en este foro        
+        no_post_created: "Ha ocurrido un error al crear el post: {{error}}"
+        edit_post: Editar post
+        created: Post creado con éxito
+        updated: Post actualizado con éxito

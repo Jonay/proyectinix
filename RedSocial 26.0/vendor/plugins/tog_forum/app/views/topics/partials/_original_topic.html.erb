@@ -1,0 +1,36 @@
+<table class="tableB">
+  <thead>
+    <tr class="pair original_message">
+			<th class="col_80_20">
+				<span class="left_col">
+					<%= I18n.t('tog_forum.views.topics.topic_posted',
+								 		 :topic_id => (@topic.id),   
+										 :user => link_to(original_topic.user.login, profile_path(original_topic.poster_profile)),
+										 :dtime => I18n.l(original_topic.created_at, :format => :long)) %>
+				</span>
+				<!--Añadimos la opción de editar el tema, esta funcionalidad 
+				solo podrá ejecutarla el creador del tema. Cuando la ejecuta 
+				va a la vista edit.html.erb, allí podrá editar el tema o eliminarlo.-->
+				<span class="right_col">
+					<% if current_user && current_user == original_topic.user %>
+						<%= link_to I18n.t('tog_forum.views.topics.edit_topic'), edit_forum_topic_path(original_topic.forum.id, original_topic.id), :class => 'button' %>
+					<% end %>
+				</span>
+			</th>
+    </tr>
+  </thead>
+  <tr>
+		<td class="col_80_20">
+			<div class="col_80_20">
+				<%= original_topic.body %>
+			</div>
+
+			<!--
+			<div class="right_col">
+				<%= render :partial => 'shared/voting', :locals => { :voteable => original_topic } %>
+			</div>
+			-->
+		</td>
+  </tr>
+
+</table>
