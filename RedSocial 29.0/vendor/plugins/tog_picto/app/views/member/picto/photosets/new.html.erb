@@ -1,0 +1,51 @@
+<% content_for :sidebar do %>
+  <%= link_to I18n.t("tog_picto.member.sidebar.upload_more_photos"),  new_member_picto_photo_url, { :class => "add", :title => I18n.t("tog_picto.member.sidebar.upload_new_images") } %>
+<br/>
+  <%= link_to I18n.t("tog_picto.member.sidebar.your_photosets"), member_picto_photosets_url %>
+<% end %>
+
+
+<div class="titleB"><%= I18n.t("tog_picto.member.photosets.new.new_photoset") %></div>
+<br />
+
+<%= error_messages_for :photoset %>
+
+<% form_for :photoset, :url => member_picto_photosets_path, :html => {:id => "settings", :method => "post"} do |f| -%>
+
+  <fieldset>
+    <div class="fields">
+       <p><label><%= I18n.t("tog_picto.member.photosets.new.title") %></label> <%= f.text_field :title, {:class => "fieldbox", :size => "40"} %></p>
+
+       <p><label for="photoset_id_referencia"><%= I18n.t('tog_picto.member.photosets.new.for_who') %></label>
+	     <select name="photoset[id_referencia]" id="id_referencia" class="fieldbox">
+		   <option value="">
+	         <%= I18n.t('tog_picto.member.photosets.new.select') %>
+	       </option>
+		   <option value="Para mi">
+	         Para mi
+	       </option>
+		   <optgroup label="<%= I18n.t('tog_picto.member.photosets.new.my_groups') %>">
+			 <%= options_from_collection_for_select(current_user.groups, "id", "name")%>
+		   </optgroup>
+		</select>	
+	  </p>
+	   
+	   <p><label><%= I18n.t("tog_picto.member.photosets.new.description") %></label> <%= f.text_area :description, :size => '40x4' %></p>
+
+       <p><label><%= I18n.t("tog_picto.member.photosets.new.tags_separated_by") %></label> <%= f.text_field :tag_list, {:class => "fieldbox", :size => "40"} %></p>
+
+	   <!--
+       <p>
+       	<label><%= I18n.t("tog_picto.member.photosets.new.privacy") %></label>
+		<%= f.check_box :privacy %>
+		<span class="helpinfo"><%= I18n.t("tog_picto.member.photosets.new.private_help") %></span>
+	   </p>
+	   -->
+	   
+    </div>
+  </fieldset>
+  <br />
+  <div class="actions">
+    <%= submit_tag I18n.t("tog_picto.member.photosets.new.create_photoset"), :class => "button mainaction" %>
+  </div>
+<% end -%>

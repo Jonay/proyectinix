@@ -1,0 +1,54 @@
+<h2><span><%= I18n.t('tog_social.groups.member.invitation.manage_invitations', :group_name => @group.name) %> </span></h2>
+	<%id = @group.id%>
+	  <!--Seleccionar que usuario quiero añadir como miembro de mi clúster-->
+      <% form_for :membership, :url => member_group_invite_path(id) do |f| %>
+          <select name="membership[user_id]" id="membership_user_id" class="fieldbox">
+            <option value="0">
+              <%= I18n.t('tog_social.groups.member.invitation.select') %>
+            </option>
+            <optgroup label="<%= I18n.t('tog_social.groups.member.invitation.responsibles') %>">
+               <%= options_from_collection_for_select(current_user.profile.friends, "user_id", "full_name") %>
+            </optgroup>
+            <optgroup label="<%= I18n.t('tog_social.groups.member.invitation.followers') %>">
+               <%= options_from_collection_for_select(current_user.profile.followers, "user_id", "full_name") %>
+            </optgroup>
+            <optgroup label="<%= I18n.t('tog_social.groups.member.invitation.followings') %>">
+               <%= options_from_collection_for_select(current_user.profile.followings, "user_id", "full_name") %>
+            </optgroup>
+         </select>
+         <%= submit_tag I18n.t('tog_social.groups.member.invitation.invite'), {:accesskey => "s", :class=>"button mainaction"} %>
+      <% end %>
+  
+<br/>
+
+<!-- Buscamos los miembros del grupo para paginarlos posteriormente en una tabla 
+     con el nombre de usuario y su estado en el grupo(activo, pending, invited)-->
+<%@memberships = @group.memberships.paginate :per_page => Tog::Config['plugins.tog_core.pagination_size'], :page => params[:page] -%>
+
+<h3><span><%= I18n.t('tog_social.groups.member.invitation.invitations_state') %> </span></h3>
+<table class="tableB">
+  <thead>
+      <tr>
+      <th scope="col"><%= I18n.t('tog_social.groups.member.invitation.name') %></th>
+      <th scope="col"><%= I18n.t('tog_social.groups.member.invitation.state') %></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="4" class="info_results">
+        <span class="info_items"><%= page_entries_info @memberships, :entry_name => I18n.t('tog_social.groups.member.invitation.invitations') %></span>
+        <span class="pages_navigation right">
+          <%= will_paginate @memberships, :container => false %>
+        </span>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @memberships.each do |membership|%>
+    <tr<%= cycle(' class="pair"', '') -%>>
+      <td><%= membership.user.profile.full_name %></td>
+      <td><%= membership.state %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

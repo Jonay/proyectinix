@@ -1,0 +1,34 @@
+<div class="titleB"><%= I18n.t('tog_conversatio.views.admin.posts.index.posts_in_blog', :blog_title => @blog.title)%></div>
+
+<table class="tableE">
+  <thead>
+    <tr>
+      <th scope="col"><%= I18n.t('tog_conversatio.views.admin.posts.index.title') %></th>
+      <th scope="col"><%= I18n.t('tog_conversatio.views.admin.posts.index.status') %></th>
+      <th scope="col"><%= I18n.t('tog_conversatio.views.admin.posts.index.created_at') %></th>
+	  <th scope="col"><%= I18n.t('tog_conversatio.views.admin.posts.index.remove') %></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="4" class="info_results">
+        <span class="info_items"><%= page_entries_info @posts, :entry_name => I18n.t('tog_conversatio.views.admin.posts.index.post') %></span>
+        <span class="pages_navigation right">
+          <%= will_paginate @posts, :container => false %>
+        </span>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% for post in @posts %>
+    <tr<%= cycle(' class="pair"', '') -%>>
+      <td><%= link_to post.title, conversatio_blog_post_path(@blog, post) %></td>
+      <td><%= post.state %></td>
+      <td><%= post.creation_date %></td>
+	  <td align="center">
+	    <img src="/tog_core/images/ico/delete.gif?" title="Eliminar este post">&nbsp;<%= link_to(I18n.t('tog_conversatio.views.admin.posts.index.remove'), admin_conversatio_blog_post_path(@blog, post), :confirm => I18n.t("tog_conversatio.views.admin.posts.index.remove_post_confirmation"), :method => :delete) %>
+	  </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

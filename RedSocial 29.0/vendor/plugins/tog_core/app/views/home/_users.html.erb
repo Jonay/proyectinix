@@ -1,0 +1,41 @@
+<!--Portlet para mostrar los users de la Red Social-->
+<div class="portlet portletL" id="portlet_users">
+    <h2><span><%= I18n.t('tog_core.views.home.index.users') %></span></h2>
+	<!--Buscamos todos los users de la Red Social-->
+	<%@users= User.find(:all,:conditions => ["state = ?", 'active'],:order => 'created_at desc') -%>
+	
+    <%@order = params[:order] || 'created_at'
+      @page = params[:user_page]
+      @asc = params[:asc] || 'desc'    
+      @users = @users.paginate  :per_page => 2,
+                                :page => @page,
+                                :order => @order + " " + @asc %>
+	
+	<div class="portlet_content">
+        <ul>
+        	<!--Si hay users-->
+        	<% if @users.length > 0 %>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al user y su nombre-->
+              <% @users.each do |user| -%>
+                <li class="clearfix">
+              	  <div class="image left"><%=link_to icon_for_profile(user.profile, 'small'), profile_path(user.profile), :title => user.profile.full_name%></div>
+  				  <div class="title"><%= link_to user.profile.full_name, profile_path(user.profile) %></div>
+				</li> 
+              <% end -%>
+			  <!--Paginamos los users en el el portlet-->
+			  <span class="pages_navigation left">
+			  	<%= will_paginate @users, :param_name => 'user_page' %>
+			  </span>  		
+			  <!--Link para ver todos los users de la Red Social-->
+			  <div class="image right"><%= link_to I18n.t('tog_core.views.home.index.view_all_users'), profiles_path %></div>	  
+			<!--sino había users lo indicamos mediante un mensaje.-->
+			<% else -%>
+			  <li class="clearfix">
+			    <%= I18n.t('tog_core.views.home.index.no_users') %>
+			  </li>
+			<% end -%>   
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_users -->
+
+						   

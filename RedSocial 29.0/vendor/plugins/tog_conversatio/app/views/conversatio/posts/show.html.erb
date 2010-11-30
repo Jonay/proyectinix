@@ -1,0 +1,20 @@
+<% include_autodiscovery(:atom, conversatio_blog_url(@blog, :format => :atom), :title => @blog.title) %>
+
+<div class="detail detail1">
+  <h1><%= link_to @blog.title, conversatio_blog_path(@blog) -%> / <%= sanitize @post.title %></h1>
+  <div class="subtitle"><%= I18n.t('tog_conversatio.views.posts.show.posted', :time => time_ago_in_words(@post.published_at)) %></div>
+  <div class="summary"><%= render :partial => 'tags', :locals => { :post => @post } %></div>
+  <div class="text"><%= sanitize(textilize(@post.body), :tags => (Tog::Plugins.settings :tog_core, 'sanitized.allowed_tags').split, :attributes => (Tog::Plugins.settings :tog_core, 'sanitized.allowed_attributes').split) %></div>
+  <br/>
+  <!--Mostramos los comentarios del blog-->
+  <%= render :partial => "shared/comments", :locals => { :commentable => @post } %>
+</div>
+
+<% content_for :sidebar do %>
+  <%= render :partial => 'member/conversatio/blogs/manage', :locals => {:blog => @blog} %>
+  <br/>
+  <%= render :partial => '/conversatio/blogs/tag_cloud_single_blog', :locals => { :blog => @blog } %>
+  <br/>
+  <%= render :partial => '/conversatio/blogs/archive' %>
+<% end %>
+

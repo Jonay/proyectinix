@@ -1,0 +1,20 @@
+<!--mostramos el título del foro-->
+<h2 class="clearfix"><span><%= I18n.t('tog_forum.views.forums.title', :forum_title => @forum.title) %></span></h2>
+
+<!--restringimos la creación de los temas de un foro siempre que el usuario actual sea el creador del foro-->
+<% if (@forum and @forum.user and current_user == @forum.user)%>
+  <p><%= link_to I18n.t('tog_forum.site.create_topic'), new_forum_topic_path(@forum), :class => 'button add' %></p>
+<% end %>
+
+<!--si hay temas los paginamos, sino mostramos un mensaje indicando que no hay temas en el foro-->
+<div class="portlet portletB" id="topics_list">
+  <div class="portlet_content">
+    <table class="tableB" id="topics_paginated">
+      <% if @topics.length > 0 %>
+        <%= render :partial => "/forums/partials/topics_paginated" %>
+	  <% else %>
+	    <%= I18n.t('tog_forum.views.topics.no_topics', :forum_title => @forum.title) %>
+      <% end %>
+    </table>
+  </div>    
+</div>
