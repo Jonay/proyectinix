@@ -1,0 +1,36 @@
+<h1><%= link_to I18n.t("tog_conversatio.views.admin.blogs.index.title"), admin_conversatio_blogs_path%> / <%=  @blog.title -%></h1>
+
+<p>
+ 
+  <%= link_to I18n.t("tog_conversatio.views.admin.blogs.index.remove_blog"), admin_conversatio_blog_path(@blog), :confirm => I18n.t("tog_conversatio.views.admin.blogs.index.remove_confirmation"), :method => :delete, :class => "button delete" %>
+
+</p>
+
+<br/>
+
+
+<table class="tableE">
+  <caption><%= I18n.t("tog_conversatio.views.admin.blogs.index.blog_details") %></caption>
+  <tbody>
+    <tr><th scope="row"><%= I18n.t("tog_conversatio.views.admin.blogs.index.blog_title") %></th><td><%=@blog.title%></td></tr>
+    <tr><th scope="row"><%= I18n.t("tog_conversatio.views.admin.blogs.index.blog_created_by") %></th><td><%= link_to @blog.author.profile.full_name, edit_admin_user_path(@blog.author) %></td></tr>
+    <tr><th scope="row"><%= I18n.t("tog_conversatio.views.admin.blogs.index.blog_created_at") %></th><td><%=@blog.creation_date%></td></tr>
+  </tbody>
+</table>
+
+<table class="tableE">
+  <caption><%= I18n.t("tog_conversatio.views.admin.blogs.index.blog_bloggerships") %></caption>
+  <tbody>
+    <tr><th scope="row"><%= I18n.t("tog_conversatio.views.admin.blogs.index.bloggerships") %></th>
+      <td>
+        <%= @blog.bloggerships.size %>
+        <br/>
+        <% for member in @blog.bloggerships %>
+          <li><%= link_to member.user.profile.full_name, edit_admin_user_path(member) %> (<%= member.user.profile.full_name %>)</li>
+        <% end %>
+      </td>
+   </tr>
+ </tbody>
+</table>
+
+<br />

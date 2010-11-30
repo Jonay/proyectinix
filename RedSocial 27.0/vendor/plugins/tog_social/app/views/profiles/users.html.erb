@@ -1,0 +1,42 @@
+<!--Vista en la que mostramos los Usuardios de la RS que no son organizaciones-->
+<h1 class="clearfix"><span><%= I18n.t("tog_social.profiles.site.title_users") %></span></h1>
+
+<!--Buscamos los usuarios y mostramos su nombre, email y tlf de contacto paginándolos en un listado.-->
+<div class="portlet portletL" id="users_list">
+  <h2><span><%= I18n.t('tog_social.profiles.site.users') %></span></h2>
+  	
+	<%@usuarios = User.find(:all, :conditions => {:es_pyme => 'Usuario'}) -%>
+	<%@order = params[:order] || 'created_at'
+      @page = params[:usuario_page]
+      @asc = params[:asc] || 'desc'    
+      @usuarios = @usuarios.paginate  :per_page => 20,
+                                	  :page => @page,
+                                	  :order => @order + " " + @asc %>
+	
+    <div class="portlet_content">
+        <ul>
+          <% if @usuarios.length > 0 %>
+            <% @usuarios.each do |user|%>
+              <li class="clearfix">
+                <div class="image left"><%=link_to icon_for_profile(user.profile, 'medium'), profile_path(user.profile), :title => user.profile.full_name %></div>
+			    <% if user.profile.first_name?%>
+			      <p><%= user.profile.full_name%></p>
+			    <% end %>
+				<% if user.profile.contact_email?%>
+			      <p>Email: <%= user.profile.contact_email%></p>
+			    <% end %>
+			    <% if user.profile.tlf?%>
+			      <p>Teléfono: <%= user.profile.tlf%></p>
+			    <% end %>
+			  </li>
+            <%end%>
+		    <!--Paginamos los usuarios en el el portlet-->
+		    <span class="pages_navigation left">
+			  <%= will_paginate @usuarios, :param_name => 'usuario_page' %>
+		    </span> 
+          <% else %>
+		    <li>No hay usuarios registrados en la Red Social.</li>
+		  <% end %>
+      </ul>
+    </div>    
+</div>

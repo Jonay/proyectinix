@@ -1,0 +1,17 @@
+<div class="portlet portletJ" id="portlet_pluginsTog">
+  <h2><span><%= I18n.t('tog_conversatio.views.blogs.tag_cloud_single_blog.tags_on_blog', :blog_title => blog.title) %></span></h2>
+  <div class="portlet_content">
+    
+      <% tag_cloud_posts(%w(l1 l2 l3 l4 l5)) do |tag, css_class| %>
+	  	<!--Buscamos la etiqueta actual y buscamos los posts etiquetados con esa etiqueta-->
+        <% @tag  =  Tag.find(tag)%>
+   	    <% @cuenta = Post.published.find_tagged_with(@tag)%>
+        
+          <!--mostramos la etiqueta y el número de veces que aparece esa etiqueta en los posts-->
+          <img src="/tog_core/images/ico/tag.gif"> <%= link_to tag.name, tag_conversatio_blog_posts_path(blog, tag.name) %> (<%= @cuenta.length -%>), 
+        
+      <% end %>
+    
+  </div>
+</div>
+<!-- /.portlet_pluginsTog -->

@@ -1,0 +1,36 @@
+<h2><span><%= I18n.t('tog_conversatio.views.admin.blogs.index.title') %></span></h2>
+<p><%= link_to I18n.t('tog_conversatio.views.member.blogs.index.create_your_blog'), new_member_conversatio_blog_path, :class => 'button add' %></p> 
+
+
+<table class="tableE">
+  <thead>
+      <tr>
+      <th scope="col"><%= I18n.t('tog_conversatio.views.admin.blogs.index.blog_title') %></th>
+      <th scope="col"><%= I18n.t('tog_conversatio.views.admin.blogs.index.blog_posts') %></th>
+      <th scope="col"><%= I18n.t('tog_conversatio.views.admin.blogs.index.blog_created_at') %></th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="4" class="info_results">
+        <span class="info_items"><%= page_entries_info @blogs, :entry_name =>  I18n.t('tog_conversatio.views.admin.blogs.index.blogs') %></span>
+        <span class="pages_navigation right">
+          <%= will_paginate @blogs, :container => false %>
+        </span>
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% for blog in @blogs %>
+    <tr<%= cycle(' class="pair"', '') -%>>
+      <td><%= link_to blog.title, edit_admin_conversatio_blog_path(blog) %></td>
+      <td><%= link_to "##{blog.posts.size}", admin_conversatio_blog_posts_path(blog) %></td>
+      <td><%= blog.creation_date %></td>
+      <td>
+        &nbsp;<img src="/tog_core/images/ico/delete.gif?" title="Eliminar este blog">&nbsp;<%= link_to(I18n.t('tog_conversatio.views.admin.blogs.index.remove'), admin_conversatio_blog_url(blog), :confirm => I18n.t("tog_conversatio.views.admin.blogs.index.remove_confirmation"), :method => :delete) %>
+	  </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

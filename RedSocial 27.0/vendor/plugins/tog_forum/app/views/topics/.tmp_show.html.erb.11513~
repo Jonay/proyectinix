@@ -1,0 +1,59 @@
+<h2 class="clearfix"><span><%= I18n.t('tog_forum.views.forums.title', :forum_title => link_to(@forum.title, forum_path(@forum))) %>: <%= @topic.title %></span></h2>
+
+
+<div class="portlet portletB clearfix" id="topic_posts_list">
+  <div class="detail detail1" style="clear: both; width: 100%;">
+    <div>
+      <!-- <div id="ratings_graph_box" class="clearfix" style="margin-bottom: 20px;">
+			</div> -->
+
+      <%= render :partial => "/topics/partials/original_topic", :object => @topic %>
+      <br />
+
+      <%= render :partial => "/topics/partials/highlighted_post", :object => @highlighted_post unless @highlighted_post.blank? %>
+      <br />
+      
+      <h3><%= I18n.t('tog_forum.views.posts.replies') %></h3>
+      
+
+      <table class="tableB">
+        <% if @posts.blank? %>
+          <tr>
+             <td colspan="2"><%= I18n.t('tog_forum.views.posts.no_replies') %></td>
+          </tr>
+        <% else %>
+          <tfoot>
+            <tr>
+              <td colspan="2" class="info_results">
+                <span class="info_items"><%= page_entries_info @posts, :entry_name => "post" %></span>
+                <span class="pages_navigation right">
+                  <%= will_paginate @posts, :container => false %>
+                </span>
+              </td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <%= render :partial => "/topics/partials/post", :collection => @posts %>
+          </tbody>
+        <% end %>
+      </table>
+
+			<% unless @topic.locked? %>
+				<h3><%= I18n.t('tog_forum.views.posts.add_reply') %></h3>
+
+				<% if logged_in? %>
+					<% form_for :post, :url => {:controller=>"posts", :action=>"create", :forum_id => @forum, :topic_id => @topic } do |f| %>
+						<p>
+							<%= f.text_area :body, :class => 'fieldbox', :size => '90x10' %>
+						</p>            
+						<div class="actions">
+							<%= submit_tag I18n.t('tog_forum.views.posts.post_message'), {:class=>"button mainaction"} %>
+						</div>
+					<% end %>
+				<% else %>
+					<%= I18n.t('tog_forum.views.posts.only_registered_users') %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>

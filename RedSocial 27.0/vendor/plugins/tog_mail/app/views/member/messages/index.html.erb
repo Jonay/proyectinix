@@ -1,0 +1,97 @@
+<!--Tenemos 2 funciones javascript, una que se encarga de seleccionar todos los “checkbox” y la otra función
+ 	que se encarga de verificar si permanece seleccionado nuestro checkbox que selecciona “todos”:-->
+
+<script type="text/javascript">
+
+  function checkElements(form, elementAll, elementToCheck) {  
+	var form, checkbox = form.elements[elementToCheck];  
+		totalElements = checkbox.length;  
+		checkboxAll = form.elements[elementAll];  
+  
+	for(var n=0; n<totalElements; n++) {  
+	  checkbox[n].checked = checkboxAll.checked;  
+	}  
+  }  
+  
+  function checkElementAll(form, elementAll, elementCheck) {  
+	var form, counter=0;  
+		checkbox = form.elements[elementCheck];  
+		checkboxAll = form.elements[elementAll];  
+		totalElements = checkbox.length;  
+ 
+	for(var n=0; n<totalElements; n++) {  
+	  if (checkbox[n].checked == true) counter++;  
+	}  
+	if (totalElements > counter)  
+	  checkboxAll.checked = false;  
+	else  
+	  checkboxAll.checked = true;  
+  }  
+
+</script>
+
+
+<h2><%= I18n.t("tog_mail.plugin_name") %></h2>
+<h3>
+<% for folder in @folder.siblings  %>
+   <%= link_to folder.name, {:controller=>"messages",:action=>"index",:id=>folder.id} -%> (<%= folder.messages.unread.count%>) |
+<% end %>
+<%= link_to I18n.t("tog_mail.member.create_new_message"),  new_member_message_url, {:class => "button mainaction add", :title => I18n.t("tog_mail.member.compose_new_message")} %>
+</h3>
+
+<% form_tag member_remove_messages_path(@messages), :method => :delete do -%>
+ <table class="tableB">
+  <thead>
+    <tr>
+      <th scope="col"><input type="checkbox" name="selecciona_todos" onclick="checkElements(this.form, this.name, 'messages[]')" /><label><img src="/tog_core/images/ico/arrow-down.gif?" title="Todos"></label></th>
+      <th scope="col"><%= I18n.t("tog_mail.model.subject") %></th>
+      <th scope="col"><%= I18n.t("tog_mail.model.from") %></th>
+      <th scope="col"><%= I18n.t("tog_mail.model.to") %></th>
+      <th scope="col"><%= I18n.t("tog_mail.model.when") %></th>
+	  <th scope="col">Eliminar</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="4" class="info_results">
+        <span class="info_items"><%= page_entries_info @messages, :entry_name =>  I18n.t('tog_mail.member.messages') %></span>
+        <span class="pages_navigation right">
+          <%= will_paginate @messages, :container => false  %>
+        </span> 
+      </td>
+	  <td colspan="4" class="info_results"></td>
+    </tr>
+  </tfoot>
+  <tbody>
+  <% for msg in @messages %>
+    <tr<%= cycle(' class="pair"','') -%>>
+       <% cont = link_to msg.subject, member_message_path(:id => msg) %>
+	   <td><input type="checkbox" name="messages[]" value="" onclick="checkElementAll(this.form, 'selecciona_todos', this.name)" /></td>
+       <td><%=  msg.unread? ? content_tag(:strong, cont) : cont %></td>
+       <td><%= (msg.from != current_user ) ? msg.from.login : I18n.t("tog_mail.member.you") %></td>
+       <td><%= (msg.to != current_user ) ? msg.to.login : I18n.t("tog_mail.member.you") %></td>
+       <td><%= msg.date %></td>
+	   <td align="center">
+	   	 <% form_for :message, :url => member_remove_message_path(msg), :method => :delete do -%>
+	   	   <%= submit_tag I18n.t("tog_mail.member.delete"), :type => "image", :src =>"/tog_core/images/ico/delete.gif" %>
+		 <% end -%>
+	   </td>
+    </tr>
+  <%end%>
+  <% if @messages.blank? %>
+    <tr>
+       <td colspan="4"><%= I18n.t("tog_mail.member.no_messages") %></td>
+    </tr>
+  <% end %>
+  <tbody>
+ </table>
+ 
+ <script type="text/javascript">
+   mensajes_seleccionados = $('.messages').length
+ </script>
+ 
+ <br />
+ <div class="actions">
+   <%= link_to I18n.t("tog_mail.member.remove_all_selected_messages"), member_remove_messages_path(msg), :confirm => I18n.t("tog_mail.member.delete_confirmation"), :method => :delete, :class => "button delete" %>
+ </div>
+<% end -%>
