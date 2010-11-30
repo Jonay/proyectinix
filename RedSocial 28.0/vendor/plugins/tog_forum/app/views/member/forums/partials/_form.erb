@@ -1,0 +1,27 @@
+<table class="tableE">
+  <caption><%= I18n.t("tog_forum.member.forum_details") %></caption>
+  <tbody>
+  <tr>
+      <th scope="row"><%= I18n.t("tog_forum.model.title") %></th>
+      <td nowrap="nowrap"><%=f.text_field :title, :class=>"fieldbox" %></td>
+  </tr>
+  
+   <tr>
+      <th scope="row"><%= I18n.t("tog_forum.model.for_who") %></th>
+      <td nowrap="nowrap">
+        <p><label for="forum_id_referencia"></label>
+		  <select name="forum[id_referencia]" id="id_referencia" class="fieldbox">
+		    <option value="">
+	          <%= I18n.t('tog_forum.model.select') %>
+	        </option>
+		  	<option value="Para mi">
+	          Para mi
+	        </option>
+			<optgroup label="<%= I18n.t('tog_forum.model.my_groups') %>">
+			  <%= options_from_collection_for_select(current_user.groups, "id", "name")%>
+			</optgroup>
+		  </select>	
+		</p>
+      </td>
+  </tr>       
+</tbody></table>

@@ -1,0 +1,8 @@
+<li class="clearfix">
+    <div class="image left"><%= image_tag event.icon.url :small %></div>
+    <%= link_to event.title, conclave_event_path(event), :title => event.title %>
+    <br/> 
+    <%= write_event_date(event) %> desde <%= event.starting_time %> hasta <%=event.ending_time %>
+	<div class="text">Lugar: <%= event.venue %></div>
+	<hr class="wide" />
+</li>

@@ -1,0 +1,19 @@
+<h3><%= I18n.t('tog_forum.views.posts.add_reply') %></h3>
+
+Respuesta al post <%= @id%>: <%= @body%>
+
+<% if logged_in? %>
+  <!--llamamos a la acción create_reply de posts_controller.rb pasándole el foro, el tema,
+  	  la id del post al que se va a responder así como su cuerpo-->
+  <% form_for :post, :url => {:controller=>"posts", :action=>"create_reply", :forum_id => @forum, :topic_id => @topic, :id_reply => @id, :body_reply => @body } do |f| %>
+	<p>
+      <%= f.text_area :body, :class => 'fieldbox', :size => '80x8' %>
+	</p>
+	
+	<div class="actions">
+      <%= submit_tag I18n.t('tog_forum.views.posts.post_message'), {:class=>"button mainaction"} %>
+	</div>
+  <% end %>
+<% else %>
+  <%= I18n.t('tog_forum.views.posts.only_registered_users') %>
+<% end %>

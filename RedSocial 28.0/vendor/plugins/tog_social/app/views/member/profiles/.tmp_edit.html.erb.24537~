@@ -1,0 +1,283 @@
+<div class="titleB"><%= I18n.t('tog_social.profiles.member.update_profile') %></div>
+<br />
+
+<%= error_messages_for :profile %>
+
+  <!--Comprobamos si se trata de un usuario que no tiene pyme(es_pyme == 'Usuario'),
+  en este caso para actualizar el perfil mostraríamos:
+  
+  - Nombre
+  - Apellidos
+  - Localidad
+  - Estudiante/Trabajador
+  - Web
+  - CV si desea 
+  - y una imagen para el perfil.
+  -->
+
+  <% if @current_user.es_pyme == 'Usuario' %>
+  	 
+	<% form_for :profile, :url => member_profile_path(@profile), :html => {:method => :put, :multipart=>true} do |f| -%>
+	  <fieldset>
+	    <legend><%= I18n.t('tog_social.profiles.member.profile_details') %></legend>
+	    <div class="fields">
+	      <!--Nombre del perfil-->
+	      <p>
+	        <label for="profile_first_name"><%= I18n.t('tog_social.profiles.model.first_name') %></label>
+	        <%= f.text_field :first_name, :class=>"fieldbox" %>
+	      </p>
+		  <!--Apellidos del perfil-->
+	      <p>
+	        <label for="profile_last_name"><%= I18n.t('tog_social.profiles.model.last_name') %></label>
+	        <%= f.text_field :last_name, :class=>"fieldbox" %>
+	      </p>
+		  
+		   <p>
+		  	<label for="profile_profession"><%= I18n.t('tog_social.profiles.model.profession') %></label>
+	        <%= f.text_field :profession, :class=>"fieldbox" %>
+		  </p>
+		  
+		  <!--Lugar del usuario-->
+		  <p>
+		  	<label for="profile_place"><%= I18n.t('tog_social.profiles.model.place') %></label>
+			<select name="profile[place]" class="fieldbox">
+		  	  <option value="0">
+	            <%= I18n.t("tog_social.profiles.model.select_place") %>
+	          </option>
+			  <option value="Álava">Álava</option>
+			  <option value="Albacete">Albacete</option>
+			  <option value="Alicante">Alicante</option>
+			  <option value="Almería">Almería</option>
+			  <option value="Asturias">Asturias</option>
+			  <option value="Ávila">Ávila</option>
+			  <option value="Badajoz">Badajoz</option>
+			  <option value="Barcelona">Barcelona</option>
+			  <option value="Burgos">Burgos</option>
+			  <option value="Cáceres">Cáceres</option>
+			  <option value="Cádiz">Cádiz</option>
+			  <option value="Cantabria">Cantabria</option>
+			  <option value="Castellón">Castellón</option>
+			  <option value="Ciudad Real">Ciudad Real</option>
+			  <option value="Córdoba">Córdoba</option>
+			  <option value="Cuenca">Cuenca</option>
+			  <option value="Gerona">Gerona</option>
+			  <option value="Granada">Granada</option>
+			  <option value="Guadalajara">Guadalajara</option>
+			  <option value="Guipúzcua">Guipúzcua</option>
+			  <option value="Huelva">Huelva</option>
+			  <option value="Huesca">Huesca</option>
+			  <option value="Islas Baleares">Islas Baleares</option>
+			  <option value="Jaén">Jaén</option>
+			  <option value="La Coruña">La Coruña</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="León">León</option>
+			  <option value="Lérida">Lérida</option>
+			  <option value="Lugo">Lugo</option>
+			  <option value="Madrid">Madrid</option>
+			  <option value="Málaga">Málaga</option>
+			  <option value="Murcia">Murcia</option>
+			  <option value="Navarra">Navarra</option>
+			  <option value="Orense">Orense</option>
+			  <option value="Palencia">Palencia</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="Pontevedra">Pontevedra</option>
+			  <option value="La Rioja">La Rioja</option>
+			  <option value="Salamanca">Salamanca</option>
+			  <option value="Segovia">Segovia</option>
+			  <option value="Sevilla">Sevilla</option>
+			  <option value="Soria">Soria</option>
+			  <option value="Tarragona">Tarragona</option>
+			  <option value="Santa Cruz de Tenerife">Santa Cruz de Tenerife</option>
+			  <option value="Teruel">Teruel</option>
+			  <option value="Toledo">Toledo</option>
+			  <option value="Valencia">Valencia</option>
+			  <option value="Valladolid">Valladolid</option>
+			  <option value="Vizcaya">Vizcaya</option>
+			  <option value="Zamora">Zamora</option>
+			  <option value="Zaragoza">Zaragoza</option>
+			</select>	
+		  </p>
+		  
+		  <!--Web del usuario-->
+	      <p>
+	        <label for="profile_website"><%= I18n.t('tog_social.profiles.model.website') %></label>
+	        <%= f.text_field :website, :class=>"fieldbox wide" %>
+	      </p>
+		  <!--CV del usuario-->
+		  <p>
+	        <label for="profile_pdf_file_name"><%= I18n.t('tog_social.profiles.model.curriculum') %></label>
+	        <%=  file_field "profile", "pdf_file_name" %><br />
+			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.curriculum_help') %></span>
+	      </p>
+		  <!--Imagen del usuario-->
+	      <p>
+	        <label for="profile_icon"><%= I18n.t('tog_social.profiles.model.avatar') %></label>
+	        <%= icon_for_profile(@profile, 'big')%>
+	        <%= file_field "profile", "icon" %><br />
+	        <span class="helpinfo"><%= I18n.t('tog_social.profiles.model.avatar_help') %></span>
+	      </p>
+	    </div>
+	  </fieldset>
+	  
+	  <div class="actions">
+        <%= submit_tag I18n.t('tog_social.profiles.member.update_profile'), {:accesskey => "s", :class=>"button mainaction"} %>
+      </div>
+	  
+	<% end -%><!-- /.formulario del usuario -->
+
+	<!--Ahora se trata de un usuario que tiene pyme(es_pyme == 'true'),
+	   en este caso para actualizar el perfil mostraríamos:
+	   
+	   - Nombre de la empresa
+	   - Localidad
+	   - Direccion
+	   - Actividad de la empresa
+	   - Página Web
+	   - Catálogo de productos si desea 
+	   - y una imagen para el perfil de la empresa.
+	-->
+  
+  <% else -%>
+	
+	<% form_for :profile, :url => member_profile_path(@profile), :html => {:method => :put, :multipart=>true} do |f| -%>
+	  <fieldset>
+	    <legend><%= I18n.t('tog_social.profiles.member.profile_details') %></legend>
+	    <div class="fields">
+	      <!--Nombre de la empresa-->
+	      <p>
+	        <label for="profile_first_name"><%= I18n.t('tog_social.profiles.model.pyme_name') %></label>
+	        <%= f.text_field :first_name, :class=>"fieldbox wide" %>
+	      </p>
+
+		  <!--Provincia de la Pyme-->
+		  <p>
+		  	<label for="profile_place"><%= I18n.t('tog_social.profiles.model.pyme_place') %></label>
+			<select name="profile[place]" class="fieldbox">
+		  	  <option value="0">
+	            <%= I18n.t("tog_social.profiles.model.select_place") %>
+	          </option>
+			  <option value="Álava">Álava</option>
+			  <option value="Albacete">Albacete</option>
+			  <option value="Alicante">Alicante</option>
+			  <option value="Almería">Almería</option>
+			  <option value="Asturias">Asturias</option>
+			  <option value="Ávila">Ávila</option>
+			  <option value="Badajoz">Badajoz</option>
+			  <option value="Barcelona">Barcelona</option>
+			  <option value="Burgos">Burgos</option>
+			  <option value="Cáceres">Cáceres</option>
+			  <option value="Cádiz">Cádiz</option>
+			  <option value="Cantabria">Cantabria</option>
+			  <option value="Castellón">Castellón</option>
+			  <option value="Ciudad Real">Ciudad Real</option>
+			  <option value="Córdoba">Córdoba</option>
+			  <option value="Cuenca">Cuenca</option>
+			  <option value="Gerona">Gerona</option>
+			  <option value="Granada">Granada</option>
+			  <option value="Guadalajara">Guadalajara</option>
+			  <option value="Guipúzcua">Guipúzcua</option>
+			  <option value="Huelva">Huelva</option>
+			  <option value="Huesca">Huesca</option>
+			  <option value="Islas Baleares">Islas Baleares</option>
+			  <option value="Jaén">Jaén</option>
+			  <option value="La Coruña">La Coruña</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="León">León</option>
+			  <option value="Lérida">Lérida</option>
+			  <option value="Lugo">Lugo</option>
+			  <option value="Madrid">Madrid</option>
+			  <option value="Málaga">Málaga</option>
+			  <option value="Murcia">Murcia</option>
+			  <option value="Navarra">Navarra</option>
+			  <option value="Orense">Orense</option>
+			  <option value="Palencia">Palencia</option>
+			  <option value="Las Palmas">Las Palmas</option>
+			  <option value="Pontevedra">Pontevedra</option>
+			  <option value="La Rioja">La Rioja</option>
+			  <option value="Salamanca">Salamanca</option>
+			  <option value="Segovia">Segovia</option>
+			  <option value="Sevilla">Sevilla</option>
+			  <option value="Soria">Soria</option>
+			  <option value="Tarragona">Tarragona</option>
+			  <option value="Santa Cruz de Tenerife">Santa Cruz de Tenerife</option>
+			  <option value="Teruel">Teruel</option>
+			  <option value="Toledo">Toledo</option>
+			  <option value="Valencia">Valencia</option>
+			  <option value="Valladolid">Valladolid</option>
+			  <option value="Vizcaya">Vizcaya</option>
+			  <option value="Zamora">Zamora</option>
+			  <option value="Zaragoza">Zaragoza</option>
+			</select>	
+		  </p>
+		  
+		  <p>
+	        <label for="profile_direction"><%= I18n.t('tog_social.profiles.model.pyme_direction') %></label>
+	        <%= f.text_field :direction, :class=>"fieldbox wide" %>
+	      </p>
+		  
+		  <!--Actividad laboral de la Pyme-->
+		  <p>
+		  	<label for="profile_activity"><%= I18n.t('tog_social.profiles.model.activity') %></label>
+			<select name="profile[activity]" class="fieldbox">
+		  	  <option value="0">
+	            <%= I18n.t("tog_social.profiles.model.select_pyme_activity") %>
+	          </option>
+			  <option value="Administración Pública">Administración Pública</option>
+			  <option value="Agroalimentario">Agroalimentario</option>
+			  <option value="Banca y finanzas">Banca y finanzas</option>
+			  <option value="Construcción">Construcción</option>
+			  <option value="Consultoría y Abogados">Consultoría y Abogados</option>
+			  <option value="Diseño y artes gráficas">Diseño y artes gráficas</option>
+			  <option value="Distribución">Distribución</option>
+			  <option value="Energía">Energía</option>
+			  <option value="Farmacia">Farmacia</option>
+			  <option value="Industria">Industria</option>
+			  <option value="Inmobiliaria">Inmobiliaria</option>
+			  <option value="Medio Ambiente">Medio Ambiente</option>
+			  <option value="Motor">Motor</option>
+			  <option value="Publicidad y Marketing">Publicidad y Marketing</option>
+			  <option value="Restauración">Restauración</option>
+			  <option value="Salud y Belleza">Salud y Belleza</option>
+			  <option value="Sanidad">Sanidad</option>
+			  <option value="Seguros">Seguros</option>
+			  <option value="Servicios">Servicios</option>
+			  <option value="Tecnología">Tecnología</option>
+			  <option value="Informática y Telecomunicaciones">Informática y Telecomunicaciones</option>
+			  <option value="Textil, Moda y Confección">Textil, Moda y Confección</option>
+			  <option value="Transportes">Transportes</option>
+			  <option value="Turismo y Ocio">Turismo y Ocio</option>
+			  <option value="Otros">Otros</option>
+			</select>
+			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.activity_help') %></span>
+		  </p>
+		  <!--Web de la Pyme-->
+	      <p>
+	        <label for="profile_website"><%= I18n.t('tog_social.profiles.model.website') %></label>
+	        <%= f.text_field :website, :class=>"fieldbox wide" %>
+	      </p>
+		  <!--Catálogo de productos de la Pyme-->
+		  <p>
+	        <label for="profile_pdf_file_name"><%= I18n.t('tog_social.profiles.model.catalogue') %></label>
+	        <%=  file_field "profile", "pdf" %><br />
+			<span class="helpinfo"><%= I18n.t('tog_social.profiles.model.catalogue_help') %></span>
+	      </p>
+		  <!--Imagen de la Pyme -->
+	      <p>
+	        <label for="profile_icon"><%= I18n.t('tog_social.profiles.model.avatar') %></label>
+	        <%= icon_for_profile(@profile, 'big')%>
+	        <%= file_field "profile", "icon" %><br />
+	        <span class="helpinfo"><%= I18n.t('tog_social.profiles.model.avatar_help') %></span>
+	      </p>
+	    </div>
+	  </fieldset>
+	
+	<div class="actions">
+      <%= submit_tag I18n.t('tog_social.profiles.member.update_profile'), {:accesskey => "s", :class=>"button mainaction"} %>
+    </div>
+		
+	<% end -%><!-- /.formulario de la Pyme -->
+	
+  <% end -%>
+
+
+
