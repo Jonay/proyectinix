@@ -1,0 +1,41 @@
+<!--Portlet para mostrar los responsable del perfil actual-->
+<div class="portlet portletM" id="portlet_responsibles">
+	
+	<!--Buscamos el perfil que pasamos por parámetro-->
+	<% @profile = Profile.find(params[:id])%>
+	
+    <h2><span><%= I18n.t('tog_social.profiles.site.responsibles', :profile_full_name => @profile.full_name) %></span></h2>
+	
+	<!---->	
+    <%@order = params[:order] || 'created_at'
+      @page = params[:page] || '1'
+      @asc = params[:asc] || 'desc'    
+      @responsibles = @responsibles.paginate  :per_page => 5,
+                                			  :page => @page,
+                                			  :order => @order + " " + @asc %>
+								
+	<div class="portlet_content">
+        <ul>
+		  <!-- los recorremos todos y para cada uno mostramos nombre, email y teléfono-->
+          <%@responsibles.each do |r|%>
+			<li class="clearfix">
+			  <p><b>Nombre:</b> <%= r.responsible_name %></p>
+ 
+			  <p><b>Email:</b> <%= r.responsible_email %></p>
+	  	  	  	
+			  <p><b>Teléfono:</b> <%= r.responsible_tlf %></p>
+
+			  <!--Si el perfil actual soy yo entonces mostramos un enlace para editar cada responsable-->
+			  <% if its_me? -%>
+			    <div class="image right"><%= link_to I18n.t('tog_social.profiles.model.edit_responsible'), responsibles_profiles_path(r.id) %></div>
+			  <% end -%>
+			</li> 
+		  <% end%>
+		  <span class="pages_navigation right">
+		    <%= will_paginate @responsibles %>
+		  </span>
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_responsibles -->
+
+						   

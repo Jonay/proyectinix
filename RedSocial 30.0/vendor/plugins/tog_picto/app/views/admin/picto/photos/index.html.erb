@@ -1,0 +1,27 @@
+<h1 class="clearfix"><span><%= I18n.t("tog_picto.plugin_title") %></span></h1>
+
+<p><%= link_to I18n.t('tog_picto.member.photosets.new.create_a_new_photoset'),  new_member_picto_photoset_url, :class => "add button" %></p>
+
+<div class="portlet portletB">
+    <h2><span>Fotos</span></h2>
+    <div class="portlet_content">
+      <br />	
+      <% unless @photos.blank? %>
+        <% @photos.each do |photo| -%>
+		  <%= link_to image_tag(photo.image.url(:small)), edit_admin_picto_photo_path(photo), {:title => photo.title} %>
+          &nbsp
+	    <% end %>
+
+      <% else %>
+        No hay fotos.
+      <% end %>
+    </div>    
+</div>
+<% if !@photos.empty? %>
+	<div class="info_results">
+	    <span class="info_items"><%= page_entries_info @photos, :entry_name =>  I18n.t('tog_picto.admin.photos.index.photos') %></span>
+        <span class="pages_navigation right">
+          <%= will_paginate @photos, :container => false %>
+        </span>
+	</div>
+<%end%>
