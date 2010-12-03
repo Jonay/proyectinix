@@ -1,0 +1,3 @@
+class LoadError < ScriptError
+
+end

@@ -1,0 +1,52 @@
+<tr class="pair">
+	<td colspan="2" class="col_50_10">
+	  <div class="left_col">
+		<%= I18n.t('tog_forum.views.topics.posted',
+								 :post_id => (post.id),  
+								 :user => link_to(post.user.login, profile_path(post.poster_profile)),
+								 :dtime => I18n.l(post.created_at, :format => :long))
+ 
+        %>
+	  </div>
+		
+	  <!--Si el usuario actual es el creador del foro o es administrado le damos la opción de eliminar un post ofensivo-->	
+	  <% if (current_user && current_user == @forum.user)  || current_user.admin? %>
+		<div class="right_col">
+		  <% form_for :post, :url => forum_topic_post_path(post.topic.forum, post.topic, post), :html => {:method => :delete} do |f| %>
+		  	<div class="actions">
+			  <%= submit_tag I18n.t('tog_forum.views.posts.remove'), :disable_with => "Please wait...", :type => "image", :src =>"/tog_core/images/ico/delete.gif", :title => "¿Está seguro de querer eliminar este post?" %>Eliminar este post
+		  	</div>
+		  <% end %>
+		</div>
+	  <% end %>
+		
+		<!-- Quitamos la opción de editar un post.
+		<div class="right_col">
+			<% if current_user && current_user == post.user %>
+				<%= link_to I18n.t('tog_forum.views.posts.edit_post'), edit_forum_topic_post_path(post.topic.forum, post.topic, post), :class => 'button' %>
+			<% end %>
+		</div>
+		-->
+	</td>
+</tr>
+
+<!--mostramos el cuerpo del post-->
+<tr>
+  <td class="col_50_10">
+	<div class="col_50_10" align="justify">
+	  <%= post.body %>
+	  <p></p>
+	  
+	  <!--Añadimos la opción de responder a un post directamente pasándo como parámetros al foro,
+	  	  el tema, y la id y cuerpo del post al que se quiere responder-->	  
+	  <div class="right_col">	
+		<% form_for :post, :url => {:controller=>"posts", :action=>"reply", :forum_id => @forum, :topic_id => @topic, :post_body => post.body, :id => post.id } do |f| %>
+		  <div class="actions">
+			<%= submit_tag I18n.t('tog_forum.views.posts.reply'), {:class=>"button mainaction"} %>
+		  </div>
+		<% end %>
+	  </div>
+	</div>
+
+	</td>
+  </tr>

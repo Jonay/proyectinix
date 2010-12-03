@@ -1,0 +1,14 @@
+<!--Mostramos las fotos etiquetadas con la etiqueta actual-->
+<div class="portlet portletL" id="portlet_last_photos">
+  <h2><span><%= I18n.t("tog_picto.picto.photos.tags.photos_tagged_with") %>: <b><%= @tag %></b></span></h2>
+	
+  <div class="portlet_content">
+  <% unless @photos.blank? %>
+    <% for photo in @photos -%>
+	  <%= link_to image_tag(photo.image.url(:tiny)), picto_photo_url(photo), {:title => photo.title} -%>
+	<% end -%>
+  <% else %>
+    <%= I18n.t("tog_picto.picto.photos.tags.no_photos_with_this_tag_already") %>
+  <% end %>
+  </div>
+</div>

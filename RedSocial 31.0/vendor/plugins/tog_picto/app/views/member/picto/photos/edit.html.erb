@@ -1,0 +1,60 @@
+<h2>Editando la foto
+  <% form_tag member_picto_photo_path(@photo), :method => :delete do -%>    <br/>
+	<%= submit_tag "Delete this photo", :disable_with => "Please wait...", :type => "image", :src =>"/tog_core/images/ico/delete.gif", :title => "Está seguro de borrar esta foto" %>Borrar esta foto
+  <% end -%>
+</h2>
+
+
+<%= error_messages_for :photo %>
+
+<% form_for :photo, :url => member_picto_photo_url, :html => {:id => "settings", :method => "put"} do |f| -%>
+   <fieldset>
+      <fieldset id="login-details">
+        <legend>Información<br/>
+        <%= image_tag(@photo.image.url(:medium)) %> 
+        </legend>
+		
+		<!--Navegación para ver las fotos del álbum-->
+        <%= edit_text_navigation_links(@photo, {
+        	:prev_text => image_tag('/tog_core/images/ico/prev.gif', :title =>'Anterior'),
+        	:next_text => image_tag('/tog_core/images/ico/next.gif', :title =>'Siguiente'),
+        	:separator => " &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+						&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+						&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+					  "
+      		}, {:class => "imgnavigation"}) 
+  		%>
+		
+		<br/>
+        <label>Título &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<%= f.text_field :title, :size=> nil  %></label>
+        <label>Etiquetas <%= f.text_field :tag_list, :size=> nil  %></label>
+		<br/>
+        <label>Descripción <%= f.text_area :description, :rows => 3 %></label>
+        <br/>
+      </fieldset>
+      
+	  <div class="actions">
+	    <%= submit_tag 'Guardar foto' %>
+	  </div>
+	  
+	  <!--
+      <fieldset>
+        <legend>Controles</legend>
+        <label><input checked="checked" type="checkbox" value="1" /><input name="user[admin]" type="hidden" value="0" /> Este álbum es público.</label>
+      </fieldset>
+	  -->
+
+    </fieldset>
+<% end -%>
+
+  <!--Mostramos en la barra lateral las fotos del álbum-->
+  <% content_for :sidebar do %>	
+    <div class="portlet portletD" id="portlet_userWall">
+      <h2><span>Tus fotos</span></h2>
+	  </br>
+      <%= edit_image_navigation_links(@photo) %> 
+    </div>
+	<div class="portlet_content">
+      <%= link_to I18n.t ('tog_picto.member.photos.new.upload_more_photos_now!'),  new_member_picto_photo_url, :class => "add"  %>
+    </div> 
+  <%end%>

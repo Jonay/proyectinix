@@ -1,0 +1,77 @@
+<!--Indicamos el título del foro-->
+<div class="titleB">
+    <%= I18n.t('tog_forum.views.forums.title', :forum_title => @forum.title) %>
+</div>
+<div class="portlet portletB" id="topics_list">
+    <h2 class="clearfix">
+      <span style="float: left; width: 85%;">
+	    <%=h @forum.title %>
+	  </span>
+	  <!--sólo el usuario creador del foro puede añadir temas al foro-->
+      <% if current_user == @forum.user_id %>
+        <span style="float: right; width: 15%;">
+	      <%= link_to I18n.t('tog_forum.site.create_topic'), new_forum_topic_path(@forum) %>
+	    </span>
+	  <% end %>
+	  
+	</h2>
+	
+    <div class="portlet_content">
+    	
+        <table class="tableB" id="topics_paginated">
+        	
+			<!--buscamos todos los temas del foro actual para paginarlos posteriormente-->
+            <%@topics = @forum.topics.find(:all, :conditions => {:forum_id => @forum.id}) -%>
+            <%@order = params[:order] || 'created_at'
+              @page = params[:topic_page]
+              @asc = params[:asc] || 'desc'
+              @topics = @topics.paginate  :per_page => 10,
+            							  :page => @page,
+            							  :order => @order + " " + @asc %>
+										  
+			
+			<!--si hay temas mostramos su nombre, el nº de posts, el autor del tema, el último post 
+				y la opción de eliminar el tema. Si no hay temas mostramos un mensaje.-->							  
+            <% if @topics.length > 0 %>
+              <thead>
+                <tr>
+                    <th scope="col">
+                        <%= link_to_remote "Temas", { :url => forum_path({:forum => @forum, :order => "title", :page => @page, :asc => @asc}), :method => :get, :update => "topics_paginated" } %>
+                    </th>
+                    <th scope="col">
+                        Respuestas
+                    </th>
+                    <th scope="col">
+                        <%= link_to_remote "Autor", { :url => forum_path({:forum => @forum, :order => "user_id", :page => @page, :asc => @asc}), :method => :get, :update => "topics_paginated" } %>
+                    </th>
+                    <th scope="col">
+                        <%= link_to_remote "Último post", { :url => forum_path({:forum => @forum, :order => "last_post_at", :page => @page, :asc => @asc}), :method => :get, :update => "topics_paginated" } %>
+                    </th>
+                    <th scope="col">
+                        <%= I18n.t('tog_forum.views.topics.remove') %>
+                    </th>
+                </tr>
+              </thead>
+			  
+			  <!--paginamos los temas-->
+              <tfoot>
+                <tr>
+                    <td colspan="5" class="info_results">
+                    	<span class="info_items"><%= page_entries_info @topics, :entry_name => I18n.t('interface.site.topic') %></span>
+                        <span class="pages_navigation right"><%= will_paginate @topics, :param_name => 'topic_page' %>
+                        </span>
+                    </td>
+                </tr>
+              </tfoot>
+			  
+			  <!--renderizamos a "/member/forums/partials/topic" -->
+              <tbody>
+                <%= render :partial => "/admin/forums/partials/topic", :collection => @topics %>
+              </tbody>
+			  
+            <% else %>
+              <%= I18n.t('tog_forum.views.topics.no_topics', :forum_title => @forum.title) %>
+            <% end %>
+        </table>
+    </div>
+</div>

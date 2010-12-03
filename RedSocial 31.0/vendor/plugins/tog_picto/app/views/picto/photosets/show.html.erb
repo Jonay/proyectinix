@@ -1,0 +1,50 @@
+<div class="detail detail1">
+    <div class="image"><%= photoset_image(@photoset) %></div>
+    <div class="title"><%= @photoset.title %></div>
+    <div class="text">
+        <p><%= @photoset.description %></p>
+    </div>
+</div> <!-- /.detail1 -->
+<br/><br/>
+<div class="portlet portletG">
+    <h2><span>Fotos</span></h2>
+    <div class="portlet_content">
+        <ul class="clearfix">
+          <% if @photos.empty? %>
+            <li>No hay nunguna foto en este álbum todavía.</li>
+          <% else %>
+              <% @photos.each do |photo| %>
+                <li><%= link_to image_tag(photo.image.url("tiny")),
+                            picto_photo_url(photo),
+                            {:title => photo.title} %><br/><%=photo.title%></li>
+              <% end %>
+          <% end %>
+        </ul>
+    </div>
+</div>
+<% if !@photos.empty? %>
+  <div class="info_results">
+      <span class="info_items">
+        Photos <%=@photos.size > 0 ? (@photos.offset + 1) : '0'%> to
+              <%=@photos.size + @photos.offset%> of <%=@photos.total_entries%>
+      </span>
+      <span class="pages_navigation right">
+          <%= will_paginate @photos %>
+      </span>
+  </div>
+<%end%>
+
+<!--Mostramos los álbums en la barra lateral-->
+<% content_for :sidebar do %>
+    <div class="portlet portletD" id="portlet_userWall">
+      <h2><span>Álbumes de la red social</span></h2>
+	  <% @photosets = Picto::Photoset.find(:all) %> 
+      <div class="portlet_content">
+      	<% @photosets.each do |photoset| -%>
+          <div class="image left"><%= link_to photoset_image(photoset), picto_photoset_path(photoset), {:title => photoset.title} %></div>
+		<% end %>
+		<br />
+		<p><%= link_to I18n.t('tog_picto.member.photosets.new.create_a_new_photoset'),  new_member_picto_photoset_url, :class => "add" %></p>
+      </div>    
+    </div>
+<% end %>

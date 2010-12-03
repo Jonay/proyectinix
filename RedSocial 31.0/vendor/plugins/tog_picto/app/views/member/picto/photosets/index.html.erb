@@ -1,0 +1,64 @@
+<h1 class="clearfix"><span><%= I18n.t("tog_picto.plugin_title") %></span></h1>
+
+<!--Mostramos en el centro de la página los álbumes
+    creados por el usuario actual-->
+
+<p><%= link_to I18n.t('tog_picto.member.photosets.new.create_a_new_photoset'),  new_member_picto_photoset_url, :class => "add button" %></p>
+
+<div class="portlet portletB">
+    <h2><span>Tus álbum de fotos</span></h2>
+    <div class="portlet_content">	
+        <ul>
+		  <% if @owned_photosets.empty? %>
+			<li>No hay ningún álbum todavía.</li>
+		  <% else %>
+			<% @owned_photosets.each do |photoset| %>
+              <li class="clearfix">
+                <div class="image left"><%= link_to photoset_image(photoset), picto_photoset_path(photoset) %></div>
+                <p><strong><img src="/tog_core/images/ico/ojo.gif"> <%= link_to photoset.title, picto_photoset_path(photoset) %><br/>
+				<img src="/tog_core/images/ico/editar.gif"> <%= link_to I18n.t('tog_picto.member.photosets.edit.manage_photoset'), edit_member_picto_photoset_path(photoset) %><br/>
+				<img src="/tog_core/images/ico/delete.gif">  <%= link_to I18n.t('tog_picto.member.photosets.edit.delete'), member_picto_photoset_path(photoset), :confirm => I18n.t('tog_picto.member.photosets.edit.delete_confirmation'), :method => :delete %>
+				<p><%= photoset.description %></p>
+              </li>                            
+			<% end %>
+		  <% end %>	
+        </ul>
+    </div>    
+</div>
+<% if !@owned_photosets.empty? %>
+	<div class="info_results">
+	    <span class="info_items">
+	    	Photosets <%=@owned_photosets.size > 0 ? (@owned_photosets.offset + 1) : '0'%> to 
+		          <%=@owned_photosets.size + @owned_photosets.offset%> of <%=@owned_photosets.total_entries%>
+	    </span>
+	    <span class="pages_navigation right">
+		      <%= will_paginate @owned_photosets %>
+	    </span>
+	</div>
+<%end%>
+
+
+<!--Mostramos en la barra lateral las fotos subidas por el usuario actual-->
+<% content_for :sidebar do %>
+  <div class="portlet portletD" id="portlet_userWall">
+    <h2><span>Tus fotos</span></h2>
+	  <div class="portlet_content">
+        <ul class="clearfix">
+          <% if @my_photos.empty? %>
+            <li>No hay niguna foto en este álbum todavía.</li>
+          <% else %>
+              <% @my_photos.each do |photo| %>
+                <%= link_to image_tag(photo.image.url(:tiny)),
+                            edit_member_picto_photo_url(photo),
+                            {:title => photo.title} %>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+	
+      <p></p>
+      <%= link_to I18n.t ('tog_picto.member.photos.new.upload_more_photos_now!'),  new_member_picto_photo_url, :class => "add"  %>
+      
+  </div>
+
+<% end %>

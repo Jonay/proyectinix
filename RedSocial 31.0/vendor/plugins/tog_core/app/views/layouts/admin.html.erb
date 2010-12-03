@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Pymes_Net</title>
+<meta name="language" content="es" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="title" content="Pymes_Net"/>
+<meta name="title" content="Pymes_Net" />
+<meta name="description" content="XXXXX XXXX XXXX" />
+<meta name="keywords" content="xxx, xxxxxx, xxxx" />
+<meta name="author" content="Jonay Santana García" />
+
+<link rel="icon" href="/tog_core/images/favicon.gif" />
+
+<link href="/tog_core/stylesheets/template.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="/tog_core/stylesheets/style.css"    rel="stylesheet" media="screen" type="text/css" />
+<link href="/tog_core/stylesheets/pages.css"    rel="stylesheet" media="screen" type="text/css" />
+<link href="/tog_core/stylesheets/personalization.css"    rel="stylesheet" media="screen" type="text/css" />
+
+<!--[if lt IE 7.]>
+<link rel="stylesheet" type="text/css" media="screen" href="/tog_core/stylesheets/ie6.css" />
+<![endif]-->
+
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" media="screen" href="/tog_core/stylesheets/ie7.css" />
+<![endif]-->
+
+<script type="text/javascript">
+// <![CDATA[
+  if(navigator.userAgent.indexOf('Mac') != -1) document.write ('<link rel="stylesheet" type="text/css" media="screen" href="/tog_core/stylesheets/mac.css" />');
+// ]]>
+</script>
+
+<%= inject_js %>
+<%= inject_css %>
+
+<link rel="start" type="text/html" href="/" title="Página de inicio" />
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  function initialize() {
+  	//fijamos la latitud longitud del mapa
+    var latlng = new google.maps.LatLng(28.142722, -15.448609);
+    var myOptions = {
+      zoom: 3,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("mapilla"), myOptions);
+ 
+    var marker = new google.maps.Marker({
+        position: latlng, //Posición del marcador Obligatorio
+        map: map, //mapa en el que se va a mostrar el marcador.
+		draggable: true, //se puede mover el marcador
+		flat: true //no se muestra la sombra del marcador
+    });
+	  
+	google.maps.event.addListener(marker, 'position_changed', function() {
+  		// map.setZoom(8);
+    	$('input:text[name=event[lng]]').val(marker.getPosition().lng());
+		$('input:text[name=event[lat]]').val(marker.getPosition().lat());
+		//document.getElementById("Longitud").innerHTML = marker.getPosition().lng();
+		//document.getElementById("Latitud").innerHTML = marker.getPosition().lat();
+		//document.getElementById("lng").value = marker.getPosition().lng();
+		//document.getElementById("lat").value = marker.getPosition().lat();
+    	map.setCenter(marker.getPosition());
+	});
+  }
+</script>
+
+</head>
+
+<body onload="initialize()">
+  <div id="container">
+    <div id="header" class="clearfix">
+      <div id="header_content">
+        <h1 id="logo"><a href="/"><img src="/tog_core/images/template/logo.gif" alt="<%=config['plugins.tog_core.site.name']%>" /></a><br />Administración del sitio</h1>
+
+        <div id="header_options">
+          <%= render :partial => "shared/header_options" %>
+        </div> <!-- /#header_options -->
+
+        <div id="menu" class="clearfix">
+          <ul>
+            <%= links_for_navigation :admin %>
+          </ul>
+        </div>  <!-- #menu -->
+
+        <div id="header_search">
+          <%= render :partial => "shared/search_form" %>
+        </div> <!-- /#header_search -->
+
+      </div> <!-- /#header_content -->
+    </div>  <!-- /#header -->
+
+    <div id="pagebody">
+
+      <%= render_flash_messages %>
+
+      <div class="<%= columns_distribution %> clearfix">
+        <div class="left_col">
+          <%= yield %>
+        </div> <!-- /.left_col -->
+
+        <div class="right_col">
+          <%= yield :sidebar %>
+        </div> <!-- /.right_col -->
+      </div> <!-- /.col_60_40 -->
+    
+    </div><!-- /#pagebody -->
+
+    <%= render :partial => "shared/footer" %>
+
+  </div> <!-- #container -->
+</body>
+</html>
+</html>
