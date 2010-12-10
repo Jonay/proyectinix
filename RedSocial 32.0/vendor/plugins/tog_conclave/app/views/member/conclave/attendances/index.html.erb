@@ -1,0 +1,44 @@
+
+<div class="portlet portletB" id="my_events"> 
+  <h2><span>Eventos a los que asistirás</span></h2>
+
+
+
+  <div class="portlet_content">      
+    <ul>
+      <% if @attendances.empty? %>
+        <li class="clearfix">No estás registrado para ningún evento
+      <% else %>
+        <% @attendances.each do |attendance| %>
+          <li class="clearfix" id="event<%=attendance.event.id.to_s%>">
+            <div class="image left"><%= image_tag attendance.event.icon.url :medium %></div>
+            <div class="title">Título: <%= link_to '<strong>'+attendance.event.title+'</strong>', conclave_event_path(attendance.event), :title => attendance.event.title %></div>
+            <div class="text">Fecha: <%=write_event_date(attendance.event) %></div>
+			<div class="text">Hora: Hora: Desde <%= attendance.event.starting_time %> hasta <%=attendance.event.ending_time %></div>
+			<div class="text">Lugar: <%= link_to attendance.event.venue_address, map_conclave_event_path(attendance.event), :popup => [attendance.event.venue, 'width=600,height=400'] %></div>
+            <% if attendance.accepted? %>
+              <span id="current_status<%=attendance.event.id.to_s%>">
+                ¡Vas a ir!. 
+				<%=link_to I18n.t('tog_conclave.member.unregister'), member_conclave_event_attendance_path(attendance.event, attendance), :method => :delete %>
+				<!--<%=link_to_remote I18n.t("tog_conclave.member.unregister"), :url=>member_conclave_event_attendance_path(attendance.event, attendance), :update=>"current_status"+attendance.event.id.to_s, :success=>"$('event"+attendance.event.id.to_s+"').hide()", :method => :delete %>--> 
+              </span>
+            <% else %>
+              <span id="current_status<%=attendance.event.id.to_s%>">
+                ¡Usted ha solicitado asistir!. <%=link_to_remote 'Remove request', :url=>member_conclave_event_attendance_path(attendance.event, attendance), :update=>"current_status"+attendance.event.id.to_s, :success=>"$('event"+attendance.event.id.to_s+"').hide()", :method => :delete %> 
+              </span>                
+            <% end %>   
+          </li>
+        <%end%>
+      <%end%>
+    </ul>
+  </div>
+</div>
+
+  <% content_for :sidebar do %>
+	<div class="portlet portletD" id="portlet_userWall">
+      <h2><span>Próximos Eventos en la red social</span></h2>
+      <div class="portlet_content">
+        <img src="/tog_core/images/ico/ojo.gif" ><%= link_to I18n.t ('tog_conclave.member.sidebar.other_events'), conclave_events_path %>
+      </div>    
+	</div>
+  <% end %>

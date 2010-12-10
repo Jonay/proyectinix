@@ -1,0 +1,47 @@
+<!--Portlet para mostrar los álbumes de fotos del grupo actual-->
+<div class="portlet portletL" id="portlet_photosets_profile">
+    <h2><span><%= I18n.t('tog_social.profiles.model.photosets') %></span></h2>
+	<!--Buscamos en la tabla álbumes de fotos los álbumes de fotos que tenga id_referencia igual a la id del grupo actual
+	    y que sea del tipo grupo-->
+	<%@photosets = Picto::Photoset.find(:all, :conditions => {:id_referencia => @profile.id, :tipo => 'Usuario'}) -%>
+	<!--almacenamos la id del grupo para pasarla después al enlace de ver todos los álbumes del grupo-->
+	<%id = @profile.id%>
+    <%@order = params[:order] || 'updated_at'
+      @page = params[:photoset_page]
+      @asc = params[:asc] || 'desc'    
+      @photosets = @photosets.paginate  :per_page => 2,
+                                        :page => @page,
+                                        :order => @order + " " + @asc %>
+	
+	<div class="portlet_content">
+        <ul>
+        	<!--Si hay álbumes de fotos-->
+        	<% if @photosets.length > 0 %>
+			<!-- los recorremos todos y para cada uno mostramos su foto de portada, un enlace al álbum de fotos y cuando fue creado-->
+              <% @photosets.each do |photoset| -%>
+                <li class="clearfix">
+                	<% if photoset.main_photo_id == nil%>
+					  <div class="image left"><img src="/images/logo_camara.png?"></div>
+					<% else -%>
+              	      <div class="image left"><%= image_tag (photoset.main_photo.image.url(:tiny)) %></div>
+					<% end -%>  
+			      <div class="title"><%= link_to photoset.title, picto_photoset_path(photoset) %></div>
+                  <div class="text"><%= I18n.t('tog_social.profiles.model.updated_at') %> <%=I18n.l(photoset.updated_at, :format => :long)%></div>
+                </li> 
+              <% end -%>
+			  <!--Paginamos los álbumes de fotos en el el portlet-->
+			  <span class="pages_navigation left">
+				<%= will_paginate @photosets, :param_name => 'photoset_page' %>	
+			  </span>
+			  <!--Link para ver todos los álbumes de fotos del grupo pasando la id del grupo-->
+			  <div class="image right"><%= link_to I18n.t('tog_social.profiles.model.view_all_photosets'), photosets_profile_path(id) %></div>
+
+			<!--sino había álbumes de fotos lo indicamos mediante un mensaje.-->
+			<% else -%>
+			  <%= I18n.t('tog_social.profiles.model.no_photosets_for_this_profile', :profile_full_name => @profile.full_name) %>
+			<% end -%>   
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_photosets_profile -->
+
+						   

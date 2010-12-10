@@ -1,0 +1,34 @@
+<div class="portletK" id="portlet_splashHome">
+    
+  <!-- Si el usuario está logueado mostramos en la página de inicio
+       el perfil del usuario, los items más importantes debajo de su
+	   perfil y el muro público en el que se muestran las actividades 
+	   recientes de la red social.
+	   
+	   En el caso de que el usuario no esté logueado se muestra por pantalla
+	   el cuadro de bienvenida y la descripción de aquellas características 
+	   más importantes de la red social -->
+   
+   
+  <h2><span><%=config['plugins.tog_core.site.name']%></span></h2>
+	  <div class="portlet_content">
+	    <p>
+	      <%= I18n.t("tog_core.admin.dashboard.welcome_to", :site_name => config['plugins.tog_core.site.name']) %>.<br />
+	      <%= I18n.t("tog_core.admin.dashboard.you_would_be_able_to") %>:
+	    </p>
+	    <ul>
+	      <li><%= I18n.t("tog_core.admin.dashboard.profiles") %></li>
+	      <li><%= I18n.t("tog_core.admin.dashboard.groups_of_interest") %>.</li>
+	      <li><%= I18n.t("tog_core.admin.dashboard.and_enjoy_more") %></li>
+	    </ul>
+		<div class="action"><a href="/home"><strong><%= I18n.t("tog_core.admin.dashboard.home_index") %></strong></a></div>
+	  </div>
+
+	<br/>
+</div>	
+	
+<% content_for :sidebar do %>
+
+<%end%>
+ 
+	

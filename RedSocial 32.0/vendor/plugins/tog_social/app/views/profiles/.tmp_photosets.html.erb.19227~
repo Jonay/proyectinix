@@ -1,0 +1,34 @@
+<!--Portlet para mostrar los photosets del grupo actual-->
+<div class="portlet portletM" id="portlet_photosets_group">
+    <h2><span><%= I18n.t('tog_social.groups.site.photosets')%></span></h2>
+	<!--Buscamos en la tabla photosets los photosets que tenga id_referencia igual a la id del grupo actual
+	    y que sea del tipo grupo-->	
+    <%@order = params[:order] || 'created_at'
+      @page = params[:page] || '1'
+      @asc = params[:asc] || 'desc'    
+      @photosets = @photosets.paginate  :per_page => 2,
+                                        :page => @page,
+                                        :order => @order + " " + @asc %>
+								
+	<div class="portlet_content">
+        <ul>
+			<!-- los recorremos todos y para cada uno mostramos un enlace al blog y cuando fue creado-->
+              <% @photosets.each do |photoset| -%>
+                <li class="clearfix">
+                	<% if photoset.main_photo_id == nil%>
+					  <div class="image left"><img src="/images/logo_camara.png?"></div>
+					<% else -%>
+					  <div class="image left"><%= image_tag (photoset.main_photo.image.url(:tiny)) %></div>
+					<% end -%>  
+			      <div class="title"><%= link_to photoset.title, picto_photoset_path(photoset) %></div>
+                  <div class="text"><%= I18n.t('tog_social.groups.model.created_at') %> <%=I18n.l(photoset.created_at, :format => :long)%></div>
+                </li> 
+              <% end -%>
+			  <span class="pages_navigation right">
+			    <%= will_paginate @photosets %>
+			  </span>
+        </ul> 
+    </div>    
+</div> <!-- /.portlet_photosets_group -->
+
+						   

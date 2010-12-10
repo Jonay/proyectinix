@@ -1,0 +1,66 @@
+<!--Título de la foto-->
+<div class="titleB"><%= @photo.title %></div>
+
+
+<div class="photo">
+  <!--Como ver la foto
+  <p><%= link_to 'tiny', picto_scaled_photo_path(@photo, :tiny)%> |
+    <%= link_to "small", picto_scaled_photo_path(@photo, :small) %> |
+    <%= link_to "medium", picto_scaled_photo_path(@photo, :medium) %> |
+    <%= link_to "big", picto_scaled_photo_path(@photo, :big) %> |
+    <%= link_to "original", picto_scaled_photo_path(@photo, :original) %>
+  </p>
+  -->
+
+  <!--URL de la foto-->	
+  <div class="photo_container">
+    <%= image_tag(@photo.image.url(:medium)) %>
+  </div>
+  
+  <!--Navegación para ver las fotos del álbum-->
+  <%= text_navigation_links(@photo, {
+        :prev_text => image_tag('/tog_core/images/ico/prev.gif', :title =>'Anterior'),
+        :next_text => image_tag('/tog_core/images/ico/next.gif', :title =>'Siguiente'),
+        :separator => " &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+						&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+						&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+						&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+					  "
+      }, {:class => "imgnavigation"}) 
+  %>
+  
+
+  <!--Descripción de la foto-->	  
+  <p><%= @photo.description %></p>
+  <p>
+    <% tags = @photo.tag_list %>
+    <img src="/tog_core/images/ico/tag.gif"> Etiquetas:
+    <% if !tags.blank? %>
+      <% for tag in tags %>
+        <%= link_to tag, tags_picto_photos_path(:tag => tag, :user => @photo.user_id) %>
+      <% end %>
+    <% else %>
+      No tiene etiquetas
+    <% end %>
+  </p>
+
+  <!--<div class="info_results">
+    <%= text_navigation_links(@photo) %>
+  </div>-->
+  
+  <!--Mostramos en la barra lateral las fotos del álbum-->
+  <% content_for :sidebar do %>	
+    <div class="portlet portletD" id="portlet_userWall">
+      <h2><span> Más Fotos </span></h2>
+	  </br>
+      <%= image_navigation_links(@photo) %> 
+    </div>
+	<div class="portlet_content">
+      <%= link_to I18n.t ('tog_picto.member.photos.new.upload_more_photos_now!'),  new_member_picto_photo_url, :class => "add"  %>
+    </div> 
+  <%end%>
+ 
+  <!--Mostramos los comeentarios de la foto-->
+  <%= render :partial => "shared/comments", :locals => { :commentable => @photo } %>
+
+</div>

@@ -1,0 +1,19 @@
+<h1><%= link_to I18n.t("tog_picto.admin.photos.index.photos"), admin_picto_photos_path%> / <%=  @photo.title -%></h1>
+
+<p><%= link_to I18n.t("tog_picto.admin.photos.index.remove_photo"), admin_picto_photo_path(@photo), :confirm => I18n.t("tog_picto.admin.photos.index.remove_confirmation"), :method => :delete, :class => "button delete" %></p>
+
+<br/>
+
+<%= image_tag(@photo.image.url(:small)) %>
+
+<table class="tableE">
+  <caption><%= I18n.t("tog_picto.admin.photos.index.photo_details") %></caption>
+  <tbody>
+    <tr><th scope="row"><%= I18n.t("tog_picto.admin.photos.index.photo_title") %></th><td><%=@photo.title%></td></tr>
+    <tr><th scope="row"><%= I18n.t("tog_picto.admin.photos.index.photo_created_by") %></th><td><%= link_to @photo.owner.profile.full_name, edit_admin_user_path(@photo.owner) %></td></tr>
+    <tr><th scope="row"><%= I18n.t("tog_picto.admin.photos.index.photo_created_at") %></th><td><%=@photo.created_at%></td></tr>
+	<tr><th scope="row"><%= I18n.t("tog_picto.admin.photos.index.photo_type") %></th><td><%=@photo.image_content_type%></td></tr>
+  	<tr><th scope="row"><%= I18n.t("tog_picto.admin.photos.index.photo_description") %></th><td><%=@photo.description%></td></tr>
+  
+  </tbody>
+</table>

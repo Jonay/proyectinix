@@ -1,0 +1,42 @@
+<h1 class="clearfix"><span><%= I18n.t("tog_forum.plugin_title") %></span></h1>
+
+<p><%= link_to I18n.t('tog_forum.member.create_forum'),  new_member_forum_url, {:class => "button add", :title => I18n.t('tog_forum.member.create_forum')} %></p>
+
+<div class="portlet portletB" id="photos_list">
+  <div class="portlet_content">
+    <table class="tableB">
+      <thead>
+        <tr>
+          <th scope="col"><%= I18n.t("tog_forum.model.title") -%></th>
+          <th scope="col"><%= I18n.t("tog_forum.model.topics") -%></th>
+          <th scope="col"><%= I18n.t("tog_forum.model.last_post") -%></th>      
+        </tr>
+      </thead>
+      <% if @forums.blank? %>
+        <tr>
+           <td colspan="3"><%= I18n.t("tog_forum.site.no_forums") -%></td>
+        </tr>
+      <% else %>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="info_results">
+			  <span class="info_items"><%= page_entries_info @forums, :entry_name => I18n.t('interface.site.forums') %></span>
+              <span class="pages_navigation right">
+                <%= will_paginate @forums, :container => false %>
+              </span>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+        <% @forums.each do |forum| %>
+          <tr<%= cycle(' class="pair"','') -%>>
+             <td><%= link_to forum.title, forum_path(:id => forum) %></td>
+             <td><%= forum.topics.size %></td>
+             <td><%= I18n.l(forum.updated_at, :format => :long) %></td>
+		  </tr>
+        <%end%>
+        </tbody>
+      <% end %>
+    </table>
+  </div>    
+</div>

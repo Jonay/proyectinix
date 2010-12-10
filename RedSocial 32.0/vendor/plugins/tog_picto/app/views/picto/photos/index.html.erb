@@ -1,0 +1,51 @@
+<!--Mostramos las últimas fotos subidas a la red social-->
+<div class="portlet portletL" id="portlet_last_photos">
+  <h2><span><%= I18n.t("tog_picto.picto.photos.last_photos") %></span></h2>
+
+  <div class="portlet_content">
+    <% unless @last_photos.blank? %>
+      <% for photo in @last_photos %>
+        <%= link_to image_tag(photo.image.url(:tiny)), picto_photo_url(photo), {:title => photo.title} %>
+        &nbsp
+	  <% end %>
+    <% else %>
+      <%= I18n.t("tog_picto.picto.photos.no_photos") %>
+    <% end %>
+  </div>
+</div> <!-- /.portlet_last_photos -->
+
+<p></p>
+
+<!--Mostramos las fotos subidas por mi-->  
+<div class="portlet portletL" id="portlet_your_photos">
+  <h2><span><%= I18n.t("tog_picto.picto.photos.your_photos") %></span></h2>
+
+  <div class="portlet_content">
+    <% unless @your_photos.blank? %>
+      <% for photo in @your_photos %>
+        <%= link_to image_tag(photo.image.url(:tiny)), picto_photo_url(photo), {:title => photo.title} %>
+        &nbsp
+	  <% end %>
+    <% else %>
+      <%= I18n.t("tog_picto.picto.photos.no_photos") %>
+    <% end %>
+  </div>
+  
+</div> <!-- /.portlet_your_photos -->
+ 
+<!--Mostramos las etiquetas de mis fotos y el nº de fotos con esa etiqueta-->  
+<% content_for :sidebar do %>
+  <div class="portlet portletD" id="portlet_userWall">
+    <h2><span><%= I18n.t("tog_picto.picto.photos.all_tags_in_your_photos") %></span></h2>
+	<p></p>
+    <% tag_cloud_your_photos %w(l1 l2 l3 l4 l5 l6 l7) do |tag, css_class| %>
+	  <% @tag  =  Tag.find(tag)%>
+   	  <% @cuenta = Picto::Photo.find_tagged_with(@tag)%>
+      <img src="/tog_core/images/ico/tag.gif"> <%= link_to tag, tags_picto_photos_path(:tag => tag.name, :user => current_user) %> (<%= @cuenta.length -%>),
+    <% end -%>
+  </div>
+  
+  <div class="portlet_content">
+    <%= link_to I18n.t ('tog_picto.member.photos.new.upload_more_photos_now!'),  new_member_picto_photo_url, :class => "add"  %>
+  </div>
+<% end %>
